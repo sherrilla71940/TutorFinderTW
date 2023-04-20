@@ -23,7 +23,7 @@ type Subject = {
 
 type Subjects = Subject[];
 
-interface TutorInterface {
+export interface TutorInterface {
   name: string,
   profileUrl: string,
   age: number,
@@ -82,6 +82,5 @@ const TutorSchema = new Schema<TutorInterface>({
   subjects: [SubjectSchema]
 });
 
-const Tutor = model('Tutor', TutorSchema);
+export const Tutor = model('Tutor', TutorSchema);
 
-export default Tutor;

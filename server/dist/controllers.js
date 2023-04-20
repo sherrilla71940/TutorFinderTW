@@ -8,11 +8,48 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-function getAllTutors() {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateTutor = exports.deleteTutor = exports.getTutor = exports.addTutor = exports.getAllTutors = void 0;
+const tutor_1 = require("./models/tutor");
+function getAllTutors(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        res.json('hello');
     });
 }
-function deleteTutor() {
+exports.getAllTutors = getAllTutors;
+function addTutor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const newTutorData = req.body;
+            const newTutor = new tutor_1.Tutor(newTutorData);
+            // await newTutor.save((e) => {
+            //   if (e) throw new Error();
+            // });
+            console.log(newTutor);
+            res.status(200);
+            res.json(newTutor);
+        }
+        catch (e) {
+            console.log(e.message);
+        }
     });
 }
+exports.addTutor = addTutor;
+function getTutor(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        // return 'hello'
+    });
+}
+exports.getTutor = getTutor;
+function deleteTutor(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        // return 'hello'
+    });
+}
+exports.deleteTutor = deleteTutor;
+function updateTutor(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        // return 'hello'
+    });
+}
+exports.updateTutor = updateTutor;

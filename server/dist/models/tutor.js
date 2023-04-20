@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Tutor = void 0;
 const mongoose_1 = require("mongoose");
 // IIFE to connect to mongoDB
 (function () {
@@ -64,5 +65,4 @@ const TutorSchema = new mongoose_1.Schema({
     },
     subjects: [SubjectSchema]
 });
-const Tutor = (0, mongoose_1.model)('Tutor', TutorSchema);
-exports.default = Tutor;
+exports.Tutor = (0, mongoose_1.model)('Tutor', TutorSchema);
