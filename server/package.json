@@ -6,8 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist && npx tsc",
+    "prestart": "npm run build",
     "start": "nodemon dist/server.js",
-    "dev": "npx tsc -w && nodemon dist/server.js"
+    "preserve": "npm run build",
+    "serve": "concurrently \"npx tsc -w\" \"nodemon dist/server.js\""
   },
   "author": "Aaron Sherrill",
   "license": "ISC",
@@ -22,6 +24,7 @@
   "dependencies": {
     "@types/mongodb": "^4.0.7",
     "@types/mongoose": "^5.11.97",
+    "concurrently": "^8.0.1",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "rimraf": "^5.0.0"

@@ -35,7 +35,7 @@ dotenv.config();
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const port = process.env.PORT;
-console.log(process.env);
+// console.log(process.env);
 console.log(port);
 console.log('hello');
 // app.listen(port, () => {

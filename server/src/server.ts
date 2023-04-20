@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT;
 
 
-console.log(process.env);
+// console.log(process.env);
 console.log(port);
 console.log('hello')
 
