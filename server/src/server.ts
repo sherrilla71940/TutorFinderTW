@@ -12,7 +12,8 @@ const envFileAbsPath = path.resolve(__dirname, "../../.env");
 import * as dotenv from 'dotenv';
 console.log(envFileAbsPath)
 dotenv.config({ path: envFileAbsPath });
-const port:number = Number(process.env.PORT) || 8000;
+// const port:number = Number(process.env.PORT) || 8000;
+const port = process.env.PORT || 8000;
 const host:string = process.env.HOST || 'localhost';
 
 app.use(cors());
