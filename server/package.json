@@ -2,11 +2,12 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx tsc",
-    "start": "nodemon /dist/index.js"
+    "build": "rimraf dist && npx tsc",
+    "start": "nodemon dist/server.js",
+    "dev": "npx tsc -w && nodemon dist/server.js"
   },
   "author": "Aaron Sherrill",
   "license": "ISC",
@@ -22,6 +23,7 @@
     "@types/mongodb": "^4.0.7",
     "@types/mongoose": "^5.11.97",
     "cors": "^2.8.5",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "rimraf": "^5.0.0"
   }
 }
