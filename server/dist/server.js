@@ -35,19 +35,16 @@ const app = (0, express_1.default)();
 const cors_1 = __importDefault(require("cors"));
 const router_1 = __importDefault(require("./router"));
 const path_1 = __importDefault(require("path"));
-const envPath = path_1.default.resolve(__dirname, "../../.env");
+const envFileAbsPath = path_1.default.resolve(__dirname, "../../.env");
 const dotenv = __importStar(require("dotenv"));
-console.log(envPath);
-dotenv.config({ path: envPath });
-const port = process.env.PORT || 8000;
+console.log(envFileAbsPath);
+dotenv.config({ path: envFileAbsPath });
+const port = Number(process.env.PORT) || 8000;
 const host = process.env.HOST || 'localhost';
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(router_1.default);
-// console.log(router)
-console.log(process.env.HOST);
-// console.log(port);
-// console.log('hello')
+// console.log(path)
 app.listen(port, () => {
     console.log(`app listening at http://${host}:${port}`);
 });
