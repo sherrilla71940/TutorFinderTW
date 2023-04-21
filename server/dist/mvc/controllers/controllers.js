@@ -10,10 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateTutor = exports.deleteTutor = exports.getTutor = exports.addTutor = exports.getAllTutors = void 0;
-const tutor_1 = require("./models/tutor");
+const tutor_1 = require("../models/tutor");
 function getAllTutors(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        res.json('hello');
+        // res.json('hello');
     });
 }
 exports.getAllTutors = getAllTutors;
@@ -22,18 +22,34 @@ function addTutor(req, res) {
         try {
             const newTutor = yield tutor_1.Tutor.create(req.body);
             console.log(newTutor);
-            res.status(200);
+            res.status(201);
             res.json(newTutor);
         }
         catch (e) {
-            console.log(e.message);
+            res.status(400);
+            if (e instanceof Error) {
+                console.log(e.message);
+                res.json('could not create tutor, remember that your email must be unique');
+            }
+            else {
+                res.json('could not create tutor');
+            }
         }
     });
 }
 exports.addTutor = addTutor;
 function getTutor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        // return 'hello'
+        const tutorId = req.params.id;
+        try {
+            const foundTutor = yield tutor_1.Tutor.findById(tutorId);
+            res.status(200);
+            res.json(foundTutor);
+        }
+        catch (e) {
+            res.status(400);
+            res.json(`could not find tutor by id: ${tutorId}`);
+        }
     });
 }
 exports.getTutor = getTutor;

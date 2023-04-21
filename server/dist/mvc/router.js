@@ -25,7 +25,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const router = (0, express_1.Router)();
-const controller = __importStar(require("./mvc/controllers/controllers"));
+const controller = __importStar(require("./controllers/controllers"));
 router.get('/', controller.getAllTutors);
 router.get('/:id', controller.getTutor);
 router.post('/', controller.addTutor);

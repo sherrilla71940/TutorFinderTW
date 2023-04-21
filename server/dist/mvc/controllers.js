@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateTutor = exports.deleteTutor = exports.getTutor = exports.addTutor = exports.getAllTutors = void 0;
-const tutor_1 = require("./models/tutor");
+const tutor_1 = require("../models/tutor");
 function getAllTutors(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         res.json('hello');

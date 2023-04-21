@@ -1,6 +1,6 @@
 import {Router} from 'express';
 const router = Router();
-import * as controller from './controllers';
+import * as controller from './mvc/controllers/controllers';
 
 router.get('/', controller.getAllTutors);
 router.get('/:id', controller.getTutor);

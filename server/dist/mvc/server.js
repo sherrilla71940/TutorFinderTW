@@ -22,13 +22,28 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const router = (0, express_1.Router)();
-const controller = __importStar(require("./mvc/controllers/controllers"));
-router.get('/', controller.getAllTutors);
-router.get('/:id', controller.getTutor);
-router.post('/', controller.addTutor);
-router.put('/:id', controller.updateTutor);
-router.delete('/:id', controller.deleteTutor);
-exports.default = router;
+/*
+Questions:
+1. Whenver I save file, TypeScript automatically changes my let declarations to const, how can i disable this without turning off strict in tsconfig
+*/
+const express_1 = __importDefault(require("express"));
+const app = (0, express_1.default)();
+const cors_1 = __importDefault(require("cors"));
+const router_1 = __importDefault(require("./router"));
+const path_1 = __importDefault(require("path"));
+const envFileAbsPath = path_1.default.resolve(__dirname, "../../.env");
+const dotenv = __importStar(require("dotenv"));
+console.log(envFileAbsPath);
+dotenv.config({ path: envFileAbsPath });
+const port = process.env.PORT || 8000;
+const host = process.env.HOST || 'localhost';
+app.use((0, cors_1.default)());
+app.use(express_1.default.json());
+app.use(router_1.default);
+app.listen(port, () => {
+    console.log(`app listening at http://${host}:${port}`);
+});

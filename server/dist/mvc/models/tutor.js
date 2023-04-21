@@ -54,11 +54,11 @@ var Hour;
 const BranchSchema = new mongoose_1.Schema({
     branch: String,
     hourlyRate: Number
-});
+}, { _id: false });
 const SubjectSchema = new mongoose_1.Schema({
     subject: String,
-    branches: [BranchSchema]
-});
+    branches: [BranchSchema],
+}, { _id: false });
 const TutorSchema = new mongoose_1.Schema({
     name: {
         type: String,
@@ -78,7 +78,8 @@ const TutorSchema = new mongoose_1.Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     selfIntroduction: String,
     remote: {
@@ -87,7 +88,8 @@ const TutorSchema = new mongoose_1.Schema({
     },
     subjects: {
         type: [SubjectSchema],
-        required: true
+        required: true,
+        _id: false
     },
     inPerson: {
         type: Boolean,
