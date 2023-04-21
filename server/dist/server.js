@@ -41,7 +41,7 @@ dotenv.config({ path: envFileAbsPath });
 const port = Number(process.env.PORT) || 8000;
 const host = process.env.HOST || 'localhost';
 // in readme remember to instruct how to set up env variables to run application
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({ origin: `http://${host}*` }));
 app.use(express_1.default.json());
 app.use(router_1.default);
 app.listen(port, () => {

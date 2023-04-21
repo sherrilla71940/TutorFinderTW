@@ -94,6 +94,7 @@ function updateTutor(req, res) {
         }
         catch (e) {
             res.status(400);
+            // res.json(`could not update tutor by id: ${tutorId}`);
             res.json(`could not update tutor by id: ${tutorId}`);
         }
     });

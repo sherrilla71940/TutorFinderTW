@@ -66,6 +66,7 @@ export async function updateTutor (req: Request, res: Response): Promise<void>{
     res.json(updatedTutor);
   } catch (e: unknown) {
     res.status(400);
+    // res.json(`could not update tutor by id: ${tutorId}`);
     res.json(`could not update tutor by id: ${tutorId}`);
   }
 }

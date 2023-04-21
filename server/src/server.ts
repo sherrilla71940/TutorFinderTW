@@ -14,8 +14,7 @@ const port:number = Number(process.env.PORT) || 8000;
 const host:string = process.env.HOST || 'localhost';
 
 // in readme remember to instruct how to set up env variables to run application
-
-app.use(cors());
+app.use(cors({origin: `http://${host}*`}));
 app.use(express.json());
 app.use(router);
 

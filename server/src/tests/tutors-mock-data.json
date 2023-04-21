@@ -39,7 +39,10 @@
     "teachingLocations": [
       {
         "city": "Taipei",
-        "districts": ["Daan District", "Zhongshan District"]
+        "districts": [
+          "Daan District",
+          "Zhongshan District"
+        ]
       },
       {
         "city": "New Taipei",
@@ -90,7 +93,7 @@
   },
   {
     "name": "Chang Lee",
-    "profileUrl": "https://randomuser.me/api/portraits/lego/5.jpg",
+    "profileUrl": "https://example.com/chang-lee",
     "age": 30,
     "gender": "Male",
     "email": "changlee@example.com",
@@ -213,11 +216,17 @@
     "teachingLocations": [
       {
         "city": "Taipei",
-        "districts": ["Songshan District", "Wanhua District"]
+        "districts": [
+          "Songshan District",
+          "Wanhua District"
+        ]
       },
       {
         "city": "New Taipei",
-        "districts": ["Xinzhuang District", "Zhonghe District"]
+        "districts": [
+          "Xinzhuang District",
+          "Zhonghe District"
+        ]
       }
     ],
     "availability": [
