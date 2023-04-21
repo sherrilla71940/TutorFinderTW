@@ -8,12 +8,12 @@ import cors from 'cors';
 import router from './router';
 import path from 'path';
 const envFileAbsPath = path.resolve(__dirname, "../../.env");
-
 import * as dotenv from 'dotenv';
-console.log(envFileAbsPath)
 dotenv.config({ path: envFileAbsPath });
-const port = process.env.PORT || 8000;
+const port:number = Number(process.env.PORT) || 8000;
 const host:string = process.env.HOST || 'localhost';
+
+// in readme remember to instruct how to set up env variables to run application
 
 app.use(cors());
 app.use(express.json());

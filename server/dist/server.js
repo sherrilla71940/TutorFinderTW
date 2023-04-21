@@ -37,10 +37,10 @@ const router_1 = __importDefault(require("./router"));
 const path_1 = __importDefault(require("path"));
 const envFileAbsPath = path_1.default.resolve(__dirname, "../../.env");
 const dotenv = __importStar(require("dotenv"));
-console.log(envFileAbsPath);
 dotenv.config({ path: envFileAbsPath });
-const port = process.env.PORT || 8000;
+const port = Number(process.env.PORT) || 8000;
 const host = process.env.HOST || 'localhost';
+// in readme remember to instruct how to set up env variables to run application
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(router_1.default);
