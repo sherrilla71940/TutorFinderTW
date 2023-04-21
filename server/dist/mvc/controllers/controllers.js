@@ -84,7 +84,18 @@ function deleteTutor(req, res) {
 exports.deleteTutor = deleteTutor;
 function updateTutor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        // return 'hello'
+        const tutorId = req.params.id;
+        try {
+            const updatedTutor = yield tutor_1.Tutor.findByIdAndUpdate(tutorId, req.body);
+            if (!updatedTutor)
+                throw new Error();
+            res.status(200);
+            res.json(updatedTutor);
+        }
+        catch (e) {
+            res.status(400);
+            res.json(`could not update tutor by id: ${tutorId}`);
+        }
     });
 }
 exports.updateTutor = updateTutor;

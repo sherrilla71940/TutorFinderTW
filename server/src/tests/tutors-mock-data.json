@@ -1,7 +1,7 @@
 [
   {
     "name": "Chen Hua",
-    "profileUrl": "https://www.linkedin.com/in/chenhua",
+    "profileUrl": "https://randomuser.me/api/portraits/men/92.jpg",
     "age": 32,
     "gender": "Male",
     "email": "chenhua@gmail.com",
@@ -90,7 +90,7 @@
   },
   {
     "name": "Chang Lee",
-    "profileUrl": "https://example.com/chang-lee",
+    "profileUrl": "https://randomuser.me/api/portraits/lego/5.jpg",
     "age": 30,
     "gender": "Male",
     "email": "changlee@example.com",
@@ -168,6 +168,91 @@
           {
             "start": "17:00",
             "end": "19:00"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Lin Mei",
+    "profileUrl": "https://randomuser.me/api/portraits/women/27.jpg",
+    "age": 28,
+    "gender": "Female",
+    "email": "linmei@gmail.com",
+    "selfIntroduction": "Hello, I'm Lin Mei, a native Mandarin speaker with over 3 years of experience teaching Mandarin to learners of all levels. I'm also fluent in English and would be happy to help you improve your English skills as well. In my free time, I enjoy cooking and hiking.",
+    "remote": true,
+    "subjects": [
+      {
+        "subject": "Mandarin",
+        "branches": [
+          {
+            "branch": "Conversation",
+            "hourlyRate": 700
+          },
+          {
+            "branch": "Test Preparation",
+            "hourlyRate": 1000
+          }
+        ]
+      },
+      {
+        "subject": "English",
+        "branches": [
+          {
+            "branch": "Conversation",
+            "hourlyRate": 800
+          },
+          {
+            "branch": "Business",
+            "hourlyRate": 1200
+          }
+        ]
+      }
+    ],
+    "inPerson": true,
+    "teachingLocations": [
+      {
+        "city": "Taipei",
+        "districts": ["Songshan District", "Wanhua District"]
+      },
+      {
+        "city": "New Taipei",
+        "districts": ["Xinzhuang District", "Zhonghe District"]
+      }
+    ],
+    "availability": [
+      {
+        "day": "Monday",
+        "timeslots": [
+          {
+            "start": "10:00",
+            "end": "12:00"
+          },
+          {
+            "start": "14:00",
+            "end": "16:00"
+          }
+        ]
+      },
+      {
+        "day": "Wednesday",
+        "timeslots": [
+          {
+            "start": "15:00",
+            "end": "18:00"
+          }
+        ]
+      },
+      {
+        "day": "Friday",
+        "timeslots": [
+          {
+            "start": "10:00",
+            "end": "12:00"
+          },
+          {
+            "start": "15:00",
+            "end": "18:00"
           }
         ]
       }

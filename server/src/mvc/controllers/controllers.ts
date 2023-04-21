@@ -58,7 +58,16 @@ export async function deleteTutor (req: Request, res: Response): Promise<void>{
 }
 
 export async function updateTutor (req: Request, res: Response): Promise<void>{
-  // return 'hello'
+  const tutorId = req.params.id;
+  try {
+    const updatedTutor = await Tutor.findByIdAndUpdate(tutorId,req.body);
+    if (!updatedTutor) throw new Error();
+    res.status(200);
+    res.json(updatedTutor);
+  } catch (e: unknown) {
+    res.status(400);
+    res.json(`could not update tutor by id: ${tutorId}`);
+  }
 }
 
 
