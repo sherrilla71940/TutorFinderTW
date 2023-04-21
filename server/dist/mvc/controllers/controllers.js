@@ -13,7 +13,17 @@ exports.updateTutor = exports.deleteTutor = exports.getTutor = exports.addTutor 
 const tutor_1 = require("../models/tutor");
 function getAllTutors(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        // res.json('hello');
+        try {
+            const allTutors = yield tutor_1.Tutor.find({});
+            if (!allTutors.length)
+                throw new Error();
+            res.status(200);
+            res.json(allTutors);
+        }
+        catch (e) {
+            res.status(404);
+            res.json('could not find tutors');
+        }
     });
 }
 exports.getAllTutors = getAllTutors;
@@ -43,11 +53,13 @@ function getTutor(req, res) {
         const tutorId = req.params.id;
         try {
             const foundTutor = yield tutor_1.Tutor.findById(tutorId);
+            if (!foundTutor)
+                throw new Error();
             res.status(200);
             res.json(foundTutor);
         }
         catch (e) {
-            res.status(400);
+            res.status(404);
             res.json(`could not find tutor by id: ${tutorId}`);
         }
     });
@@ -55,7 +67,18 @@ function getTutor(req, res) {
 exports.getTutor = getTutor;
 function deleteTutor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        // return 'hello'
+        const tutorId = req.params.id;
+        try {
+            const deletedTutor = yield tutor_1.Tutor.findByIdAndDelete(tutorId);
+            if (!deletedTutor)
+                throw new Error();
+            res.status(200);
+            res.json(`deleted tutor: ${deletedTutor.name}`);
+        }
+        catch (e) {
+            res.status(404);
+            res.json(`could not delete tutor by id: ${tutorId}`);
+        }
     });
 }
 exports.deleteTutor = deleteTutor;
