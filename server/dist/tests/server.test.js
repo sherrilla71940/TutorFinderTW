@@ -3,7 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// import app, {PORT, HOST} from '../app';
 const tutors_mock_data_json_1 = __importDefault(require("./tutors-mock-data.json"));
+// const mockTutorsJSON = require('../src/tests/tutors-mock-data.json');
 console.log(tutors_mock_data_json_1.default);
 test('asd', () => {
     expect(1).toBe(1);

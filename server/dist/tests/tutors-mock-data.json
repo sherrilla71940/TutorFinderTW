@@ -1,0 +1,270 @@
+[
+    {
+        "name": "Chen Hua",
+        "profileUrl": "https://randomuser.me/api/portraits/men/92.jpg",
+        "age": 32,
+        "gender": "Male",
+        "email": "chenhua@gmail.com",
+        "selfIntroduction": "Hello, my name is Chen Hua and I am a patient and experienced tutor. I am passionate about teaching Mandarin and English and would be happy to help you improve your language skills. In my free time, I enjoy hiking and reading.",
+        "remote": true,
+        "subjects": [
+            {
+                "subject": "Mandarin",
+                "branches": [
+                    {
+                        "branch": "Conversation",
+                        "hourlyRate": 800
+                    },
+                    {
+                        "branch": "Business",
+                        "hourlyRate": 1000
+                    }
+                ]
+            },
+            {
+                "subject": "English",
+                "branches": [
+                    {
+                        "branch": "Conversation",
+                        "hourlyRate": 900
+                    },
+                    {
+                        "branch": "Test Preparation",
+                        "hourlyRate": 1200
+                    }
+                ]
+            }
+        ],
+        "inPerson": true,
+        "teachingLocations": [
+            {
+                "city": "Taipei",
+                "districts": [
+                    "Daan District",
+                    "Zhongshan District"
+                ]
+            },
+            {
+                "city": "New Taipei",
+                "districts": "entire city"
+            }
+        ],
+        "availability": [
+            {
+                "day": "Monday",
+                "timeslots": [
+                    {
+                        "start": "10:00",
+                        "end": "12:00"
+                    },
+                    {
+                        "start": "14:00",
+                        "end": "18:00"
+                    }
+                ]
+            },
+            {
+                "day": "Tuesday",
+                "timeslots": [
+                    {
+                        "start": "10:00",
+                        "end": "13:00"
+                    },
+                    {
+                        "start": "15:00",
+                        "end": "18:00"
+                    }
+                ]
+            },
+            {
+                "day": "Thursday",
+                "timeslots": [
+                    {
+                        "start": "09:00",
+                        "end": "12:00"
+                    },
+                    {
+                        "start": "14:00",
+                        "end": "17:00"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Chang Lee",
+        "profileUrl": "https://example.com/chang-lee",
+        "age": 30,
+        "gender": "Male",
+        "email": "changlee@example.com",
+        "selfIntroduction": "I am an experienced tutor specializing in math and science. I have a PhD in physics from National Taiwan University and have been teaching for over 5 years. I am patient and enthusiastic, and I always try to make my lessons engaging and fun.",
+        "remote": true,
+        "subjects": [
+            {
+                "subject": "Mathematics",
+                "branches": [
+                    {
+                        "branch": "Calculus",
+                        "hourlyRate": 1500
+                    },
+                    {
+                        "branch": "Linear Algebra",
+                        "hourlyRate": 1500
+                    }
+                ]
+            },
+            {
+                "subject": "Physics",
+                "branches": [
+                    {
+                        "branch": "Classical Mechanics",
+                        "hourlyRate": 1800
+                    },
+                    {
+                        "branch": "Quantum Mechanics",
+                        "hourlyRate": 2000
+                    }
+                ]
+            }
+        ],
+        "inPerson": true,
+        "teachingLocations": [
+            {
+                "city": "Taipei",
+                "districts": [
+                    "Da'an",
+                    "Xinyi",
+                    "Songshan"
+                ]
+            }
+        ],
+        "availability": [
+            {
+                "day": "Monday",
+                "timeslots": [
+                    {
+                        "start": "16:00",
+                        "end": "18:00"
+                    },
+                    {
+                        "start": "19:00",
+                        "end": "21:00"
+                    }
+                ]
+            },
+            {
+                "day": "Wednesday",
+                "timeslots": [
+                    {
+                        "start": "10:00",
+                        "end": "12:00"
+                    }
+                ]
+            },
+            {
+                "day": "Friday",
+                "timeslots": [
+                    {
+                        "start": "14:00",
+                        "end": "16:00"
+                    },
+                    {
+                        "start": "17:00",
+                        "end": "19:00"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Lin Mei",
+        "profileUrl": "https://randomuser.me/api/portraits/women/27.jpg",
+        "age": 28,
+        "gender": "Female",
+        "email": "linmei@gmail.com",
+        "selfIntroduction": "Hello, I'm Lin Mei, a native Mandarin speaker with over 3 years of experience teaching Mandarin to learners of all levels. I'm also fluent in English and would be happy to help you improve your English skills as well. In my free time, I enjoy cooking and hiking.",
+        "remote": true,
+        "subjects": [
+            {
+                "subject": "Mandarin",
+                "branches": [
+                    {
+                        "branch": "Conversation",
+                        "hourlyRate": 700
+                    },
+                    {
+                        "branch": "Test Preparation",
+                        "hourlyRate": 1000
+                    }
+                ]
+            },
+            {
+                "subject": "English",
+                "branches": [
+                    {
+                        "branch": "Conversation",
+                        "hourlyRate": 800
+                    },
+                    {
+                        "branch": "Business",
+                        "hourlyRate": 1200
+                    }
+                ]
+            }
+        ],
+        "inPerson": true,
+        "teachingLocations": [
+            {
+                "city": "Taipei",
+                "districts": [
+                    "Songshan District",
+                    "Wanhua District"
+                ]
+            },
+            {
+                "city": "New Taipei",
+                "districts": [
+                    "Xinzhuang District",
+                    "Zhonghe District"
+                ]
+            }
+        ],
+        "availability": [
+            {
+                "day": "Monday",
+                "timeslots": [
+                    {
+                        "start": "10:00",
+                        "end": "12:00"
+                    },
+                    {
+                        "start": "14:00",
+                        "end": "16:00"
+                    }
+                ]
+            },
+            {
+                "day": "Wednesday",
+                "timeslots": [
+                    {
+                        "start": "15:00",
+                        "end": "18:00"
+                    }
+                ]
+            },
+            {
+                "day": "Friday",
+                "timeslots": [
+                    {
+                        "start": "10:00",
+                        "end": "12:00"
+                    },
+                    {
+                        "start": "15:00",
+                        "end": "18:00"
+                    }
+                ]
+            }
+        ]
+    }
+]

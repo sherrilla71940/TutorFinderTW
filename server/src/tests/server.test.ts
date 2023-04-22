@@ -1,10 +1,11 @@
-import app, {PORT, HOST} from '../app';
+// import app, {PORT, HOST} from '../app';
 import mockTutorsJSON from './tutors-mock-data.json';
+// const mockTutorsJSON = require('../src/tests/tutors-mock-data.json');
 
 console.log(mockTutorsJSON);
 test('asd', () => {
   expect(1).toBe(1);
-})
+});
 
 // describe('Should be able to add, find, update, and delete a tutor by id', () => {
 //   test('Should add a tutor to db', async () => {
