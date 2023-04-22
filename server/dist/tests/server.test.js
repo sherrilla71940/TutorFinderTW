@@ -1,14 +1,10 @@
 "use strict";
-const path = require('path');
-const dotenv = require('dotenv');
-const envFileAbsPath = path.resolve(__dirname, '../../../.env');
-dotenv.config({ path: envFileAbsPath });
-const port = Number(process.env.PORT) || 8000;
-const host = process.env.HOST || 'localhost';
-const mockTutorsJSON = require('./tutors-mock-data.js');
-// const mockTutors = JSON.parse(mockTutorsJSON);
-// const tutorIds: string[] = [];
-console.log(mockTutorsJSON);
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const tutors_mock_data_json_1 = __importDefault(require("./tutors-mock-data.json"));
+console.log(tutors_mock_data_json_1.default);
 test('asd', () => {
     expect(1).toBe(1);
 });

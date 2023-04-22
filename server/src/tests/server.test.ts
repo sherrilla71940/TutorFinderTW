@@ -1,13 +1,6 @@
-const path = require('path');
-const dotenv = require('dotenv');
-const envFileAbsPath = path.resolve(__dirname, '../../../.env');
-dotenv.config({ path: envFileAbsPath });
-const port = Number(process.env.PORT) || 8000;
-const host = process.env.HOST || 'localhost';
-const mockTutorsJSON = require('./tutors-mock-data.js');
-// const mockTutors = JSON.parse(mockTutorsJSON);
+import app, {PORT, HOST} from '../app';
+import mockTutorsJSON from './tutors-mock-data.json';
 
-// const tutorIds: string[] = [];
 console.log(mockTutorsJSON);
 test('asd', () => {
   expect(1).toBe(1);
