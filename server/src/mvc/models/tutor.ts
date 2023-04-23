@@ -22,8 +22,6 @@ type Subject = {
   branches: Branch[]
 }
 
-type Subjects = Subject[];
-
 type Location = {
   city: string,
   districts: string[] | 'entire city'
@@ -76,7 +74,7 @@ export interface TutorInterface extends Document{
   email: string,
   selfIntroduction?: string,
   remote: boolean,
-  subjects: Subjects
+  subjects: Subject[],
   inPerson: boolean,
   teachingLocations?: Location[]
   availability?: Availability[]
