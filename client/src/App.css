@@ -39,3 +39,8 @@ ul li a {
   display: flex;
   flex-direction: column;
  } */
+
+ #tutor-registration-form {
+  display: flex;
+  flex-direction: column;
+ }

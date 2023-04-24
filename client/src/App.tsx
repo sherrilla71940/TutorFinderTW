@@ -1,5 +1,5 @@
 import React from 'react';
-import {Routes, Route, NavLink} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 import './App.css';
 import Home from './Pages/Home';
 import Tutors from './Pages/Tutors';
@@ -20,7 +20,7 @@ import TutorInterface from './custom-types/tutor-interface';
 
 function App() {
 
-  const [tutors, setTutors] = useState<TutorInterface[] | []>([]);
+  const [tutors, setTutors] = useState<TutorInterface[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -54,13 +54,6 @@ function App() {
         </li>
       </ul>
     </nav> */}
-    <nav>
-      <ul>
-        <li>
-          <NavLink to="/">Tutor Finder Home Page</NavLink>
-        </li>
-      </ul>
-    </nav>
       <Routes>
         <Route path="/" element={<Home/>}/>
           {/* <Route path="home" index element ={<Home/>}/> */}
