@@ -10,3 +10,11 @@ ul li a {
  ul li a.active {
   color: #1900ff;
  }
+
+ .tutor-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  text-decoration: none;
+  padding: 10px;
+ }

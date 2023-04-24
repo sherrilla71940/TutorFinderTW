@@ -1,10 +1,22 @@
 import React from 'react';
+import TutorInterface from '../custom-types/tutor-interface';
+import TutorCard from '../components/tutor-card';
 
-function Tutors () {
+type Props = {
+  tutors: TutorInterface[] | []
+}
+
+function Tutors ({tutors}: Props) {
   return (
-    <>
-      <h1>hello from tutors</h1>
-    </>
+    <div>
+      {
+        tutors.map((tutor) => {
+          return (
+            <TutorCard key={tutor._id as string} tutorKey={tutor._id as string} tutor={tutor}/>
+          );
+        })
+      }
+    </div>
   );
 }
 
