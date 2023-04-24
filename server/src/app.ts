@@ -11,7 +11,7 @@ export const PORT = process.env.PORT;
 export const HOST = process.env.HOST
 
 // in readme remember to instruct how to set up env variables to run application
-app.use(cors({origin: `http://${HOST}*`}));
+app.use(cors({origin: `*`}));
 app.use(express.json());
 app.use(router);
 

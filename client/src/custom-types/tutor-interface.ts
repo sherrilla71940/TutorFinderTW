@@ -53,6 +53,8 @@ type Availability = {
 }
 
 export default interface TutorInterface {
+  __v?: number,
+  _id?: string,
   name: string,
   profileUrl: string,
   age: number,

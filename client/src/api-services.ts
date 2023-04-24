@@ -2,7 +2,7 @@ import TutorInterface from './custom-types/tutor-interface'
 
 type HttpMethod = 'GET' | "POST" | 'PUT' | 'DELETE'
 
-export async function fetchFunction (url: string, method: HttpMethod, setter: React.Dispatch<React.SetStateAction<TutorInterface[]>>, body?: TutorInterface): Promise<void> {
+export default async function fetchFunction (url: string, method: HttpMethod, setter: React.Dispatch<React.SetStateAction<TutorInterface[] | []>>, body?: TutorInterface): Promise<void> {
   // returns promise that resolves to a response object readable stream
   const fetchOptions: RequestInit = {
     method: method,
@@ -16,8 +16,9 @@ export async function fetchFunction (url: string, method: HttpMethod, setter: Re
 
   try {
     const responseObj = await fetch(url, fetchOptions);
-    const tutorsJsonData = await responseObj.json();
-    setter(tutorsJsonData);
+    const tutors = await responseObj.json();
+    // console.log(tutors);
+    setter(tutors);
   } catch (e: unknown) {
     console.log(e);
   }

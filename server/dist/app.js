@@ -38,7 +38,7 @@ dotenv.config({ path: envFileAbsPath });
 exports.PORT = process.env.PORT;
 exports.HOST = process.env.HOST;
 // in readme remember to instruct how to set up env variables to run application
-app.use((0, cors_1.default)({ origin: `http://${exports.HOST}*` }));
+app.use((0, cors_1.default)({ origin: `*` }));
 app.use(express_1.default.json());
 app.use(router_1.default);
 exports.default = app;
