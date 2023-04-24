@@ -32,8 +32,16 @@ function Register () {
   // then redirect
   const navigate = useNavigate();
 
-  async function postTutorAndRedirect (formData: TutorInterface) {
-    await fetchFunction('http://localhost:3001', 'POST', setUserFormData, formData)
+  async function postTutorAndRedirect () {
+    try {
+      await fetchFunction('http://localhost:3001', 'POST', setUserFormData, userFormData);
+      setSubmissionFailure(false);
+      navigate('/');
+    } catch(e) {
+      console.log(e);
+      setSubmissionFailure(true);
+      // if formsubmissionfailure is set to true, render extra 'failed to submit' component
+    }
   }
 
   return (
@@ -49,13 +57,34 @@ function Register () {
       </ul>
     </nav>
       <form action="" onSubmit={(e) => e.preventDefault()} id='tutor-registration-form'>
+        <label htmlFor="profile">Your Profile Picture URL: </label>
+        <input type="text" value="" name='profile'required/>
         <label htmlFor="name">Your name: </label>
-        <input type="text" value="" name='name'/>
+        <input type="text" value="" name='name'required/>
         <label htmlFor="age">Your age: </label>
-        <input type="number" name='age' min={0} max={150} defaultValue={18}/>
+        <input type="number" name='age' min={0} max={150} defaultValue={18} required/>
+        <label htmlFor="gender">Your gender: </label>
+        <select name="gender" id="gender" required>
+          <option value="male">male</option>
+          <option value="female">female</option>
+        </select>
+        <label htmlFor="introduction">Introduce Yourself: </label>
+        <input type="text" value='' name='introduction'/>
+        <fieldset>
+          <legend>How will you teach?</legend>
+          <div>
+            <label htmlFor="remote">Remote </label>
+            <input type="checkbox" name="remote" id="remote" />
+          </div>
+          <div>
+            <label htmlFor="in-person">In-person </label>
+            <input type="checkbox" name="in-person" id="remote" />
+          </div>
+        </fieldset>
+
       </form>
 
-      <button onClick={() => navigate('/')}>Submit</button>
+      <button onClick={() => postTutorAndRedirect()}>Submit</button>
     </>
   );
   }
