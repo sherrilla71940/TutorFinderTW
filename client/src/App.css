@@ -18,3 +18,24 @@ ul li a {
   text-decoration: none;
   padding: 10px;
  }
+
+ .tutor-card .course {
+  background-color: #4ea29f;
+  color: rgb(255, 255, 255);
+  margin: 5px;
+  padding: 3px;
+ }
+
+ .tutor-card .tag {
+  background-color: #495cc6;
+  color: antiquewhite;
+  margin: 5px;
+  padding: 3px;
+  width: 30%;
+  text-align:center
+ }
+
+ /* .subjects-table {
+  display: flex;
+  flex-direction: column;
+ } */

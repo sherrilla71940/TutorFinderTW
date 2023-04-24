@@ -66,7 +66,7 @@ function App() {
           {/* <Route path="home" index element ={<Home/>}/> */}
           <Route path="/tutors">
               <Route index element={<Tutors tutors={tutors}/>}/>
-              <Route path=":id" element={<Tutor/>}/>
+              <Route path=":id" element={<Tutor tutors={tutors}/>}/>
           </Route>
           <Route path="/register" element={<Register/>}/>
           <Route path='*' element={<NotFound/>}/>

@@ -3,7 +3,7 @@ import TutorInterface from '../custom-types/tutor-interface';
 import TutorCard from '../components/tutor-card';
 
 type Props = {
-  tutors: TutorInterface[] | []
+  tutors: TutorInterface[]
 }
 
 function Tutors ({tutors}: Props) {
