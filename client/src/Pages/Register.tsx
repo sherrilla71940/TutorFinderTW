@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import TutorInterface from '../custom-types/tutor-interface';
 import fetchFunction from '../api-services';
+// import { useState } from 'react';
 
 // define type for props
 
@@ -44,6 +45,16 @@ function Register () {
     }
   }
 
+  // tried making handleChange an async func, but realized that for some reason when i await setState and console.log state below that, the console.log does not wait for the await statement
+  function handleChange <T>(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, setter: React.Dispatch<React.SetStateAction<T>>, value: any, state?: any) {
+    // console.log('before checking', state);
+    setter(value);
+    console.log(value);
+    // console.log('after checking', state)
+  }
+
+  // useEffect(() => {console.log(newTutorRemote); console.log()}, [newTutorRemote])
+
   return (
     <>
        <nav>
@@ -58,30 +69,53 @@ function Register () {
     </nav>
       <form action="" onSubmit={(e) => e.preventDefault()} id='tutor-registration-form'>
         <label htmlFor="profile">Your Profile Picture URL: </label>
-        <input type="text" value="" name='profile'required/>
+        <input type="text" value={newTutorProfileUrl} onChange={(e) => handleChange(e, setNewTutorProfileUrl, e.target.value)} name='profile'required/>
         <label htmlFor="name">Your name: </label>
-        <input type="text" value="" name='name'required/>
+        <input type="text" value={newTutorName} name='name'required onChange={(e) => handleChange(e, setNewTutorName, e.target.value)}/>
         <label htmlFor="age">Your age: </label>
-        <input type="number" name='age' min={0} max={150} defaultValue={18} required/>
+        <input type="number" name='age' min={0} max={150} defaultValue={18} required onChange={(e) => handleChange(e, setNewTutorAge, e.target.valueAsNumber)}/>
         <label htmlFor="gender">Your gender: </label>
-        <select name="gender" id="gender" required>
+        <select name="gender" id="gender" required onChange={(e) => {handleChange(e, setNewTutorGender, e.target.value)}}>
           <option value="male">male</option>
           <option value="female">female</option>
         </select>
         <label htmlFor="introduction">Introduce Yourself: </label>
-        <input type="text" value='' name='introduction'/>
+        {/* <input type="textfield" value='' name='introduction'/> */}
+        <textarea name="introduction" id="introduction" cols={20} rows={5} onChange={(e) => handleChange(e, setNewTutorIntroduction, e.target.value)}></textarea>
         <fieldset>
-          <legend>How will you teach?</legend>
+          <legend>How you will teach: </legend>
           <div>
             <label htmlFor="remote">Remote </label>
-            <input type="checkbox" name="remote" id="remote" />
+            <input type="checkbox" name="remote" id="remote" onChange={(e) => handleChange(e, setNewTutorRemote, e.target.checked)}/>
           </div>
           <div>
             <label htmlFor="in-person">In-person </label>
-            <input type="checkbox" name="in-person" id="remote" />
+            <input type="checkbox" name="in-person" id="in-person" onChange={(e) => handleChange(e, setNewTutorInPerson, e.target.checked)}/>
           </div>
         </fieldset>
-
+        {/* below is subjects form */}
+        <form action="" onSubmit={(e) => e.preventDefault()} id='add-subject-form'>
+          <fieldset>
+            <legend>Add course you will teach:</legend>
+              <select name="subject" id="subject" onChange={(e) => {handleChange(e, setNewTutorGender, e.target.value)}}>
+                <option value="" disabled selected>Select a subject</option>
+                <option value="Arts">Arts</option>
+                <option value="Business and Economics">Business and Economics</option>
+                <option value="Communication Studies">Communication Studies</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Education and Teaching">Education and Teaching</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Environmental Studies">Environmental Studies and Sustainability</option>
+                <option value="Health Sciences">Health Sciences</option>
+                <option value="Humanities">Humanities</option>
+                <option value="Law and Government">Law and Government</option>
+                <option value="Natural Sciences">Natural Sciences</option>
+                <option value="Social Sciences">Social Sciences</option>
+              </select>
+              <label htmlFor="subject"></label>
+          </fieldset>
+          <button type="submit" onClick={e => e.preventDefault()}>add</button>
+        </form>
       </form>
 
       <button onClick={() => postTutorAndRedirect()}>Submit</button>
