@@ -27,13 +27,13 @@ function Tutor({ tutors }: Props) {
         <nav>
           <ul>
             <li>
-              <NavLink to="/">Tutor Finder Home Page</NavLink>
+              <NavLink to="/" className='nav-link'>Tutor Finder Home Page</NavLink>
             </li>
             <li>
-              <NavLink to="/tutors">Find Tutors</NavLink>
+              <NavLink to="/tutors" className='nav-link'>Find Tutors</NavLink>
             </li>
             <li>
-              <NavLink to="/register">Become a Tutor</NavLink>
+              <NavLink to="/register" className='nav-link'>Become a Tutor</NavLink>
             </li>
           </ul>
         </nav>
@@ -48,13 +48,13 @@ function Tutor({ tutors }: Props) {
             <h2>{tutor.age}</h2>
             <h2>{tutor.gender}</h2>
             <h2>{tutor.email}</h2>
-            {tutor.selfIntroduction ? <p>{tutor.selfIntroduction}</p> : ''}
-            {tutor.inPerson ? <div>In-person</div> : ''}
-            {tutor.remote ? <div>Remote</div> : ''}
+            {tutor.selfIntroduction ? <p className='tutor-introduction'>{tutor.selfIntroduction}</p> : ''}
+            {tutor.inPerson ? <div>In-person ✅</div> : ''}
+            {tutor.remote ? <div>Remote ✅</div> : ''}
             {tutor.subjects &&
               tutor.subjects.map((subject) => {
                 return (
-                  <table key={subject.subject}>
+                  <table key={subject.subject} border={1}>
                     <caption>{subject.subject}</caption>
                     <thead>
                       <tr>

@@ -162,10 +162,10 @@ function Register ({tutorsSetter}: Props) {
        <nav>
       <ul>
         <li>
-          <NavLink to="/">Tutor Finder Home Page</NavLink>
+          <NavLink to="/" className='nav-link'>Tutor Finder Home Page</NavLink>
         </li>
         <li>
-          <NavLink to="/tutors">Find Tutors</NavLink>
+          <NavLink to="/tutors" className='nav-link'>Find Tutors</NavLink>
         </li>
       </ul>
     </nav>
@@ -221,12 +221,12 @@ function Register ({tutorsSetter}: Props) {
               <input type="text" required name='branch' value={newTutorSubjectBranchName} onChange={(e) => handleChange(e, setNewTutorSubjectBranchName, e.target.value)}/>
               <label htmlFor="hourly-rate">*Hourly Rate: </label>
               <input type="number" required name="hourly-rate" min={0} max={10000} step="25" defaultValue={300} onChange={(e) => handleChange(e, setNewTutorSubjectBranchRate, e.target.valueAsNumber)}/>
+            <button id='add-button' type="button" onClick={(e) => {
+              e.preventDefault();
+              addSubject();
+              console.log(allNewTutorSubjectsArr);
+              }}>Add</button>
           </fieldset>
-        <button type="button" onClick={(e) => {
-            e.preventDefault();
-            addSubject();
-            console.log(allNewTutorSubjectsArr);
-            }}>Add</button>
         </div>
         <button type='button' onClick={(e) => setFormDataFunc(e)}>Save</button>
         <button type='submit'>Submit</button>

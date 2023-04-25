@@ -19,15 +19,15 @@ function Tutors ({tutors}: Props) {
     <nav>
       <ul>
         <li>
-          <NavLink to="/">Tutor Finder Home Page</NavLink>
+          <NavLink to="/" className='nav-link'>Tutor Finder Home Page</NavLink>
         </li>
         <li>
-          <NavLink to="/register">Become a Tutor</NavLink>
+          <NavLink to="/register" className='nav-link'>Become a Tutor</NavLink>
         </li>
       </ul>
     </nav>
 
-      <div>
+      <div id='tutor-cards-wrapper'>
         {
           tutors.map((tutor) => {
             return (
