@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
-import TutorInterface from '../custom-types/tutor-interface';
+import TutorInterface, {Subject, Subjects} from '../custom-types/tutor-interface';
 import fetchFunction from '../api-services';
 // import { useState } from 'react';
 
@@ -31,7 +31,16 @@ function Register () {
   // const [userFormData, setUserFormData] = useState: <FormData>('' as FormData); // come back to this later
   // after submitting form change global state of all tutors
   // then redirect
+
+  const [newTutorSubjectName, setNewTutorSubjectName] = useState<string>('');
+  const [newTutorSubjectBranchName, setNewTutorSubjectBranchName] = useState<string>('');
+  const [newTutorSubjectBranchRate, setNewTutorSubjectBranchRate] = useState<number>(0);
+
+  const [newTutorSubjectObj, setNewTutorSubjectObj] = useState<Subject>({} as Subject);
+  const [allNewTutorSubjectsArr, setAllNewTutorSubjectsArr] = useState<Subjects>([] as Subjects);
+
   const navigate = useNavigate();
+
 
   async function postTutorAndRedirect () {
     try {
@@ -43,6 +52,35 @@ function Register () {
       setSubmissionFailure(true);
       // if formsubmissionfailure is set to true, render extra 'failed to submit' component
     }
+  }
+
+  function addSubject (): Subject {
+
+    const newSubj: Subject = {
+      subject: newTutorSubjectName,
+      branches: [{
+        branch: newTutorSubjectBranchName,
+        hourlyRate: newTutorSubjectBranchRate
+      }]
+    };
+
+    const foundSubj: Subject = {...(allNewTutorSubjectsArr.find(subjObj => subjObj.subject === newSubj.subject))} as Subject;
+
+    if (!foundSubj) setAllNewTutorSubjectsArr([...allNewTutorSubjectsArr, newSubj]);
+    else if (foundSubj) {
+      const transformedSubjObj = {
+        subject: foundSubj.subject,
+        branches: [...foundSubj.branches, ...newSubj.branches]
+      }
+      const newSubjArr = allNewTutorSubjectsArr.map(subjObj => {
+        if (subjObj.subject === transformedSubjObj.subject) {
+          return transformedSubjObj;
+        }
+        return subjObj;
+      });
+      setAllNewTutorSubjectsArr(newSubjArr);
+    }
+    return newSubj;
   }
 
   // tried making handleChange an async func, but realized that for some reason when i await setState and console.log state below that, the console.log does not wait for the await statement
@@ -72,6 +110,8 @@ function Register () {
         <input type="text" value={newTutorProfileUrl} onChange={(e) => handleChange(e, setNewTutorProfileUrl, e.target.value)} name='profile'required/>
         <label htmlFor="name">Your name: </label>
         <input type="text" value={newTutorName} name='name'required onChange={(e) => handleChange(e, setNewTutorName, e.target.value)}/>
+        <label htmlFor="email">Your email: </label>
+        <input type="email" name="email" id="email" value={newTutorEmail} required onChange={(e) => handleChange(e, setNewTutorEmail, e.target.value)}/>
         <label htmlFor="age">Your age: </label>
         <input type="number" name='age' min={0} max={150} defaultValue={18} required onChange={(e) => handleChange(e, setNewTutorAge, e.target.valueAsNumber)}/>
         <label htmlFor="gender">Your gender: </label>
@@ -97,7 +137,7 @@ function Register () {
         <form action="" onSubmit={(e) => e.preventDefault()} id='add-subject-form'>
           <fieldset>
             <legend>Add course you will teach:</legend>
-              <select name="subject" id="subject" onChange={(e) => {handleChange(e, setNewTutorGender, e.target.value)}}>
+              <select required name="subject" id="subject" onChange={(e) => {handleChange(e, setNewTutorSubjectName, e.target.value)}}>
                 <option value="" disabled selected>Select a subject</option>
                 <option value="Arts">Arts</option>
                 <option value="Business and Economics">Business and Economics</option>
@@ -112,13 +152,22 @@ function Register () {
                 <option value="Natural Sciences">Natural Sciences</option>
                 <option value="Social Sciences">Social Sciences</option>
               </select>
-              <label htmlFor="subject"></label>
+              <label htmlFor="subject">Subject: </label>
+              <label htmlFor="branch">branch: </label>
+              <input type="text" name='branch' value={newTutorSubjectBranchName} onChange={(e) => handleChange(e, setNewTutorSubjectBranchName, e.target.value)}/>
+              <label htmlFor="hourly-rate">Hourly Rate: </label>
+              <input type="number" name="hourly-rate" min={0} max={10000} step="25" defaultValue={300} onChange={(e) => handleChange(e, setNewTutorSubjectBranchRate, e.target.valueAsNumber)}/>
           </fieldset>
-          <button type="submit" onClick={e => e.preventDefault()}>add</button>
+          <button type="submit" onClick={e => {
+            e.preventDefault();
+            addSubject();
+            console.log(allNewTutorSubjectsArr);
+            }
+          }>add
+          </button>
         </form>
+        <button type="submit">submit</button>
       </form>
-
-      <button onClick={() => postTutorAndRedirect()}>Submit</button>
     </>
   );
   }

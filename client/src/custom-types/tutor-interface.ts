@@ -3,10 +3,12 @@ type Branch = {
   hourlyRate: number
 }
 
-type Subject = {
+export type Subject = {
   subject: string,
   branches: Branch[]
 }
+
+export type Subjects = Subject[];
 
 type Location = {
   city: string,
