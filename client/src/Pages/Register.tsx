@@ -41,9 +41,29 @@ function Register () {
 
   const navigate = useNavigate();
 
+  function setFormDataFunc () {
+    // e.preventDefault();
+    const formData = {
+      name: newTutorName,
+      profileUrl: newTutorProfileUrl,
+      age: newTutorAge,
+      gender: newTutorGender,
+      email: newTutorEmail,
+      remote: newTutorRemote,
+      subjects: allNewTutorSubjectsArr,
+      inPerson: newTutorInPerson,
+      selfIntroduction: newTutorIntroduction ? newTutorIntroduction : ''
+    };
+    setUserFormData(formData);
+  }
 
-  async function postTutorAndRedirect () {
+  useEffect(() => console.log(userFormData), [userFormData]);
+
+
+  async function postTutorAndRedirect (e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     try {
+      setFormDataFunc();
       await fetchFunction('http://localhost:3001', 'POST', setUserFormData, userFormData);
       setSubmissionFailure(false);
       navigate('/');
@@ -105,7 +125,7 @@ function Register () {
         </li>
       </ul>
     </nav>
-      <form action="" onSubmit={(e) => e.preventDefault()} id='tutor-registration-form'>
+      <form action="" onSubmit={async (e) => postTutorAndRedirect(e)} id='tutor-registration-form'>
         <label htmlFor="profile">Your Profile Picture URL: </label>
         <input type="text" value={newTutorProfileUrl} onChange={(e) => handleChange(e, setNewTutorProfileUrl, e.target.value)} name='profile'required/>
         <label htmlFor="name">Your name: </label>
@@ -134,11 +154,12 @@ function Register () {
           </div>
         </fieldset>
         {/* below is subjects form */}
-        <form action="" onSubmit={(e) => e.preventDefault()} id='add-subject-form'>
+        <div className='add-subject-wrapper'>
           <fieldset>
             <legend>Add course you will teach:</legend>
+            <label htmlFor="subject">Subject: </label>
               <select required name="subject" id="subject" onChange={(e) => {handleChange(e, setNewTutorSubjectName, e.target.value)}}>
-                <option value="" disabled selected>Select a subject</option>
+                <option selected>Select a Subject</option>
                 <option value="Arts">Arts</option>
                 <option value="Business and Economics">Business and Economics</option>
                 <option value="Communication Studies">Communication Studies</option>
@@ -152,20 +173,19 @@ function Register () {
                 <option value="Natural Sciences">Natural Sciences</option>
                 <option value="Social Sciences">Social Sciences</option>
               </select>
-              <label htmlFor="subject">Subject: </label>
               <label htmlFor="branch">branch: </label>
               <input type="text" name='branch' value={newTutorSubjectBranchName} onChange={(e) => handleChange(e, setNewTutorSubjectBranchName, e.target.value)}/>
               <label htmlFor="hourly-rate">Hourly Rate: </label>
               <input type="number" name="hourly-rate" min={0} max={10000} step="25" defaultValue={300} onChange={(e) => handleChange(e, setNewTutorSubjectBranchRate, e.target.valueAsNumber)}/>
           </fieldset>
-          <button type="submit" onClick={e => {
+          <button type='button' onClick={e => {
             e.preventDefault();
             addSubject();
             console.log(allNewTutorSubjectsArr);
             }
           }>add
           </button>
-        </form>
+        </div>
         <button type="submit">submit</button>
       </form>
     </>
