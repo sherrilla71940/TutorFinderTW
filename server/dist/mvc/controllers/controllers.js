@@ -29,11 +29,13 @@ function getAllTutors(req, res) {
 exports.getAllTutors = getAllTutors;
 function addTutor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log(req.body);
         try {
             const newTutor = yield tutor_1.Tutor.create(req.body);
             console.log(newTutor);
+            const allTutors = yield tutor_1.Tutor.find({});
             res.status(201);
-            res.json(newTutor);
+            res.json(allTutors);
         }
         catch (e) {
             res.status(400);

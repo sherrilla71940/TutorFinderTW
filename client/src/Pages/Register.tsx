@@ -8,7 +8,12 @@ import fetchFunction from '../api-services';
 
 // when user submits, if successful redirect to tutors page, if unsuccessful render unsuccesfful component message (set to false first, when fail submit set true, then when success set false again)
 
-function Register () {
+type Props = {
+  tutorsSetter: (data: any) => void
+}
+
+function Register ({tutorsSetter}: Props) {
+
 
   // define interface above for shape of form data, currently wondering if the shape should be the same as TutorInterface
 
@@ -22,8 +27,8 @@ function Register () {
 
   const [newTutorProfileUrl, setNewTutorProfileUrl] = useState<string>('');
   const [newTutorName, setNewTutorName] = useState<string>('');
-  const [newTutorAge, setNewTutorAge] = useState<number>(0);
-  const [newTutorGender, setNewTutorGender] = useState<string>('');
+  const [newTutorAge, setNewTutorAge] = useState<number>(18);
+  const [newTutorGender, setNewTutorGender] = useState<string>('male');
   const [newTutorEmail, setNewTutorEmail] = useState<string>('');
   const [newTutorIntroduction, setNewTutorIntroduction] = useState<string>('');
   const [newTutorInPerson, setNewTutorInPerson] = useState<boolean>(false);
@@ -34,16 +39,16 @@ function Register () {
 
   const [newTutorSubjectName, setNewTutorSubjectName] = useState<string>('');
   const [newTutorSubjectBranchName, setNewTutorSubjectBranchName] = useState<string>('');
-  const [newTutorSubjectBranchRate, setNewTutorSubjectBranchRate] = useState<number>(0);
+  const [newTutorSubjectBranchRate, setNewTutorSubjectBranchRate] = useState<number>(300);
 
   const [newTutorSubjectObj, setNewTutorSubjectObj] = useState<Subject>({} as Subject);
   const [allNewTutorSubjectsArr, setAllNewTutorSubjectsArr] = useState<Subjects>([] as Subjects);
 
   const navigate = useNavigate();
 
-  function setFormDataFunc () {
+  function setFormDataFunc (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     // e.preventDefault();
-    const formData = {
+    setUserFormData({
       name: newTutorName,
       profileUrl: newTutorProfileUrl,
       age: newTutorAge,
@@ -53,25 +58,25 @@ function Register () {
       subjects: allNewTutorSubjectsArr,
       inPerson: newTutorInPerson,
       selfIntroduction: newTutorIntroduction ? newTutorIntroduction : ''
-    };
-    setUserFormData(formData);
+    });
   }
 
-  useEffect(() => console.log(userFormData), [userFormData]);
-
+  // useEffect(() => console.log(userFormData), [userFormData]);
 
   async function postTutorAndRedirect (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    try {
-      setFormDataFunc();
-      await fetchFunction('http://localhost:3001', 'POST', setUserFormData, userFormData);
-      setSubmissionFailure(false);
-      navigate('/');
-    } catch(e) {
-      console.log(e);
-      setSubmissionFailure(true);
-      // if formsubmissionfailure is set to true, render extra 'failed to submit' component
-    }
+    if (!allNewTutorSubjectsArr.length) return;
+    // setFormDataFunc();
+      try {
+        // const copyUserFormData = JSON.parse(JSON.stringify(userFormData))
+        await fetchFunction('http://localhost:8080', 'POST', tutorsSetter, userFormData);
+        setSubmissionFailure(false);
+        navigate('/');
+      } catch(e) {
+        console.log(e);
+        setSubmissionFailure(true);
+        // if formsubmissionfailure is set to true, render extra 'failed to submit' component
+      }
   }
 
   function addSubject (): Subject {
@@ -84,28 +89,67 @@ function Register () {
       }]
     };
 
-    const foundSubj: Subject = {...(allNewTutorSubjectsArr.find(subjObj => subjObj.subject === newSubj.subject))} as Subject;
+    // const foundSubj: Subject = {...(allNewTutorSubjectsArr.find(subjObj => subjObj.subject === newSubj.subject))};
 
-    if (!foundSubj) setAllNewTutorSubjectsArr([...allNewTutorSubjectsArr, newSubj]);
-    else if (foundSubj) {
-      const transformedSubjObj = {
-        subject: foundSubj.subject,
-        branches: [...foundSubj.branches, ...newSubj.branches]
+    // let subObjWithNewBranches = {};
+
+    let includesSubj = false;
+    allNewTutorSubjectsArr.forEach(subObj => {
+      if (subObj.subject === newSubj.subject) {
+        includesSubj = true;
       }
-      const newSubjArr = allNewTutorSubjectsArr.map(subjObj => {
-        if (subjObj.subject === transformedSubjObj.subject) {
-          return transformedSubjObj;
+    });
+
+    if (!includesSubj) {
+      setAllNewTutorSubjectsArr([...allNewTutorSubjectsArr, newSubj]);
+    } else {
+      const allSubjCopy = [...allNewTutorSubjectsArr];
+      const transformedCopy = allSubjCopy.map(subObj => {
+        if (subObj.subject === newSubj.subject) {
+          return {
+            subject: subObj.subject,
+            branches: [...subObj.branches, ...newSubj.branches]
+          }
         }
-        return subjObj;
+        return subObj;
       });
-      setAllNewTutorSubjectsArr(newSubjArr);
+      setAllNewTutorSubjectsArr(transformedCopy);
     }
+
+    // allNewTutorSubjectsArr.forEach(subObj => {
+    //   if (subObj.subject === newSubj.subject) {
+    //     includesSubj = true;
+    //     newSubj.branches = [...subObj.branches, ...newSubj.branches];
+    //     setAllNewTutorSubjectsArr({...allNewTutorSubjectsArr, newSubj});
+    //     const allSubjArrCopy = [...allNewTutorSubjectsArr];
+    //     allSubjArrCopy.forEach(subObj => {
+    //       if (subObj.subject === newSubj.subject) {
+    //         delete subObj.branches;
+    //       });
+    //     }
+    //   }
+
+    // if (!foundSubj) setAllNewTutorSubjectsArr([...allNewTutorSubjectsArr, newSubj]);
+    // else if (foundSubj) {
+    //   const transformedSubjObj = {
+    //     subject: foundSubj.subject,
+    //     branches: [...foundSubj.branches, ...newSubj.branches]
+    //   }
+    //   const newSubjArr = allNewTutorSubjectsArr.map(subjObj => {
+    //     if (subjObj.subject === transformedSubjObj.subject) {
+    //       return transformedSubjObj;
+    //     }
+    //     return subjObj;
+    //   });
+    //   setAllNewTutorSubjectsArr(newSubjArr);
+    // }
     return newSubj;
   }
 
   // tried making handleChange an async func, but realized that for some reason when i await setState and console.log state below that, the console.log does not wait for the await statement
   function handleChange <T>(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, setter: React.Dispatch<React.SetStateAction<T>>, value: any, state?: any) {
     // console.log('before checking', state);
+    if (typeof value === 'string' && value.length < 1) return;
     setter(value);
     console.log(value);
     // console.log('after checking', state)
@@ -126,15 +170,15 @@ function Register () {
       </ul>
     </nav>
       <form action="" onSubmit={async (e) => postTutorAndRedirect(e)} id='tutor-registration-form'>
-        <label htmlFor="profile">Your Profile Picture URL: </label>
+        <label htmlFor="profile">*Your Profile Picture URL: </label>
         <input type="text" value={newTutorProfileUrl} onChange={(e) => handleChange(e, setNewTutorProfileUrl, e.target.value)} name='profile'required/>
-        <label htmlFor="name">Your name: </label>
+        <label htmlFor="name">*Your name: </label>
         <input type="text" value={newTutorName} name='name'required onChange={(e) => handleChange(e, setNewTutorName, e.target.value)}/>
-        <label htmlFor="email">Your email: </label>
+        <label htmlFor="email">*Your email: </label>
         <input type="email" name="email" id="email" value={newTutorEmail} required onChange={(e) => handleChange(e, setNewTutorEmail, e.target.value)}/>
-        <label htmlFor="age">Your age: </label>
+        <label htmlFor="age">*Your age: </label>
         <input type="number" name='age' min={0} max={150} defaultValue={18} required onChange={(e) => handleChange(e, setNewTutorAge, e.target.valueAsNumber)}/>
-        <label htmlFor="gender">Your gender: </label>
+        <label htmlFor="gender">*Your gender: </label>
         <select name="gender" id="gender" required onChange={(e) => {handleChange(e, setNewTutorGender, e.target.value)}}>
           <option value="male">male</option>
           <option value="female">female</option>
@@ -143,7 +187,7 @@ function Register () {
         {/* <input type="textfield" value='' name='introduction'/> */}
         <textarea name="introduction" id="introduction" cols={20} rows={5} onChange={(e) => handleChange(e, setNewTutorIntroduction, e.target.value)}></textarea>
         <fieldset>
-          <legend>How you will teach: </legend>
+          <legend>*How you will teach: </legend>
           <div>
             <label htmlFor="remote">Remote </label>
             <input type="checkbox" name="remote" id="remote" onChange={(e) => handleChange(e, setNewTutorRemote, e.target.checked)}/>
@@ -156,8 +200,8 @@ function Register () {
         {/* below is subjects form */}
         <div className='add-subject-wrapper'>
           <fieldset>
-            <legend>Add course you will teach:</legend>
-            <label htmlFor="subject">Subject: </label>
+            <legend>*Add courses you will teach:</legend>
+            <label htmlFor="subject">*Subject: </label>
               <select required name="subject" id="subject" onChange={(e) => {handleChange(e, setNewTutorSubjectName, e.target.value)}}>
                 <option selected>Select a Subject</option>
                 <option value="Arts">Arts</option>
@@ -173,20 +217,19 @@ function Register () {
                 <option value="Natural Sciences">Natural Sciences</option>
                 <option value="Social Sciences">Social Sciences</option>
               </select>
-              <label htmlFor="branch">branch: </label>
-              <input type="text" name='branch' value={newTutorSubjectBranchName} onChange={(e) => handleChange(e, setNewTutorSubjectBranchName, e.target.value)}/>
-              <label htmlFor="hourly-rate">Hourly Rate: </label>
-              <input type="number" name="hourly-rate" min={0} max={10000} step="25" defaultValue={300} onChange={(e) => handleChange(e, setNewTutorSubjectBranchRate, e.target.valueAsNumber)}/>
+              <label htmlFor="branch">*Branch: </label>
+              <input type="text" required name='branch' value={newTutorSubjectBranchName} onChange={(e) => handleChange(e, setNewTutorSubjectBranchName, e.target.value)}/>
+              <label htmlFor="hourly-rate">*Hourly Rate: </label>
+              <input type="number" required name="hourly-rate" min={0} max={10000} step="25" defaultValue={300} onChange={(e) => handleChange(e, setNewTutorSubjectBranchRate, e.target.valueAsNumber)}/>
           </fieldset>
-          <button type='button' onClick={e => {
+        <button type="button" onClick={(e) => {
             e.preventDefault();
             addSubject();
             console.log(allNewTutorSubjectsArr);
-            }
-          }>add
-          </button>
+            }}>Add</button>
         </div>
-        <button type="submit">submit</button>
+        <button type='button' onClick={(e) => setFormDataFunc(e)}>Save</button>
+        <button type='submit'>Submit</button>
       </form>
     </>
   );

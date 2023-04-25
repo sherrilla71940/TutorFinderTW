@@ -4,6 +4,15 @@ type HttpMethod = 'GET' | "POST" | 'PUT' | 'DELETE'
 
 export default async function fetchFunction <T>(url: string, method: HttpMethod, setter: React.Dispatch<React.SetStateAction<T>>, body?: TutorInterface): Promise<void> {
   // returns promise that resolves to a response object readable stream
+
+  if (body) {
+    console.log('body exists')
+    console.log('not stringified:', body);
+    console.log('stringified:', JSON.stringify(body));
+  } else if (!body) {
+    console.log('body does not exist')
+  }
+
   const fetchOptions: RequestInit = {
     method: method,
     headers: {

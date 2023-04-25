@@ -2,12 +2,18 @@ import React from 'react';
 import TutorInterface from '../custom-types/tutor-interface';
 import TutorCard from '../components/tutor-card';
 import { NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
 
 type Props = {
   tutors: TutorInterface[]
 }
 
+
+
 function Tutors ({tutors}: Props) {
+
+  useEffect(() => console.log('updated tutors'), [tutors])
+
   return (
     <>
     <nav>

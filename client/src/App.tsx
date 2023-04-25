@@ -22,6 +22,10 @@ function App() {
 
   const [tutors, setTutors] = useState<TutorInterface[]>([]);
 
+  function setTutorsFunc (data: any) {
+    setTutors(data);
+  }
+
   useEffect(() => {
     (async () => {
       try {
@@ -61,7 +65,7 @@ function App() {
               <Route index element={<Tutors tutors={tutors}/>}/>
               <Route path=":id" element={<Tutor tutors={tutors}/>}/>
           </Route>
-          <Route path="/register" element={<Register/>}/>
+          <Route path="/register" element={<Register tutorsSetter={setTutorsFunc}/>}/>
           <Route path='*' element={<NotFound/>}/>
       </Routes>
       {/* <Outlet/> */}
