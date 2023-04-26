@@ -14,17 +14,14 @@ export async function getAllTutors (req: Request, res: Response): Promise<void> 
 }
 
 export async function addTutor (req: Request, res: Response): Promise<void>{
-  console.log(req.body);
   try {
     const newTutor = await Tutor.create(req.body);
-    console.log(newTutor)
     const allTutors = await Tutor.find({});
     res.status(201);
     res.json(allTutors);
   } catch (e: unknown) {
     res.status(400);
       if (e instanceof Error) {
-        console.log(e.message);
         res.json('could not create tutor, remember that your email must be unique')
       }
       else {

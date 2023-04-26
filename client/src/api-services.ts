@@ -3,15 +3,7 @@ import TutorInterface from './custom-types/tutor-interface'
 type HttpMethod = 'GET' | "POST" | 'PUT' | 'DELETE'
 
 export default async function fetchFunction <T>(url: string, method: HttpMethod, setter: React.Dispatch<React.SetStateAction<T>>, body?: TutorInterface): Promise<void> {
-  // returns promise that resolves to a response object readable stream
-
-  if (body) {
-    console.log('body exists')
-    console.log('not stringified:', body);
-    console.log('stringified:', JSON.stringify(body));
-  } else if (!body) {
-    console.log('body does not exist')
-  }
+  // fetch api returns a promise that resolves to a response object readable stream, when calling .json on it returns another promise that resolves to JS object of data
 
   const fetchOptions: RequestInit = {
     method: method,
@@ -26,22 +18,8 @@ export default async function fetchFunction <T>(url: string, method: HttpMethod,
   try {
     const responseObj = await fetch(url, fetchOptions);
     const tutors = await responseObj.json();
-    // console.log(tutors);
     setter(tutors);
   } catch (e: unknown) {
     console.log(e);
   }
 }
-
-
-//     const response = await fetch(`http://${host}:${port}`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: mockTutorJSON
-//     });
-//     const jsonData: string = await response.json();
-//     tutorIds.push((JSON.parse(jsonData)._id).toString())
-//     expect(jsonData).toContain('_id');
-//     console.log(tutorIds);

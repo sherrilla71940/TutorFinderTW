@@ -2,24 +2,13 @@ import React, {useState, useEffect} from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import TutorInterface, {Subject, Subjects} from '../custom-types/tutor-interface';
 import fetchFunction from '../api-services';
-// import { useState } from 'react';
 
-// define type for props
-
-// when user submits, if successful redirect to tutors page, if unsuccessful render unsuccesfful component message (set to false first, when fail submit set true, then when success set false again)
 
 type Props = {
   tutorsSetter: (data: any) => void
 }
 
 function Register ({tutorsSetter}: Props) {
-
-
-  // define interface above for shape of form data, currently wondering if the shape should be the same as TutorInterface
-
-  // type SubjectsForm = {
-
-  // }
 
   const [userHasSubmit, setHasUserSubmit] = useState<boolean>(false);
   const [submissionFailure, setSubmissionFailure] = useState<boolean>(false);
@@ -33,9 +22,6 @@ function Register ({tutorsSetter}: Props) {
   const [newTutorIntroduction, setNewTutorIntroduction] = useState<string>('');
   const [newTutorInPerson, setNewTutorInPerson] = useState<boolean>(false);
   const [newTutorRemote, setNewTutorRemote] = useState<boolean>(false);
-  // const [userFormData, setUserFormData] = useState: <FormData>('' as FormData); // come back to this later
-  // after submitting form change global state of all tutors
-  // then redirect
 
   const [newTutorSubjectName, setNewTutorSubjectName] = useState<string>('');
   const [newTutorSubjectBranchName, setNewTutorSubjectBranchName] = useState<string>('');
@@ -47,7 +33,6 @@ function Register ({tutorsSetter}: Props) {
   const navigate = useNavigate();
 
   function setFormDataFunc (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    // e.preventDefault();
     setUserFormData({
       name: newTutorName,
       profileUrl: newTutorProfileUrl,
@@ -61,21 +46,18 @@ function Register ({tutorsSetter}: Props) {
     });
   }
 
-  // useEffect(() => console.log(userFormData), [userFormData]);
 
   async function postTutorAndRedirect (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!allNewTutorSubjectsArr.length) return;
-    // setFormDataFunc();
       try {
-        // const copyUserFormData = JSON.parse(JSON.stringify(userFormData))
         await fetchFunction(`http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}`, 'POST', tutorsSetter, userFormData);
         setSubmissionFailure(false);
         navigate('/');
       } catch(e) {
         console.log(e);
-        setSubmissionFailure(true);
         // if formsubmissionfailure is set to true, render extra 'failed to submit' component
+        setSubmissionFailure(true);
       }
   }
 
@@ -88,10 +70,6 @@ function Register ({tutorsSetter}: Props) {
         hourlyRate: newTutorSubjectBranchRate
       }]
     };
-
-    // const foundSubj: Subject = {...(allNewTutorSubjectsArr.find(subjObj => subjObj.subject === newSubj.subject))};
-
-    // let subObjWithNewBranches = {};
 
     let includesSubj = false;
     allNewTutorSubjectsArr.forEach(subObj => {
@@ -115,47 +93,14 @@ function Register ({tutorsSetter}: Props) {
       });
       setAllNewTutorSubjectsArr(transformedCopy);
     }
-
-    // allNewTutorSubjectsArr.forEach(subObj => {
-    //   if (subObj.subject === newSubj.subject) {
-    //     includesSubj = true;
-    //     newSubj.branches = [...subObj.branches, ...newSubj.branches];
-    //     setAllNewTutorSubjectsArr({...allNewTutorSubjectsArr, newSubj});
-    //     const allSubjArrCopy = [...allNewTutorSubjectsArr];
-    //     allSubjArrCopy.forEach(subObj => {
-    //       if (subObj.subject === newSubj.subject) {
-    //         delete subObj.branches;
-    //       });
-    //     }
-    //   }
-
-    // if (!foundSubj) setAllNewTutorSubjectsArr([...allNewTutorSubjectsArr, newSubj]);
-    // else if (foundSubj) {
-    //   const transformedSubjObj = {
-    //     subject: foundSubj.subject,
-    //     branches: [...foundSubj.branches, ...newSubj.branches]
-    //   }
-    //   const newSubjArr = allNewTutorSubjectsArr.map(subjObj => {
-    //     if (subjObj.subject === transformedSubjObj.subject) {
-    //       return transformedSubjObj;
-    //     }
-    //     return subjObj;
-    //   });
-    //   setAllNewTutorSubjectsArr(newSubjArr);
-    // }
     return newSubj;
   }
 
   // tried making handleChange an async func, but realized that for some reason when i await setState and console.log state below that, the console.log does not wait for the await statement
   function handleChange <T>(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, setter: React.Dispatch<React.SetStateAction<T>>, value: any, state?: any) {
-    // console.log('before checking', state);
     if (typeof value === 'string' && value.length < 1) return;
     setter(value);
-    console.log(value);
-    // console.log('after checking', state)
   }
-
-  // useEffect(() => {console.log(newTutorRemote); console.log()}, [newTutorRemote])
 
   return (
     <>
@@ -184,7 +129,6 @@ function Register ({tutorsSetter}: Props) {
           <option value="female">female</option>
         </select>
         <label htmlFor="introduction">Introduce Yourself: </label>
-        {/* <input type="textfield" value='' name='introduction'/> */}
         <textarea name="introduction" id="introduction" cols={20} rows={5} onChange={(e) => handleChange(e, setNewTutorIntroduction, e.target.value)}></textarea>
         <fieldset>
           <legend>*How you will teach: </legend>
@@ -224,7 +168,6 @@ function Register ({tutorsSetter}: Props) {
             <button id='add-button' type="button" onClick={(e) => {
               e.preventDefault();
               addSubject();
-              console.log(allNewTutorSubjectsArr);
               }}>Add</button>
           </fieldset>
         </div>

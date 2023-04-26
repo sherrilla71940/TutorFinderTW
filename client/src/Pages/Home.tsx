@@ -1,12 +1,7 @@
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-// import TutorInterface from '../custom-types/tutor-interface';
-// import { Outlet } from 'react-router-dom';
 
-// type Props = {
-//   tutors: TutorInterface[] | []
-// }
 
 function Home () {
 
@@ -35,7 +30,6 @@ function Home () {
         <button onClick={() => navigate('/tutors')}>Find Tutors</button>
         </div>
       </div>
-        {/* <Outlet></Outlet> */}
     </div>
   );
 }
