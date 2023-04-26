@@ -69,7 +69,7 @@ function Register ({tutorsSetter}: Props) {
     // setFormDataFunc();
       try {
         // const copyUserFormData = JSON.parse(JSON.stringify(userFormData))
-        await fetchFunction('http://localhost:8080', 'POST', tutorsSetter, userFormData);
+        await fetchFunction(`http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}`, 'POST', tutorsSetter, userFormData);
         setSubmissionFailure(false);
         navigate('/');
       } catch(e) {

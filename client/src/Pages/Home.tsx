@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 // import TutorInterface from '../custom-types/tutor-interface';
@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 function Home () {
 
   const navigate = useNavigate();
+
+  useEffect(() => console.log(`http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}`))
 
   return (
     <div id='home-body'>
