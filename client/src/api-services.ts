@@ -1,4 +1,4 @@
-import TutorInterface from './custom-types/tutor-interface'
+import TutorInterface from './custom-types/types'
 
 type HttpMethod = 'GET' | "POST" | 'PUT' | 'DELETE'
 

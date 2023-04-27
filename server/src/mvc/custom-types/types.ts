@@ -1,4 +1,6 @@
-type Branch = {
+// below are TypeScript defintions
+// each subject can have different branches. For example subject=English, branch=English Language and Literature (more specific)
+export type Branch = {
   branch: string,
   hourlyRate: number
 }
@@ -8,14 +10,12 @@ export type Subject = {
   branches: Branch[]
 }
 
-export type Subjects = Subject[];
-
-type Location = {
+export type Location = {
   city: string,
   districts: string[] | 'entire city'
 };
 
-type Day = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
+export type Day = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
 
 enum Hour {
   twelveAM = '00:00',
@@ -44,28 +44,33 @@ enum Hour {
   elevenPM = '23:00'
 }
 
-type Timeslot = {
+export type Timeslot = {
   start: Hour,
   end: Hour
 }
 
-type Availability = {
+export type Availability = {
   day: Day
   timeslots: Timeslot[]
 }
 
-export default interface TutorInterface {
+interface Person {
   __v?: number,
   _id?: string,
   name: string,
-  profileUrl: string,
+  profilePicUrl: string,
   age: number,
   gender: string,
   email: string,
-  selfIntroduction?: string,
+  selfIntroduction?: string
+}
+
+export interface TutorInterface extends Person {
   remote: boolean,
   subjects: Subject[],
   inPerson: boolean,
   teachingLocations?: Location[]
   availability?: Availability[]
 }
+
+export type Student = Person

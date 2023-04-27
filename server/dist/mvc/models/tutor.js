@@ -24,33 +24,6 @@ const mongoose_1 = require("mongoose");
         }
     });
 })();
-var Hour;
-(function (Hour) {
-    Hour["twelveAM"] = "00:00";
-    Hour["oneAM"] = "01:00";
-    Hour["twoAM"] = "02:00";
-    Hour["threeAM"] = "03:00";
-    Hour["fourAM"] = "04:00";
-    Hour["fiveAM"] = "05:00";
-    Hour["sixAM"] = "06:00";
-    Hour["sevenAM"] = "07:00";
-    Hour["eightAM"] = "08:00";
-    Hour["nineAM"] = "09:00";
-    Hour["tenAM"] = "10:00";
-    Hour["elevenAM"] = "11:00";
-    Hour["twelvePM"] = "12:00";
-    Hour["onePM"] = "13:00";
-    Hour["twoPM"] = "14:00";
-    Hour["threePM"] = "15:00";
-    Hour["fourPM"] = "16:00";
-    Hour["fivePM"] = "17:00";
-    Hour["sixPM"] = "18:00";
-    Hour["sevenPM"] = "19:00";
-    Hour["eightPM"] = "20:00";
-    Hour["ninePM"] = "21:00";
-    Hour["tenPM"] = "22:00";
-    Hour["elevenPM"] = "23:00";
-})(Hour || (Hour = {}));
 // below are mongoose schema using ts types which we will use to create out tutor model
 const BranchSchema = new mongoose_1.Schema({
     branch: String,
@@ -65,7 +38,7 @@ const TutorSchema = new mongoose_1.Schema({
         type: String,
         required: true
     },
-    profileUrl: {
+    profilePicUrl: {
         type: String,
         required: true
     },

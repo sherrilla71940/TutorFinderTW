@@ -1,5 +1,5 @@
 import React from 'react';
-import {Routes, Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './Pages/Home';
 import Tutors from './Pages/Tutors';
@@ -9,7 +9,7 @@ import NotFound from './Pages/NotFound';
 
 import { useState, useEffect } from 'react';
 import fetchFunction from './api-services';
-import TutorInterface from './custom-types/tutor-interface';
+import TutorInterface from './custom-types/types';
 
 // have a global state for tutors,
 // and when create profile form is submitted,
@@ -20,7 +20,7 @@ function App() {
 
   const [tutors, setTutors] = useState<TutorInterface[]>([]);
 
-  function setTutorsFunc (data: any) {
+  function setTutorsFunc(data: TutorInterface[]) {
     setTutors(data);
   }
 
@@ -35,23 +35,21 @@ function App() {
     })();
   }, []);
 
-  useEffect(() => {
-    console.log(tutors);
-  }, [tutors]);
   return (
     <>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.classless.min.css" />
       <Routes>
-        <Route path="/" element={<Home/>}/>
-          <Route path="/tutors">
-              <Route index element={<Tutors tutors={tutors}/>}/>
-              <Route path=":id" element={<Tutor tutors={tutors}/>}/>
-          </Route>
-          <Route path="/register" element={<Register tutorsSetter={setTutorsFunc}/>}/>
-          <Route path='*' element={<NotFound/>}/>
+        <Route path="/" element={<Home />} />
+        <Route path="/tutors">
+          <Route index element={<Tutors tutors={tutors} />} />
+          <Route path=":id" element={<Tutor tutors={tutors} />} />
+        </Route>
+        <Route path="/register" element={<Register tutorsSetter={setTutorsFunc} />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
       {/* <Outlet/> */}
     </>
-    );
+  );
 }
 
 export default App;

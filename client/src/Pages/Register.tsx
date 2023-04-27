@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
-import TutorInterface, {Subject, Subjects} from '../custom-types/tutor-interface';
+import TutorInterface, {Subject, Subjects} from '../custom-types/types';
 import fetchFunction from '../api-services';
 
 
