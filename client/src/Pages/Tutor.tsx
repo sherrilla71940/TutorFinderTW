@@ -56,6 +56,7 @@ function Tutor({ tutors }: Props) {
                 return (
                   <table key={subject.subject} border={1}>
                     <caption>{subject.subject}</caption>
+                    <caption>{subject.subject}</caption>
                     <thead>
                       <tr>
                         <th>Branch</th>

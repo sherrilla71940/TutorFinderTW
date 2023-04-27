@@ -20,7 +20,7 @@ function App() {
 
   const [tutors, setTutors] = useState<TutorInterface[]>([]);
 
-  function setTutorsFunc (data: any) {
+  function setTutorsFunc(data: TutorInterface[] | ((prevTutors: TutorInterface[]) => TutorInterface[])) {
     setTutors(data);
   }
 
@@ -35,9 +35,7 @@ function App() {
     })();
   }, []);
 
-  useEffect(() => {
-    console.log(tutors);
-  }, [tutors]);
+
   return (
     <>
       <Routes>

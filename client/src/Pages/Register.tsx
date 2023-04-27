@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, SetStateAction} from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import TutorInterface, {Subject, Subjects} from '../custom-types/tutor-interface';
 import fetchFunction from '../api-services';
 
 
 type Props = {
-  tutorsSetter: (data: any) => void
+  tutorsSetter: (data: TutorInterface[] | ((prevTutors: TutorInterface[]) => TutorInterface[]) )=> void;
 }
 
 function Register ({tutorsSetter}: Props) {
@@ -49,8 +49,10 @@ function Register ({tutorsSetter}: Props) {
 
   async function postTutorAndRedirect (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    console.log('test')
     if (!allNewTutorSubjectsArr.length) return;
       try {
+        console.log('test')
         // await fetchFunction(`http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}`, 'POST', tutorsSetter, userFormData);
         await fetchFunction(`http://localhost:8080`, 'POST', tutorsSetter, userFormData);
         setSubmissionFailure(false);
@@ -98,7 +100,7 @@ function Register ({tutorsSetter}: Props) {
   }
 
   // tried making handleChange an async func, but realized that for some reason when i await setState and console.log state below that, the console.log does not wait for the await statement
-  function handleChange <T>(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, setter: React.Dispatch<React.SetStateAction<T>>, value: any, state?: any) {
+  function handleChange <T>(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, setter: React.Dispatch<React.SetStateAction<T>>, value: SetStateAction<T>) {
     if (typeof value === 'string' && value.length < 1) return;
     setter(value);
   }
