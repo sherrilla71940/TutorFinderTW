@@ -18,6 +18,7 @@ export default async function fetchFunction <T>(url: string, method: HttpMethod,
   try {
     const responseObj = await fetch(url, fetchOptions);
     const tutors = await responseObj.json();
+    console.log(tutors)
     setter(tutors);
   } catch (e: unknown) {
     console.log(e);

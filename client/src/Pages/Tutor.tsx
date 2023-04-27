@@ -55,6 +55,7 @@ function Tutor({ tutors }: Props) {
             tutor.subjects.map((subject) => {
               return (
                 <table key={subject.subject} border={1}>
+                    <caption>{subject.subject}</caption>
                   <caption>{subject.subject}</caption>
                   <thead>
                     <tr>
