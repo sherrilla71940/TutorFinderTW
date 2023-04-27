@@ -73,7 +73,5 @@ export default interface TutorInterface extends Person {
   availability?: Availability[]
 }
 
-export interface Student extends Person {
-  // MORE INFO TO BE ADDED, IF ANY
-}
+export type Student = Person
 

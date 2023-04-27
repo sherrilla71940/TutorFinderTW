@@ -20,11 +20,7 @@ function App() {
 
   const [tutors, setTutors] = useState<TutorInterface[]>([]);
 
-<<<<<<< HEAD
   function setTutorsFunc(data: TutorInterface[] | ((prevState: TutorInterface[]) => TutorInterface[])) {
-=======
-  function setTutorsFunc(data: TutorInterface[] | ((prevTutors: TutorInterface[]) => TutorInterface[])) {
->>>>>>> dg-branch
     setTutors(data);
   }
 
@@ -39,10 +35,6 @@ function App() {
     })();
   }, []);
 
-<<<<<<< HEAD
-=======
-
->>>>>>> dg-branch
   return (
     <>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.classless.min.css" />
