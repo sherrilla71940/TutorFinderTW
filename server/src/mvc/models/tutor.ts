@@ -3,7 +3,8 @@ import {Schema, model, Model, Document, connect} from 'mongoose';
 // IIFE to connect to mongoDB
 (async function () {
   try {
-    await connect('mongodb://localhost/tutor');
+    // await connect('mongodb://localhost/tutor');
+    await connect('mongodb://127.0.0.1/tutor');
     console.log('connected to database!');
   } catch (e) {
     console.log(e, 'unsuccessful connection to database')

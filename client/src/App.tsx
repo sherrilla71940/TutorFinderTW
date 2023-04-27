@@ -27,7 +27,8 @@ function App() {
   useEffect(() => {
     (async () => {
       try {
-        await fetchFunction(`http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}`, 'GET', setTutors);
+        // await fetchFunction(`http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}`, 'GET', setTutors);
+        await fetchFunction(`http://localhost:8080`, 'GET', setTutors);
       } catch (e) {
         console.log(e);
       }

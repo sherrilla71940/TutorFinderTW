@@ -24,6 +24,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importStar(require("./app"));
-app_1.default.listen(app_1.PORT, () => {
+// app.listen(PORT, () => {
+app_1.default.listen(8080, () => {
     console.log(`app listening at http://${app_1.HOST}:${app_1.PORT}`);
 });
