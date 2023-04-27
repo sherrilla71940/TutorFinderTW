@@ -20,7 +20,7 @@ function App() {
 
   const [tutors, setTutors] = useState<TutorInterface[]>([]);
 
-  function setTutorsFunc(data: TutorInterface[]) {
+  function setTutorsFunc(data: TutorInterface[] | ((prevState: TutorInterface[]) => TutorInterface[])) {
     setTutors(data);
   }
 

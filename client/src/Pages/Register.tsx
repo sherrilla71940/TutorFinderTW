@@ -5,7 +5,7 @@ import fetchFunction from '../api-services';
 
 
 type Props = {
-  tutorsSetter: (data: any) => void
+  tutorsSetter(data: TutorInterface[] | ((prevState: TutorInterface[]) => TutorInterface[])): void
 }
 
 function Register ({tutorsSetter}: Props) {
@@ -35,7 +35,7 @@ function Register ({tutorsSetter}: Props) {
   function setFormDataFunc (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     setUserFormData({
       name: newTutorName,
-      profileUrl: newTutorProfileUrl,
+      profilePicUrl: newTutorProfileUrl,
       age: newTutorAge,
       gender: newTutorGender,
       email: newTutorEmail,
