@@ -15,7 +15,6 @@ const mongoose_1 = require("mongoose");
 (function () {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            // await connect('mongodb://localhost/tutor');
             yield (0, mongoose_1.connect)('mongodb://127.0.0.1/tutor');
             console.log('connected to database!');
         }

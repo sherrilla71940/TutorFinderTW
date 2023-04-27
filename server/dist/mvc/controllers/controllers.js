@@ -30,18 +30,20 @@ exports.getAllTutors = getAllTutors;
 function addTutor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            console.log(req.body);
             const newTutor = yield tutor_1.Tutor.create(req.body);
-            const allTutors = yield tutor_1.Tutor.find({});
             res.status(201);
-            res.json(allTutors);
+            res.end();
         }
         catch (e) {
             res.status(400);
             if (e instanceof Error) {
-                res.json('could not create tutor, remember that your email must be unique');
+                console.log('could not create tutor, remember that your email must be unique');
+                res.send('could not create tutor, remember that your email must be unique');
             }
             else {
-                res.json('could not create tutor');
+                console.log('could not create tutor');
+                res.send('could not create tutor');
             }
         }
     });
