@@ -6,9 +6,11 @@ import Tutors from './Pages/Tutors';
 import Tutor from './Pages/Tutor';
 import Register from './Pages/Register';
 import NotFound from './Pages/NotFound';
+// import {userDataContext} from "./context/context";
+
 
 import { useState, useEffect } from 'react';
-import fetchFunction from './api-services';
+import {fetchFunction} from './api-services';
 import TutorInterface from './custom-types/tutor-interface';
 
 // have a global state for tutors,
@@ -20,15 +22,33 @@ function App() {
 
   const [tutors, setTutors] = useState<TutorInterface[]>([]);
 
-  function setTutorsFunc(data: TutorInterface[] | ((prevTutors: TutorInterface[]) => TutorInterface[])) {
+  function setTutorsFunc(data:TutorInterface[]) {
     setTutors(data);
   }
+
+  async function postTutorAndRedirect (userFormData:TutorInterface) {
+    // if (!allNewTutorSubjectsArr.length) return;
+    try {
+      console.log(userFormData)
+      // await fetchFunction(`http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}`, 'POST', tutorsSetter, userFormData);
+      await fetchFunction(`http://localhost:8080`, 'POST', setTutorsFunc, userFormData);
+      // setSubmissionFailure(false);
+      // navigate('/');
+    } catch(e) {
+      console.log(e);
+      // if formsubmissionfailure is set to true, render extra 'failed to submit' component
+      // setSubmissionFailure(true);
+    }
+  }
+
+
+
 
   useEffect(() => {
     (async () => {
       try {
         // await fetchFunction(`http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}`, 'GET', setTutors);
-        await fetchFunction(`http://localhost:8080`, 'GET', setTutors);
+        await fetchFunction(`http://localhost:8080`, 'GET', setTutorsFunc);
       } catch (e) {
         console.log(e);
       }
@@ -44,9 +64,10 @@ function App() {
               <Route index element={<Tutors tutors={tutors}/>}/>
               <Route path=":id" element={<Tutor tutors={tutors}/>}/>
           </Route>
-          <Route path="/register" element={<Register tutorsSetter={setTutorsFunc}/>}/>
+          <Route path="/register" element={<Register postTutorAndRedirect={postTutorAndRedirect} />}/>
           <Route path='*' element={<NotFound/>}/>
       </Routes>
+        
       {/* <Outlet/> */}
     </>
     );

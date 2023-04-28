@@ -1,14 +1,13 @@
-import React, {useState, useEffect, SetStateAction} from 'react';
+import React, {useState, useEffect, SetStateAction, FormEventHandler} from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import TutorInterface, {Subject, Subjects} from '../custom-types/tutor-interface';
-import fetchFunction from '../api-services';
-
 
 type Props = {
-  tutorsSetter: (data: TutorInterface[] | ((prevTutors: TutorInterface[]) => TutorInterface[]) )=> void;
+  postTutorAndRedirect(data: TutorInterface ):void
 }
 
-function Register ({tutorsSetter}: Props) {
+
+function Register ({postTutorAndRedirect}:Props) {
 
   const [userHasSubmit, setHasUserSubmit] = useState<boolean>(false);
   const [submissionFailure, setSubmissionFailure] = useState<boolean>(false);
@@ -32,40 +31,29 @@ function Register ({tutorsSetter}: Props) {
 
   const navigate = useNavigate();
 
-  function setFormDataFunc (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    setUserFormData({
-      name: newTutorName,
-      profileUrl: newTutorProfileUrl,
-      age: newTutorAge,
-      gender: newTutorGender,
-      email: newTutorEmail,
-      remote: newTutorRemote,
-      subjects: allNewTutorSubjectsArr,
-      inPerson: newTutorInPerson,
-      selfIntroduction: newTutorIntroduction ? newTutorIntroduction : ''
-    });
-  }
+  
+    
 
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+      e.preventDefault()
+      const newTutor = {
+        name: newTutorName,
+        profileUrl: newTutorProfileUrl,
+        age: newTutorAge,
+        gender: newTutorGender,
+        email: newTutorEmail, 
+        remote: newTutorRemote, 
+        subjects: allNewTutorSubjectsArr,
+        inPerson: newTutorInPerson,
+        selfIntroduction: newTutorIntroduction ? newTutorIntroduction : ''
+      };
+ 
+      await postTutorAndRedirect(newTutor as TutorInterface);
+      navigate('/');
+    }
 
-  async function postTutorAndRedirect (e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    console.log('test')
-    if (!allNewTutorSubjectsArr.length) return;
-      try {
-        console.log('test')
-        // await fetchFunction(`http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}`, 'POST', tutorsSetter, userFormData);
-        await fetchFunction(`http://localhost:8080`, 'POST', tutorsSetter, userFormData);
-        setSubmissionFailure(false);
-        navigate('/');
-      } catch(e) {
-        console.log(e);
-        // if formsubmissionfailure is set to true, render extra 'failed to submit' component
-        setSubmissionFailure(true);
-      }
-  }
 
   function addSubject (): Subject {
-
     const newSubj: Subject = {
       subject: newTutorSubjectName,
       branches: [{
@@ -102,6 +90,8 @@ function Register ({tutorsSetter}: Props) {
   // tried making handleChange an async func, but realized that for some reason when i await setState and console.log state below that, the console.log does not wait for the await statement
   function handleChange <T>(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, setter: React.Dispatch<React.SetStateAction<T>>, value: SetStateAction<T>) {
     if (typeof value === 'string' && value.length < 1) return;
+    
+    console.log(newTutorName)
     setter(value);
   }
 
@@ -117,17 +107,17 @@ function Register ({tutorsSetter}: Props) {
         </li>
       </ul>
     </nav>
-      <form action="" onSubmit={async (e) => postTutorAndRedirect(e)} id='tutor-registration-form'>
-        <label htmlFor="profile">*Your Profile Picture URL: </label>
+      <form data-testid ='form' action="" onSubmit={handleSubmit} id='tutor-registration-form'>
+        <label data-testid ='urlInput' htmlFor="profile">*Your Profile Picture URL: </label>
         <input type="text" value={newTutorProfileUrl} onChange={(e) => handleChange(e, setNewTutorProfileUrl, e.target.value)} name='profile'required/>
         <label htmlFor="name">*Your name: </label>
-        <input type="text" value={newTutorName} name='name'required onChange={(e) => handleChange(e, setNewTutorName, e.target.value)}/>
+        <input data-testid = 'nameInput' type="text" value={newTutorName} name='name' required onChange={(e) => handleChange(e, setNewTutorName, e.target.value)}/>
         <label htmlFor="email">*Your email: </label>
-        <input type="email" name="email" id="email" value={newTutorEmail} required onChange={(e) => handleChange(e, setNewTutorEmail, e.target.value)}/>
+        <input data-testid='emailInput' type="email" name="email" id="email" value={newTutorEmail} required onChange={(e) => handleChange(e, setNewTutorEmail, e.target.value)}/>
         <label htmlFor="age">*Your age: </label>
-        <input type="number" name='age' min={0} max={150} defaultValue={18} required onChange={(e) => handleChange(e, setNewTutorAge, e.target.valueAsNumber)}/>
+        <input data-testid = 'ageInput' type="number" name='age' min={0} max={150} defaultValue={18} required onChange={(e) => handleChange(e, setNewTutorAge, e.target.valueAsNumber)}/>
         <label htmlFor="gender">*Your gender: </label>
-        <select name="gender" id="gender" required onChange={(e) => {handleChange(e, setNewTutorGender, e.target.value)}}>
+        <select data-testid ='genderInput' name="gender" id="gender" required onChange={(e) => {handleChange(e, setNewTutorGender, e.target.value)}}>
           <option value="male">male</option>
           <option value="female">female</option>
         </select>
@@ -141,7 +131,7 @@ function Register ({tutorsSetter}: Props) {
           </div>
           <div>
             <label htmlFor="in-person">In-person </label>
-            <input type="checkbox" name="in-person" id="in-person" onChange={(e) => handleChange(e, setNewTutorInPerson, e.target.checked)}/>
+            <input data-testid ='inPersonInput' type="checkbox" name="in-person" id="in-person" onChange={(e) => handleChange(e, setNewTutorInPerson, e.target.checked)}/>
           </div>
         </fieldset>
         {/* below is subjects form */}
@@ -149,7 +139,7 @@ function Register ({tutorsSetter}: Props) {
           <fieldset>
             <legend>*Add courses you will teach:</legend>
             <label htmlFor="subject">*Subject: </label>
-              <select required name="subject" id="subject" onChange={(e) => {handleChange(e, setNewTutorSubjectName, e.target.value)}}>
+              <select data-testid = 'subjectInput' required name="subject" id="subject" onChange={(e) => {handleChange(e, setNewTutorSubjectName, e.target.value)}}>
                 <option selected>Select a Subject</option>
                 <option value="Arts">Arts</option>
                 <option value="Business and Economics">Business and Economics</option>
@@ -165,7 +155,7 @@ function Register ({tutorsSetter}: Props) {
                 <option value="Social Sciences">Social Sciences</option>
               </select>
               <label htmlFor="branch">*Branch: </label>
-              <input type="text" required name='branch' value={newTutorSubjectBranchName} onChange={(e) => handleChange(e, setNewTutorSubjectBranchName, e.target.value)}/>
+              <input data-testid = 'branchInput' type="text" required name='branch' value={newTutorSubjectBranchName} onChange={(e) => handleChange(e, setNewTutorSubjectBranchName, e.target.value)}/>
               <label htmlFor="hourly-rate">*Hourly Rate: </label>
               <input type="number" required name="hourly-rate" min={0} max={10000} step="25" defaultValue={300} onChange={(e) => handleChange(e, setNewTutorSubjectBranchRate, e.target.valueAsNumber)}/>
             <button id='add-button' type="button" onClick={(e) => {
@@ -174,7 +164,6 @@ function Register ({tutorsSetter}: Props) {
               }}>Add</button>
           </fieldset>
         </div>
-        <button type='button' onClick={(e) => setFormDataFunc(e)}>Save</button>
         <button type='submit'>Submit</button>
       </form>
     </>
