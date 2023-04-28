@@ -1,7 +1,7 @@
 [
   {
     "name": "Chen Hua",
-    "profileUrl": "https://randomuser.me/api/portraits/men/92.jpg",
+    "profilePicUrl": "https://randomuser.me/api/portraits/men/92.jpg",
     "age": 32,
     "gender": "Male",
     "email": "chenhua@gmail.com",
@@ -93,7 +93,7 @@
   },
   {
     "name": "Chang Lee",
-    "profileUrl": "https://example.com/chang-lee",
+    "profilePicUrl": "https://example.com/chang-lee",
     "age": 30,
     "gender": "Male",
     "email": "changlee@example.com",
@@ -178,7 +178,7 @@
   },
   {
     "name": "Lin Mei",
-    "profileUrl": "https://randomuser.me/api/portraits/women/27.jpg",
+    "profilePicUrl": "https://randomuser.me/api/portraits/women/27.jpg",
     "age": 28,
     "gender": "Female",
     "email": "linmei@gmail.com",
