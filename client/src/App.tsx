@@ -37,7 +37,7 @@ function App() {
 
   return (
     <>
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.classless.min.css" />
+      {/* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.classless.min.css" /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tutors">

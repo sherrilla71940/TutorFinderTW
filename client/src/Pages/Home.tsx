@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
+import NavBar from '../components/nav-bar';
 
 function Home() {
 
   const navigate = useNavigate();
 
   return (
+    <>
+    <NavBar />
     <div id='home-body'>
       <nav>
         <ul>
@@ -28,6 +30,7 @@ function Home() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

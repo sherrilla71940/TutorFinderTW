@@ -3,6 +3,7 @@ import { useParams, NavLink } from 'react-router-dom';
 import TutorInterface from '../custom-types/types';
 import { useState, useEffect } from 'react';
 import NotFound from './NotFound';
+import NavBar from '../components/nav-bar';
 
 type Props = {
   tutors: TutorInterface[];
@@ -23,20 +24,8 @@ function Tutor({ tutors }: Props) {
 
   else {
     return (
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <NavLink to="/" className='nav-link'>Tutor Finder Home Page</NavLink>
-            </li>
-            <li>
-              <NavLink to="/tutors" className='nav-link'>Find Tutors</NavLink>
-            </li>
-            <li>
-              <NavLink to="/register" className='nav-link'>Become a Tutor</NavLink>
-            </li>
-          </ul>
-        </nav>
+      <>
+        <NavBar />
         <div>
           <img
             src={tutor.profilePicUrl}
@@ -77,7 +66,7 @@ function Tutor({ tutors }: Props) {
               );
             })}
         </div>
-      </div>
+      </>
     );
   }
 

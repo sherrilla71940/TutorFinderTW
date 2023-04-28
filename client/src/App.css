@@ -1,3 +1,5 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css";
+
 * {
   box-sizing: border-box;
   color: #000;
@@ -126,3 +128,4 @@ ul li a {
   display: flex;
   flex-direction: column;
  }
+ 
