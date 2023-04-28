@@ -2,8 +2,8 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './Pages/Home';
-import Tutors from './Pages/Tutors';
-import Tutor from './Pages/Tutor';
+import TutorsList from './Pages/tutors-list';
+import TutorPage from './Pages/tutor-page';
 import Register from './Pages/Register';
 import NotFound from './Pages/NotFound';
 
@@ -41,8 +41,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tutors">
-          <Route index element={<Tutors tutors={tutors} />} />
-          <Route path=":id" element={<Tutor tutors={tutors} />} />
+          <Route index element={<TutorsList tutors={tutors} />} />
+          <Route path=":id" element={<TutorPage tutors={tutors} />} />
         </Route>
         <Route path="/register" element={<Register tutorsSetter={setTutorsFunc} />} />
         <Route path='*' element={<NotFound />} />

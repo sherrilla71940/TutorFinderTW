@@ -11,22 +11,47 @@ function TutorCard({ tutor, tutorKey }: Props) {
 
   return (
     // it appears that adding class name to tag remove colors applied to ative effect from navlink
-    <NavLink key={tutorKey} className="tutor-card" to={tutorKey}>
-      <img src={tutor.profilePicUrl} alt={tutor.name + '\'s profile picture'} />
-      <div>{tutor.name}</div>
-      <div>{tutor.gender}</div>
-      <div>{tutor.age}</div>
-      <div>
-        {
-          tutor.subjects.map((subObj) => {
-            return (
-              <div key={subObj.subject} className='course'>{subObj.subject}</div>
-            );
-          })
-        }
+    <NavLink key={tutorKey} to={tutorKey}>
+      <div className="card m-2 is-flex
+      is-flex-direction-column
+      is-flex-justify-content-space-evenly">
+
+        <div className='card-image'>
+          <figure className='image is-1by1'>
+            <img src={tutor.profilePicUrl} alt={tutor.name + '\'s profile picture'} />
+          </figure>
+        </div>
+
+        <div className='card-content'>
+          <p className='title is-5'>{tutor.name}</p>
+          <p className='subtitle is-6'>{tutor.age}
+            {
+              tutor.teachingLocations?.map((location) => {
+                return (
+                  <p key={location.city}>{location.city}</p>
+                  );
+                })
+              }
+          </p>
+
+          <div className='mb-2'>
+            {
+              tutor.subjects.map((subObj) => {
+                return (
+                  <p key={subObj.subject}>{subObj.subject}</p>
+                );
+              })
+            }
+          </div>
+
+
+        </div>
+
+        <div className='card-footer'>
+          {tutor.inPerson ? <div className='tag is-success m-1'>In-person</div> : null}
+          {tutor.remote ? <div className='tag is-link m-1'>Remote</div> : null}
+        </div>
       </div>
-      {tutor.inPerson ? <div className='tag'>In-person</div> : null}
-      {tutor.remote ? <div className='tag'>Remote</div> : null}
     </NavLink>
   );
 }

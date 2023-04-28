@@ -1,7 +1,6 @@
 import React from 'react';
 import TutorInterface from '../custom-types/types';
 import TutorCard from '../components/tutor-card';
-import { NavLink } from 'react-router-dom';
 import { useEffect } from 'react';
 import NavBar from '../components/nav-bar';
 
@@ -11,15 +10,15 @@ type Props = {
 
 
 
-function Tutors({ tutors }: Props) {
+function TutorsList({ tutors }: Props) {
 
   useEffect(() => console.log('updated tutors'), [tutors])
 
   return (
     <>
       <NavBar />
-      <div id='tutor-cards-wrapper'>
-        {
+      <div className='container is-flex is-flex-direction-row is-flex-wrap-wrap'>
+      {
           tutors.map((tutor) => {
             return (
               <TutorCard key={tutor._id as string} tutorKey={tutor._id as string} tutor={tutor} />
@@ -31,4 +30,4 @@ function Tutors({ tutors }: Props) {
   );
 }
 
-export default Tutors;
+export default TutorsList;

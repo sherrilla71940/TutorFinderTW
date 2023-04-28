@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, NavLink } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import TutorInterface from '../custom-types/types';
 import { useState, useEffect } from 'react';
 import NotFound from './NotFound';
@@ -9,7 +9,7 @@ type Props = {
   tutors: TutorInterface[];
 };
 
-function Tutor({ tutors }: Props) {
+function TutorPage({ tutors }: Props) {
   const { id } = useParams();
   const [tutor, setTutor] = useState<TutorInterface>({} as TutorInterface);
 
@@ -24,7 +24,7 @@ function Tutor({ tutors }: Props) {
 
   else {
     return (
-      <>
+      <div>
         <NavBar />
         <div>
           <img
@@ -44,7 +44,7 @@ function Tutor({ tutors }: Props) {
             tutor.subjects.map((subject) => {
               return (
                 <table key={subject.subject} border={1}>
-                    <caption>{subject.subject}</caption>
+                  <caption>{subject.subject}</caption>
                   <caption>{subject.subject}</caption>
                   <thead>
                     <tr>
@@ -66,11 +66,11 @@ function Tutor({ tutors }: Props) {
               );
             })}
         </div>
-      </>
+      </div>
     );
   }
 
 }
 
-export default Tutor;
+export default TutorPage;
 

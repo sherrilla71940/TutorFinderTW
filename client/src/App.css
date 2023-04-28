@@ -1,25 +1,7 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css";
 
-* {
-  box-sizing: border-box;
-  color: #000;
-}
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #eef3ff;
-}
-
-.nav-link {
-  font-weight: 500;
-  font-size: 2rem;
-}
-
-#registration-buttons-container {
-  display: flex;
-  flex-direction: column;
+.card{
+  width: 20vw;
 }
 
 table {
@@ -34,14 +16,6 @@ th {
 
 #add-button {
   margin-left: 6px;
-}
-
-#home-body {
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 10%;
-
 }
 
 #home-buttons-container {
@@ -82,49 +56,7 @@ ul li a {
   color: #1900ff;
  }
 
- #tutor-cards-wrapper {
-  width: 85vw;
-  background-color: rgb(255, 255, 255);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
- }
-
- .tutor-card {
-  display: flex;
-  flex-direction: column;
-  padding: 3%;
-  margin: 5%;
-  border: 1px solid black;
-  text-decoration: none;
-  padding: 1%;
-  margin: 2%;
-  width: 80%;
- }
-
- .tutor-card img {
-  width: 20%;
-  height: 30%;
- }
-
- .tutor-card .course {
-  background-color: #4ea29f;
-  color: rgb(255, 255, 255);
-  margin: 5px;
-  padding: 3px;
- }
-
- .tutor-card .tag {
-  background-color: #495cc6;
-  color: antiquewhite;
-  margin: 5px;
-  padding: 3px;
-  width: 30%;
-  text-align:center
- }
-
- #tutor-registration-form {
+#tutor-registration-form {
   display: flex;
   flex-direction: column;
  }
