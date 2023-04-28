@@ -38,7 +38,7 @@ function Register ({postTutorAndRedirect}:Props) {
       e.preventDefault()
       const newTutor = {
         name: newTutorName,
-        profileUrl: newTutorProfileUrl,
+        profilePicUrl: newTutorProfileUrl,
         age: newTutorAge,
         gender: newTutorGender,
         email: newTutorEmail, 
@@ -99,8 +99,8 @@ function Register ({postTutorAndRedirect}:Props) {
     <>
 <NavBar />
       <form data-testid ='form' action="" onSubmit={handleSubmit} id='tutor-registration-form'>
-        <label data-testid ='urlInput' htmlFor="profile">*Your Profile Picture URL: </label>
-        <input type="text" value={newTutorProfileUrl} onChange={(e) => handleChange(e, setNewTutorProfileUrl, e.target.value)} name='profile'required/>
+        <label  htmlFor="profile">*Your Profile Picture URL: </label>
+        <input data-testid ='urlInput' type="text" value={newTutorProfileUrl} onChange={(e) => handleChange(e, setNewTutorProfileUrl, e.target.value)} name='profile'required/>
         <label htmlFor="name">*Your name: </label>
         <input data-testid = 'nameInput' type="text" value={newTutorName} name='name' required onChange={(e) => handleChange(e, setNewTutorName, e.target.value)}/>
         <label htmlFor="email">*Your email: </label>
@@ -126,35 +126,35 @@ function Register ({postTutorAndRedirect}:Props) {
           </div>
         </fieldset>
         {/* below is subjects form */}
-        <div className='add-subject-wrapper'>
-          <fieldset>
-            <legend>*Add courses you will teach:</legend>
-            <label htmlFor="subject">*Subject: </label>
-              <select data-testid = 'subjectInput' required name="subject" id="subject" onChange={(e) => {handleChange(e, setNewTutorSubjectName, e.target.value)}}>
-                <option selected>Select a Subject</option>
-                <option value="Arts">Arts</option>
-                <option value="Business and Economics">Business and Economics</option>
-                <option value="Communication Studies">Communication Studies</option>
-                <option value="Computer Science">Computer Science</option>
-                <option value="Education and Teaching">Education and Teaching</option>
-                <option value="Engineering">Engineering</option>
-                <option value="Environmental Studies">Environmental Studies and Sustainability</option>
-                <option value="Health Sciences">Health Sciences</option>
-                <option value="Humanities">Humanities</option>
-                <option value="Law and Government">Law and Government</option>
-                <option value="Natural Sciences">Natural Sciences</option>
-                <option value="Social Sciences">Social Sciences</option>
-              </select>
-              <label htmlFor="branch">*Branch: </label>
-              <input data-testid = 'branchInput' type="text" required name='branch' value={newTutorSubjectBranchName} onChange={(e) => handleChange(e, setNewTutorSubjectBranchName, e.target.value)}/>
-              <label htmlFor="hourly-rate">*Hourly Rate: </label>
-              <input type="number" required name="hourly-rate" min={0} max={10000} step="25" defaultValue={300} onChange={(e) => handleChange(e, setNewTutorSubjectBranchRate, e.target.valueAsNumber)}/>
-            <button id='add-button' type="button" onClick={(e) => {
-              e.preventDefault();
-              addSubject();
-            }}>Add</button>
-          </fieldset>
-        </div>
+        {/*<div className='add-subject-wrapper'>*/}
+        {/*  <fieldset>*/}
+        {/*    <legend>*Add courses you will teach:</legend>*/}
+        {/*    <label htmlFor="subject">*Subject: </label>*/}
+        {/*      <select data-testid = 'subjectInput'   required name="subject" id="subject" onChange={(e) => {handleChange(e, setNewTutorSubjectName, e.target.value)}}>*/}
+        {/*        <option selected>Select a Subject</option>*/}
+        {/*        <option value="Arts">Arts</option>*/}
+        {/*        <option  value="Business and Economics">Business and Economics</option>*/}
+        {/*        <option value="Communication Studies">Communication Studies</option>*/}
+        {/*        <option value="Computer Science">Computer Science</option>*/}
+        {/*        <option value="Education and Teaching">Education and Teaching</option>*/}
+        {/*        <option value="Engineering">Engineering</option>*/}
+        {/*        <option value="Environmental Studies">Environmental Studies and Sustainability</option>*/}
+        {/*        <option value="Health Sciences">Health Sciences</option>*/}
+        {/*        <option value="Humanities">Humanities</option>*/}
+        {/*        <option value="Law and Government">Law and Government</option>*/}
+        {/*        <option value="Natural Sciences">Natural Sciences</option>*/}
+        {/*        <option value="Social Sciences">Social Sciences</option>*/}
+        {/*      </select>*/}
+        {/*      <label htmlFor="branch">*Branch: </label>*/}
+        {/*      <input data-testid = 'branchInput' type="text" required name='branch' value={newTutorSubjectBranchName} onChange={(e) => handleChange(e, setNewTutorSubjectBranchName, e.target.value)}/>*/}
+        {/*      <label htmlFor="hourly-rate">*Hourly Rate: </label>*/}
+        {/*      <input type="number" required name="hourly-rate" min={0} max={10000} step="25" defaultValue={300} onChange={(e) => handleChange(e, setNewTutorSubjectBranchRate, e.target.valueAsNumber)}/>*/}
+        {/*    <button id='add-button' type="button" onClick={(e) => {*/}
+        {/*      e.preventDefault();*/}
+        {/*      addSubject();*/}
+        {/*    }}>Add</button>*/}
+        {/*  </fieldset>*/}
+        {/*</div>*/}
         <button type='submit'>Submit</button>
       </form>
     </>
