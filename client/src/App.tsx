@@ -5,7 +5,7 @@ import Home from './Pages/Home';
 import TutorsList from './Pages/tutors-list';
 import TutorPage from './Pages/tutor-page';
 import Register from './Pages/Register';
-import NotFound from './Pages/NotFound';
+import NotFound from './Pages/not-found-page';
 
 import { useState, useEffect } from 'react';
 import fetchFunction from './api-services';
