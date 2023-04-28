@@ -5,7 +5,7 @@ function NotFound () {
   return (
     <>
       <NavBar />
-      <h1>Content Not Found</h1>
+      <h1 className='title'>Content Not Found</h1>
     </>
   );
 }

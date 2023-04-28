@@ -1,8 +1,18 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import icon from '../assets/icon.png'
+import { useEffect } from "react";
 
 export default function NavBar() {
+
+  function showSignUpModal() {
+    const modal = document.getElementsByClassName("modal");
+    modal[0]?.classList.add('is-active');
+  }
+
+  useEffect(() => {
+    document.getElementById('signUpButton')?.addEventListener('click', showSignUpModal);
+  })
 
   return (
     <>
@@ -25,8 +35,9 @@ export default function NavBar() {
         </div>
 
         <div className="navbar-end is-flex-wrap-wrap is-align-content-center mr-2">
-          <div className="navbar-item button m-1">
-            <NavLink to='/register'>Sign up</NavLink>
+          <div id="signUpButton" className="navbar-item button m-1">
+            {/* <NavLink to='/register'>Sign up</NavLink> */}
+            Sign up
           </div>
           <div className="navbar-item button m-1">
             <NavLink to='/'>Log in</NavLink>

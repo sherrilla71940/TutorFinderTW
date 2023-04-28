@@ -6,6 +6,7 @@ import TutorsList from './Pages/tutors-list';
 import TutorPage from './Pages/tutor-page';
 import Register from './Pages/Register';
 import NotFound from './Pages/not-found-page';
+import SignUpModal from './components/sign-up';
 
 import { useState, useEffect } from 'react';
 import fetchFunction from './api-services';
@@ -48,6 +49,7 @@ function App() {
         <Route path='*' element={<NotFound />} />
       </Routes>
       {/* <Outlet/> */}
+      <SignUpModal />
     </>
   );
 }
