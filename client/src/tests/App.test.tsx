@@ -10,6 +10,7 @@ describe('home page', () => {
     test('renders the title', () => {
         render(<Router><Home/></Router>)
         const linkElement = screen.getByText(/Tutor Finder Home Page/i);
+        2
         expect(linkElement).toBeInTheDocument();
     });
 
@@ -41,7 +42,6 @@ describe('register page', () => {
             age: 10,
             gender: 'male',
             remote: true,
-
             inPerson: true
         })
     }));
