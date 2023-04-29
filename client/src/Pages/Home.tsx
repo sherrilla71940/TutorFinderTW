@@ -1,11 +1,9 @@
 import React from 'react';
-import NavBar from '../components/nav-bar';
 
 function Home() {
 
   return (
     <>
-      <NavBar />
       <section className="hero is-link is-halfheight">
         <div className="hero-body">
           <div>

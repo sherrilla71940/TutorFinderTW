@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useState } from "react";
-import NavBar from "../components/nav-bar";
 import { NavLink, useNavigate } from "react-router-dom";
 import { signUpRequest } from "../api-services";
 import { validateEmail, validatePassword } from "../utils/validatiors";
@@ -37,19 +36,15 @@ export default function StudentSignUpForm() {
           setName("");
           setEmail("");
           setPassword("");
-          // document.querySelectorAll("input").forEach((element) => element.value = "");
           navigate('/');
         })
     } catch (error) {
       console.error(error);
     }
-    // TODO: LOGIC FOR FAILED REGISTRATION
-    // FIX: STATE GETS CLEARED BUT THE FORM DOES NOT RE-RENDER
   }
 
   return (
     <>
-      <NavBar />
       <section className="p-6">
         <h2 className="title">New student sign up</h2>
           <div className="field">

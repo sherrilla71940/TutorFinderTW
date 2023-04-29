@@ -48,6 +48,11 @@ export default function NavBar() {
     setCurrentUser({});
     sessionStorage.clear();
     navigate('/');
+    window.location.reload();
+  }
+
+  function goToChats() {
+    navigate('/chats');
   }
 
   useEffect(() => {
@@ -85,12 +90,13 @@ export default function NavBar() {
           {!loggedIn ? <div id="loginButton" className="navbar-item button m-1">
             Log in
           </div> : null}
-          {loggedIn ? 
-          <>
-            <p className="subtitle mt-3 mr-2">Welcome, {sessionStorage.name}!</p>
-            <div id="logoutButton" className="navbar-item button m-1" onClick={logOut}>Log out</div>
-          </>
-           : null}
+          {loggedIn ?
+            <>
+              <p className="subtitle mt-3 mr-2">Welcome, {sessionStorage.name}!</p>
+              <div id="messagesButton" className="navbar-item button m-1" onClick={goToChats}>Messages</div> 
+              <div id="logoutButton" className="navbar-item button m-1" onClick={logOut}>Log out</div>
+            </>
+            : null}
         </div>
       </nav>
       <SignUpModal toggleSignUpModal={toggleSignUpModal} />

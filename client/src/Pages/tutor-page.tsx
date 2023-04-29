@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import TutorInterface from '../custom-types/types';
 import { useState, useEffect } from 'react';
 import NotFound from './not-found-page';
-import NavBar from '../components/nav-bar';
 
 type Props = {
   tutors: TutorInterface[];
@@ -25,7 +24,6 @@ function TutorPage({ tutors }: Props) {
   else {
     return (
       <>
-        <NavBar />
         <section className='section is-flex is-flex-direction-row'>
           <figure className='image mr-2'>
             <img src={tutor.profilePicUrl} alt='tutor image' />

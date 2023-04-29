@@ -27,11 +27,13 @@ const express_1 = require("express");
 const router = (0, express_1.Router)();
 const controller = __importStar(require("./mvc/controllers/controllers"));
 const auth_1 = __importStar(require("./mvc/controllers/auth"));
-router.get('/', controller.getAllTutors);
-router.get('/:id', controller.getTutor);
-router.post('/', controller.addTutor);
-router.put('/:id', controller.updateTutor);
-router.delete('/:id', controller.deleteTutor);
+const verify_1 = require("./mvc/verify");
+// TODO: ADD PROPER ROUTES
+router.get('/', verify_1.verifyToken, controller.getAllTutors);
+router.get('/:id', verify_1.verifyToken, controller.getTutor);
+router.post('/', verify_1.verifyToken, controller.addTutor);
+router.put('/:id', verify_1.verifyToken, controller.updateTutor);
+router.delete('/:id', verify_1.verifyToken, controller.deleteTutor);
 router.post('/signup', auth_1.default);
 router.post('/login', auth_1.loginUser);
 exports.default = router;

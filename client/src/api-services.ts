@@ -13,6 +13,7 @@ export default async function fetchFunction <T>(url: string, method: HttpMethod,
   const fetchOptions: RequestInit = {
     method: method,
     headers: {
+      'Authorization': sessionStorage.getItem('session')!,
       'Content-Type': 'application/json'
     }
   }

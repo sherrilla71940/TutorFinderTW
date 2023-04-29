@@ -4,13 +4,15 @@ import './App.css';
 import Home from './Pages/Home';
 import TutorsList from './Pages/tutors-list';
 import TutorPage from './Pages/tutor-page';
-import Register from './Pages/Register';
+import Register from './Pages/tutor-registration';
 import NotFound from './Pages/not-found-page';
 import StudentSignUpForm from './Pages/student-registration';
+import Chats from './Pages/chats';
 
 import { useState, useEffect } from 'react';
 import fetchFunction from './api-services';
 import TutorInterface from './custom-types/types';
+import NavBar from './components/nav-bar';
 
 // have a global state for tutors,
 // and when create profile form is submitted,
@@ -21,11 +23,11 @@ function App() {
 
   const [tutors, setTutors] = useState<TutorInterface[]>([]);
 
-  function setTutorsFunc(data:TutorInterface[]) {
+  function setTutorsFunc(data: TutorInterface[]) {
     setTutors(data);
   }
 
-  async function postTutorAndRedirect (userFormData:TutorInterface) {
+  async function postTutorAndRedirect(userFormData: TutorInterface) {
     // if (!allNewTutorSubjectsArr.length) return;
     try {
       console.log(userFormData)
@@ -33,7 +35,7 @@ function App() {
       await fetchFunction(`http://localhost:8080`, 'POST', setTutorsFunc, userFormData);
       // setSubmissionFailure(false);
       // navigate('/');
-    } catch(e) {
+    } catch (e) {
       console.log(e);
       // if formsubmissionfailure is set to true, render extra 'failed to submit' component
       // setSubmissionFailure(true);
@@ -56,19 +58,18 @@ function App() {
 
   return (
     <>
-      {/* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.classless.min.css" /> */}
+      <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tutors">
           <Route index element={<TutorsList tutors={tutors} />} />
           <Route path=":id" element={<TutorPage tutors={tutors} />} />
         </Route>
-        <Route path="/register" element={<Register postTutorAndRedirect={postTutorAndRedirect}  />} />
+        <Route path="/register" element={<Register postTutorAndRedirect={postTutorAndRedirect} />} />
         <Route path='*' element={<NotFound />} />
         <Route path='/studentsignup' element={<StudentSignUpForm />} />
+        <Route path='/chats' element={<Chats tutors={tutors}/>} />
       </Routes>
-        
-      {/* <Outlet/> */}
     </>
   );
 }

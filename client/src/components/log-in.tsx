@@ -30,6 +30,7 @@ export default function LogInModal({ toggleLoginModal, toggleLogin, setCurrentUs
       toggleLogin();
       toggleLoginModal();
       navigate('/tutors');
+      window.location.reload();
     } else {
       window.alert('Login failed');
     }

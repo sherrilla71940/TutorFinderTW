@@ -2,7 +2,6 @@ import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import Users from '../models/user';
 import jwt from 'jsonwebtoken';
-import { resolveNaptr } from 'dns';
 
 export default async function registerUser(request: Request, response: Response): Promise<void> {
   try {
