@@ -49,7 +49,6 @@ function App() {
         <Route path='*' element={<NotFound />} />
       </Routes>
       {/* <Outlet/> */}
-      <SignUpModal />
     </>
   );
 }

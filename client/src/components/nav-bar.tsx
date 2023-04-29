@@ -1,17 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import icon from '../assets/icon.png'
-import { useEffect } from "react";
+import SignUpModal from "./sign-up";
+import LogInModal from "./log-in";
 
 export default function NavBar() {
 
-  function showSignUpModal() {
-    const modal = document.getElementsByClassName("modal");
-    modal[0]?.classList.add('is-active');
+  const [signUpModal, setSignUpModalVisibility] = useState(false);
+  const [loginModal, setLoginModalVisibility] = useState(false);
+
+  function toggleSignUpModal() {
+    const modal = document.getElementById("signUpModal");
+    if (!signUpModal) {
+      modal?.classList.add('is-active');
+      setSignUpModalVisibility(true);
+    } else {
+      modal?.classList.remove('is-active');
+      setSignUpModalVisibility(false);
+    }
+  }
+
+  function toggleLoginModal() {
+    const modal = document.getElementById("loginModal");
+    if (!loginModal) {
+      modal?.classList.add('is-active');
+      setLoginModalVisibility(true);
+    } else {
+      modal?.classList.remove('is-active');
+      setLoginModalVisibility(false);
+    }
   }
 
   useEffect(() => {
-    document.getElementById('signUpButton')?.addEventListener('click', showSignUpModal);
+    document.getElementById('signUpButton')?.addEventListener('click', toggleSignUpModal);
+    document.getElementById('loginButton')?.addEventListener('click', toggleLoginModal);
   })
 
   return (
@@ -36,14 +58,15 @@ export default function NavBar() {
 
         <div className="navbar-end is-flex-wrap-wrap is-align-content-center mr-2">
           <div id="signUpButton" className="navbar-item button m-1">
-            {/* <NavLink to='/register'>Sign up</NavLink> */}
             Sign up
           </div>
-          <div className="navbar-item button m-1">
-            <NavLink to='/'>Log in</NavLink>
+          <div id="loginButton" className="navbar-item button m-1">
+            Log in
           </div>
         </div>
       </nav>
+      <SignUpModal toggleSignUpModal={toggleSignUpModal} />
+      <LogInModal toggleLoginModal={toggleLoginModal} />
     </>
   )
 }
