@@ -59,7 +59,7 @@ function loginUser(request, response) {
                     // TODO: HIDE SECRET
                     const token = jsonwebtoken_1.default.sign({ id: userCheck._id }, 'shrek');
                     response.status(200);
-                    response.json(token);
+                    response.json({ token, user });
                 }
             }
         }

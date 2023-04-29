@@ -40,7 +40,7 @@ export async function loginUser(request: Request, response: Response): Promise<v
         // TODO: HIDE SECRET
         const token = jwt.sign({ id: userCheck._id }, 'shrek');
         response.status(200);
-        response.json(token);
+        response.json({ token, user });
       }
     }
   } catch (error) {
