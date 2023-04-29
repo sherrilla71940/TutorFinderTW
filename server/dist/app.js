@@ -22,16 +22,23 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const router = (0, express_1.Router)();
-const controller = __importStar(require("./mvc/controllers/controllers"));
-const auth_1 = __importStar(require("./mvc/controllers/auth"));
-router.get('/', controller.getAllTutors);
-router.get('/:id', controller.getTutor);
-router.post('/', controller.addTutor);
-router.put('/:id', controller.updateTutor);
-router.delete('/:id', controller.deleteTutor);
-router.post('/signup', auth_1.default);
-router.post('/login', auth_1.loginUser);
-exports.default = router;
+exports.HOST = exports.PORT = void 0;
+const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
+const router_1 = __importDefault(require("./router"));
+const path_1 = __importDefault(require("path"));
+const app = (0, express_1.default)();
+const envFileAbsPath = path_1.default.resolve(__dirname, "../../.env");
+const dotenv = __importStar(require("dotenv"));
+dotenv.config({ path: envFileAbsPath });
+exports.PORT = process.env.PORT;
+exports.HOST = process.env.HOST;
+// in readme remember to instruct how to set up env variables to run application
+app.use((0, cors_1.default)({ origin: `*` }));
+app.use(express_1.default.json());
+app.use(router_1.default);
+exports.default = app;

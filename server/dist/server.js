@@ -23,15 +23,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const router = (0, express_1.Router)();
-const controller = __importStar(require("./mvc/controllers/controllers"));
-const auth_1 = __importStar(require("./mvc/controllers/auth"));
-router.get('/', controller.getAllTutors);
-router.get('/:id', controller.getTutor);
-router.post('/', controller.addTutor);
-router.put('/:id', controller.updateTutor);
-router.delete('/:id', controller.deleteTutor);
-router.post('/signup', auth_1.default);
-router.post('/login', auth_1.loginUser);
-exports.default = router;
+const app_1 = __importStar(require("./app"));
+// app.listen(PORT, () => {
+app_1.default.listen(8080, () => {
+    console.log(`app listening at http://${app_1.HOST}:${app_1.PORT}`);
+});
