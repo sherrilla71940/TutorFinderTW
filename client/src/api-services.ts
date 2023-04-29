@@ -1,8 +1,13 @@
 import TutorInterface, { User } from './custom-types/types'
 
+
 type HttpMethod = 'GET' | "POST" | 'PUT' | 'DELETE'
 
-export default async function fetchFunction <T>(url: string, method: HttpMethod, setter: React.Dispatch<React.SetStateAction<T>>, body?: TutorInterface): Promise<void> {
+
+
+
+
+export default async function fetchFunction <T>(url: string, method: HttpMethod, setter:any, body?: TutorInterface): Promise<void> {
   // fetch api returns a promise that resolves to a response object readable stream, when calling .json on it returns another promise that resolves to JS object of data
 
   const fetchOptions: RequestInit = {
