@@ -39,8 +39,10 @@ export async function loginUser(request: Request, response: Response): Promise<v
         console.log('Successful login!');
         // TODO: HIDE SECRET
         const token = jwt.sign({ id: userCheck._id }, 'shrek');
+        const userData = userCheck;
+        userData.password = "";
         response.status(200);
-        response.json({ token, user });
+        response.json({ token, userData });
       }
     }
   } catch (error) {

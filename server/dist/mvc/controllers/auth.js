@@ -58,8 +58,10 @@ function loginUser(request, response) {
                     console.log('Successful login!');
                     // TODO: HIDE SECRET
                     const token = jsonwebtoken_1.default.sign({ id: userCheck._id }, 'shrek');
+                    const userData = userCheck;
+                    userData.password = "";
                     response.status(200);
-                    response.json({ token, user });
+                    response.json({ token, userData });
                 }
             }
         }
