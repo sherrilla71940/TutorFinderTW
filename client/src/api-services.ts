@@ -25,7 +25,7 @@ export default async function fetchFunction <T>(url: string, method: HttpMethod,
   }
 }
 
-export async function signUpRequest(newUser: {name: string, email: string, password: string, type: string}): Promise<boolean> {
+export async function signUpRequest(newUser: {name: string, email: string, password: string, type: string}): Promise<void | Response> {
   try {
     const response = await fetch("http://localhost:8080/signup", {
       method: "POST",
@@ -34,10 +34,9 @@ export async function signUpRequest(newUser: {name: string, email: string, passw
       },
       body: JSON.stringify(newUser)
     });
-    return true;
+    return response;
   } catch (error) {
     console.log(error);
-    return false;
   }
 }
 

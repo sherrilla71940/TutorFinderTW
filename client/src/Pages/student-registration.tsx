@@ -1,12 +1,14 @@
 import React, { ChangeEvent, useState } from "react";
 import NavBar from "../components/nav-bar";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { signUpRequest } from "../api-services";
 
 export default function StudentSignUpForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   function handleChange(event: ChangeEvent<HTMLInputElement>, setter: (data: string) => void) {
     const target = event.target as HTMLInputElement;
@@ -20,13 +22,23 @@ export default function StudentSignUpForm() {
       password: password,
       type: 'student'
     };
-    const response = await signUpRequest(newUser);
+    try {
+      const response = await signUpRequest(newUser)
+        .then(function (response) {
+          return response!.text()
+        })
+        .then(function (data) {
+          window.alert(data);
+          setName("");
+          setEmail("");
+          setPassword("");
+          navigate('/');
+        })
+    } catch (error) {
+      console.error(error);
+    }
     // TODO: LOGIC FOR FAILED REGISTRATION
-    console.log(response);
     // FIX: STATE GETS CLEARED BUT THE FORM DOES NOT RE-RENDER
-    setName("");
-    setEmail("");
-    setPassword("");
   }
 
   return (

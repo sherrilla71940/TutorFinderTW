@@ -20,16 +20,25 @@ function registerUser(request, response) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const newUser = request.body;
-            console.log(newUser);
-            const salt = yield bcrypt_1.default.genSalt(10);
-            const passwordHash = yield bcrypt_1.default.hash(newUser.password, salt);
-            const newUserRecord = newUser;
-            newUserRecord.password = passwordHash;
-            const save = yield user_1.default.create(newUserRecord)
-                .then(() => {
-                response.status(200);
-                response.send('OK!');
-            });
+            // CHECK FOR DUPLICATE EMAILS
+            const emailCheck = yield user_1.default.findOne({ email: newUser.email });
+            console.log(emailCheck);
+            if (emailCheck) {
+                response.status(400);
+                response.send('Please provide another e-mail address');
+            }
+            else {
+                console.log(newUser);
+                const salt = yield bcrypt_1.default.genSalt(10);
+                const passwordHash = yield bcrypt_1.default.hash(newUser.password, salt);
+                const newUserRecord = newUser;
+                newUserRecord.password = passwordHash;
+                const save = yield user_1.default.create(newUserRecord)
+                    .then(() => {
+                    response.status(200);
+                    response.send('You can now login with your credentials');
+                });
+            }
         }
         catch (error) {
             console.error(error);
