@@ -10,7 +10,7 @@ function Home() {
         <div className="hero-body">
           <div>
             <p className="title is-spaced">
-              Tutor Finder
+              TutorFinderTW
             </p>
             <p className="subtitle">
               TutorFinderTW allows you to find tutors based in Taiwan. Here you can find tutors that teach in person or remotely, or even both! A wide variety of subjects/branches are offered by tutors at different prices, and you can even become one yourself for free by registering!
@@ -18,6 +18,13 @@ function Home() {
           </div>
         </div>
       </section>
+      <footer className="footer">
+        <div className="content has-text-centered">
+          <p>
+            <strong>TutorFinderTW</strong> by Bosskey International Software Consumer Products Limited Liablity Company.
+          </p>
+        </div>
+      </footer>
     </>
   );
 }
