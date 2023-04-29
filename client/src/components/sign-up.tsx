@@ -28,7 +28,11 @@ export default function SignUpModal({ toggleSignUpModal }: Props) {
           <button className="button is-success ml-3 mr-3">
             <NavLink to='/register'>Tutor</NavLink>
           </button>
-          <button className="button is-link ml-3 mr-3">Student</button>
+          <button className="button is-warning ml-3 mr-3">
+            <NavLink to='/studentsignup'>
+              Student
+            </NavLink>
+          </button>
         </footer>
       </div>
     </div>

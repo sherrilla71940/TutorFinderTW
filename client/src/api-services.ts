@@ -24,3 +24,19 @@ export default async function fetchFunction <T>(url: string, method: HttpMethod,
     console.log(e);
   }
 }
+
+export async function signUpRequest(newUser: {name: string, email: string, password: string, type: string}): Promise<boolean> {
+  try {
+    const response = await fetch("http://localhost:8080/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newUser)
+    });
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}

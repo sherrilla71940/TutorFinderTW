@@ -75,3 +75,8 @@ export default interface TutorInterface extends Person {
 
 export type Student = Person
 
+export interface User {
+  email: string,
+  password: string
+}
+

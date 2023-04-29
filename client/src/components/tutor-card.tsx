@@ -7,7 +7,7 @@ type Props = {
   tutorKey: string;
 }
 
-function TutorCard({ tutor, tutorKey }: Props) {
+export default function TutorCard({ tutor, tutorKey }: Props) {
 
   return (
     // it appears that adding class name to tag remove colors applied to ative effect from navlink
@@ -15,7 +15,6 @@ function TutorCard({ tutor, tutorKey }: Props) {
       <div className="card m-2 is-flex
       is-flex-direction-column
       is-flex-justify-content-space-evenly">
-
         <div className='card-image'>
           <figure className='image is-1by1'>
             <img src={tutor.profilePicUrl} alt={tutor.name + '\'s profile picture'} />
@@ -40,10 +39,7 @@ function TutorCard({ tutor, tutorKey }: Props) {
               })
             }
           </div>
-
-
         </div>
-
         <div className='card-footer'>
           {tutor.inPerson ? <div className='tag is-success m-1'>In-person</div> : null}
           {tutor.remote ? <div className='tag is-link m-1'>Remote</div> : null}
@@ -52,4 +48,3 @@ function TutorCard({ tutor, tutorKey }: Props) {
     </NavLink>
   );
 }
-export default TutorCard;
