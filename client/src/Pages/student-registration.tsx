@@ -47,23 +47,23 @@ export default function StudentSignUpForm() {
       <section className="p-6">
         <h2 className="title">New student sign up</h2>
           <div className="field">
-            <label className="label">Name</label>
+            <label htmlFor="nameInput" className="label">Name</label>
             <div className="control">
-              <input className="input" type="text" placeholder="Your name" 
+              <input id="nameInput" className="input" type="text" placeholder="Your name" 
                  onChange={(event) => handleChange(event, setName)} />
             </div>
           </div>
           <div className="field">
-            <label className="label">Email</label>
+            <label htmlFor="emailInput" className="label">Email</label>
             <div className="control">
-              <input className="input" type="email" placeholder="Your e-mail" 
+              <input id="emailInput" className="input" type="email" placeholder="Your e-mail" 
                 onChange={(event) => handleChange(event, setEmail)} />
             </div>
           </div>
           <div className="field">
-            <label className="label">Password</label>
+            <label htmlFor="passwordInput" className="label">Password</label>
             <div className="control">
-              <input className="input is-danger" type="password" placeholder="Your password" 
+              <input  id="passwordInput" className="input is-danger" type="password" placeholder="Your password" 
                 onChange={(event) => handleChange(event, setPassword)} 
                 onKeyDown={(event) => { event.keyCode === 13 ? handleSubmit() : null }} />
             </div>
