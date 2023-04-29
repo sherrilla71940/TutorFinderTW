@@ -8,8 +8,6 @@ type Props = {
   tutors: TutorInterface[]
 }
 
-
-
 function TutorsList({ tutors }: Props) {
 
   useEffect(() => console.log('updated tutors'), [tutors])

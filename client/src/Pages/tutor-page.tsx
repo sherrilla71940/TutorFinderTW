@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import TutorInterface from '../custom-types/types';
 import { useState, useEffect } from 'react';
-import NotFound from './NotFound';
+import NotFound from './not-found-page';
 import NavBar from '../components/nav-bar';
 
 type Props = {
@@ -24,49 +24,54 @@ function TutorPage({ tutors }: Props) {
 
   else {
     return (
-      <div>
+      <>
         <NavBar />
-        <div>
-          <img
-            src={tutor.profilePicUrl}
-            alt={
-              tutor.name && tutor.name.split(' ')[0] + "'s profile picture"
-            }
-          />
-          <h2>{tutor.name}</h2>
-          <h2>{tutor.age}</h2>
-          <h2>{tutor.gender}</h2>
-          <h2>{tutor.email}</h2>
-          {tutor.selfIntroduction ? <p className='tutor-introduction'>{tutor.selfIntroduction}</p> : ''}
-          {tutor.inPerson ? <div>In-person ✅</div> : ''}
-          {tutor.remote ? <div>Remote ✅</div> : ''}
+        <section className='section is-flex is-flex-direction-row'>
+          <figure className='image mr-2'>
+            <img src={tutor.profilePicUrl} alt='tutor image' />
+          </figure>
+          <div>
+            <h1 className='title'>{tutor.name}</h1>
+            <p className='subtitle'>{tutor.age}</p>
+            <p className='subtitle'>{tutor.email}</p>
+            {tutor.inPerson ? <div className='tag is-primary m-1'>In-person</div> : null}
+            {tutor.remote ? <div className='tag is-link m-1'>Remote</div> : null}
+          </div>
+        </section>
+        <section className='section'>
+          <p className='subtitle'>{tutor.selfIntroduction || 'This tutor has yet to make an introduction!'}</p>
+        </section>
+        <section className='section is-flex is-justify-content-space-around is-flex-wrap-wrap'>
           {tutor.subjects &&
             tutor.subjects.map((subject) => {
               return (
-                <table key={subject.subject} border={1}>
-                  <caption>{subject.subject}</caption>
-                  <caption>{subject.subject}</caption>
-                  <thead>
-                    <tr>
-                      <th>Branch</th>
-                      <th>Hourly Rate</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {subject.branches.map((branch) => {
-                      return (
-                        <tr key={branch.branch}>
-                          <td>{branch.branch}</td>
-                          <td>{branch.hourlyRate}</td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                <>
+                <div>
+                  <p className='title'>{subject.subject}</p>
+                  <table key={subject.subject} className='table is-fullwidth'>
+                    <thead>
+                      <tr>
+                        <th>Branch</th>
+                        <th>Hourly Rate</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {subject.branches.map((branch) => {
+                        return (
+                          <tr key={branch.branch}>
+                            <td>{branch.branch}</td>
+                            <td>{branch.hourlyRate}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+                </>
               );
             })}
-        </div>
-      </div>
+        </section>
+      </>
     );
   }
 

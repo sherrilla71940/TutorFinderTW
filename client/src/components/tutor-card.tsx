@@ -21,24 +21,21 @@ function TutorCard({ tutor, tutorKey }: Props) {
             <img src={tutor.profilePicUrl} alt={tutor.name + '\'s profile picture'} />
           </figure>
         </div>
-
         <div className='card-content'>
           <p className='title is-5'>{tutor.name}</p>
-          <p className='subtitle is-6'>{tutor.age}
+          <p className='subtitle is-6'>{tutor.age}</p> 
             {
               tutor.teachingLocations?.map((location) => {
                 return (
-                  <p key={location.city}>{location.city}</p>
+                  <span key={location.city}>{location.city} </span>
                   );
                 })
               }
-          </p>
-
           <div className='mb-2'>
             {
               tutor.subjects.map((subObj) => {
                 return (
-                  <p key={subObj.subject}>{subObj.subject}</p>
+                  <span key={subObj.subject}>{subObj.subject} </span>
                 );
               })
             }
