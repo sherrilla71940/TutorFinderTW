@@ -266,5 +266,206 @@
         ]
       }
     ]
+  },
+  {
+    "name": "Jennifer Lee",
+    "profilePicUrl": "https://randomuser.me/api/portraits/women/88.jpg",
+    "age": 28,
+    "gender": "Female",
+    "email": "jenniferlee@gmail.com",
+    "selfIntroduction": "Hello, my name is Jennifer Lee and I am a qualified and experienced math tutor. I have a passion for helping students understand complex math concepts and develop problem-solving skills. In my free time, I enjoy playing the piano and going for walks in nature.",
+    "remote": false,
+    "subjects": [
+      {
+        "subject": "Mathematics",
+        "branches": [
+          {
+            "branch": "Algebra",
+            "hourlyRate": 1200
+          },
+          {
+            "branch": "Geometry",
+            "hourlyRate": 1300
+          }
+        ]
+      }
+    ],
+    "inPerson": true,
+    "teachingLocations": [
+      {
+        "city": "New York",
+        "districts": [
+          "Manhattan",
+          "Brooklyn"
+        ]
+      }
+    ],
+    "availability": [
+      {
+        "day": "Monday",
+        "timeslots": [
+          {
+            "start": "13:00",
+            "end": "15:00"
+          },
+          {
+            "start": "16:00",
+            "end": "18:00"
+          }
+        ]
+      },
+      {
+        "day": "Wednesday",
+        "timeslots": [
+          {
+            "start": "10:00",
+            "end": "12:00"
+          },
+          {
+            "start": "14:00",
+            "end": "16:00"
+          }
+        ]
+      },
+      {
+        "day": "Friday",
+        "timeslots": [
+          {
+            "start": "11:00",
+            "end": "13:00"
+          },
+          {
+            "start": "15:00",
+            "end": "17:00"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Emily Jones",
+    "profilePicUrl": "https://randomuser.me/api/portraits/women/44.jpg",
+    "age": 27,
+    "gender": "Female",
+    "email": "emilyjones@gmail.com",
+    "selfIntroduction": "Hello, my name is Emily Jones and I am a certified yoga instructor. I specialize in Hatha and Vinyasa styles and have been teaching yoga for 3 years. I believe that yoga is not just a physical practice, but also a way of life. In my free time, I enjoy meditating and hiking in nature.",
+    "remote": false,
+    "subjects": [
+      {
+        "subject": "Yoga",
+        "branches": [
+          {
+            "branch": "Hatha",
+            "hourlyRate": 1000
+          },
+          {
+            "branch": "Vinyasa",
+            "hourlyRate": 1100
+          }
+        ]
+      }
+    ],
+    "inPerson": true,
+    "teachingLocations": [
+      {
+        "city": "Los Angeles",
+        "districts": [
+          "Santa Monica",
+          "West Hollywood"
+        ]
+      }
+    ],
+    "availability": [
+      {
+        "day": "Tuesday",
+        "timeslots": [
+          {
+            "start": "10:00",
+            "end": "12:00"
+          },
+          {
+            "start": "16:00",
+            "end": "18:00"
+          }
+        ]
+      },
+      {
+        "day": "Thursday",
+        "timeslots": [
+          {
+            "start": "11:00",
+            "end": "13:00"
+          },
+          {
+            "start": "15:00",
+            "end": "17:00"
+          }
+        ]
+      },
+      {
+        "day": "Saturday",
+        "timeslots": [
+          {
+            "start": "09:00",
+            "end": "11:00"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Carlos Rodriguez",
+    "profilePicUrl": "https://randomuser.me/api/portraits/men/3.jpg",
+    "age": 35,
+    "gender": "Male",
+    "email": "carlosrodriguez@gmail.com",
+    "selfIntroduction": "Hi, my name is Carlos Rodriguez and I am a native Spanish speaker from Madrid. I have been teaching Spanish for over 5 years and I love helping people learn this beautiful language. In my free time, I enjoy playing football and exploring new places.",
+    "remote": true,
+    "subjects": [
+      {
+        "subject": "Spanish",
+        "branches": [
+          {
+            "branch": "Conversation",
+            "hourlyRate": 900
+          },
+          {
+            "branch": "Grammar",
+            "hourlyRate": 1000
+          }
+        ]
+      }
+    ],
+    "inPerson": false,
+    "teachingLocations": [],
+    "availability": [
+      {
+        "day": "Monday",
+        "timeslots": [
+          {
+            "start": "08:00",
+            "end": "12:00"
+          }
+        ]
+      },
+      {
+        "day": "Wednesday",
+        "timeslots": [
+          {
+            "start": "14:00",
+            "end": "18:00"
+          }
+        ]
+      },
+      {
+        "day": "Friday",
+        "timeslots": [
+          {
+            "start": "09:00",
+            "end": "11:00"
+          }
+        ]
+      }
+    ]
   }
 ]
