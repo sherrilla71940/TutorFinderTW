@@ -21,6 +21,7 @@ export default function StudentSignUpForm() {
       type: 'student'
     };
     const response = await signUpRequest(newUser);
+    // TODO: LOGIC FOR FAILED REGISTRATION
     console.log(response);
     // FIX: STATE GETS CLEARED BUT THE FORM DOES NOT RE-RENDER
     setName("");

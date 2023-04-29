@@ -1,5 +1,9 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css";
 
+.bulma-center-mixin {
+  @include center;
+}
+
 .card{
   width: 15vw;
 }
