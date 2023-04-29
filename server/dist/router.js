@@ -22,18 +22,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const router = (0, express_1.Router)();
 const controller = __importStar(require("./mvc/controllers/controllers"));
-const signup_1 = __importDefault(require("./mvc/controllers/signup"));
+const auth_1 = __importStar(require("./mvc/controllers/auth"));
 router.get('/', controller.getAllTutors);
 router.get('/:id', controller.getTutor);
 router.post('/', controller.addTutor);
 router.put('/:id', controller.updateTutor);
 router.delete('/:id', controller.deleteTutor);
-router.post('/signup', signup_1.default);
+router.post('/signup', auth_1.default);
+router.post('/login', auth_1.loginUser);
 exports.default = router;
