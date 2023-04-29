@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import icon from '../assets/icon.png'
 import SignUpModal from "./sign-up";
 import LogInModal from "./log-in";
@@ -8,6 +8,18 @@ export default function NavBar() {
 
   const [signUpModal, setSignUpModalVisibility] = useState(false);
   const [loginModal, setLoginModalVisibility] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
+
+  const navigate = useNavigate();
+
+  function toggleLogin() {
+    if (!loggedIn) {
+      setLoggedIn(true)
+    } else {
+      setLoggedIn(false);
+    }
+  }
 
   function toggleSignUpModal() {
     const modal = document.getElementById("signUpModal");
@@ -31,9 +43,19 @@ export default function NavBar() {
     }
   }
 
+  function logOut() {
+    setLoggedIn(false);
+    setCurrentUser({});
+    sessionStorage.clear();
+    navigate('/');
+  }
+
   useEffect(() => {
     document.getElementById('signUpButton')?.addEventListener('click', toggleSignUpModal);
     document.getElementById('loginButton')?.addEventListener('click', toggleLoginModal);
+    if (sessionStorage.getItem('session')) {
+      setLoggedIn(true);
+    }
   })
 
   return (
@@ -41,7 +63,7 @@ export default function NavBar() {
       <nav className="navbar is-light">
         <div className="navbar-brand m-2">
           <figure className="image is-64x64" >
-            <img src={icon} alt='icon'/>
+            <img src={icon} alt='icon' />
           </figure>
         </div>
 
@@ -57,16 +79,22 @@ export default function NavBar() {
         </div>
 
         <div className="navbar-end is-flex-wrap-wrap is-align-content-center mr-2">
-          <div id="signUpButton" className="navbar-item button m-1">
+          {!loggedIn ? <div id="signUpButton" className="navbar-item button m-1">
             Sign up
-          </div>
-          <div id="loginButton" className="navbar-item button m-1">
+          </div> : null}
+          {!loggedIn ? <div id="loginButton" className="navbar-item button m-1">
             Log in
-          </div>
+          </div> : null}
+          {loggedIn ? 
+          <>
+            <p className="subtitle mt-3 mr-2">Welcome, {sessionStorage.name}!</p>
+            <div id="logoutButton" className="navbar-item button m-1" onClick={logOut}>Log out</div>
+          </>
+           : null}
         </div>
       </nav>
       <SignUpModal toggleSignUpModal={toggleSignUpModal} />
-      <LogInModal toggleLoginModal={toggleLoginModal} />
+      <LogInModal toggleLoginModal={toggleLoginModal} toggleLogin={toggleLogin} setCurrentUser={setCurrentUser} />
     </>
   )
 }

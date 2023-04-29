@@ -1,20 +1,38 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
+import { loginRequest } from "../api-services";
+import { useNavigate } from "react-router-dom";
+import { User } from "../custom-types/types";
 
 interface Props {
   toggleLoginModal(): void;
+  toggleLogin(): void;
+  setCurrentUser(user: User): void;
 }
 
-export default function LogInModal({ toggleLoginModal }: Props) {
+export default function LogInModal({ toggleLoginModal, toggleLogin, setCurrentUser }: Props) {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   function handleChange (event: ChangeEvent<HTMLInputElement>, setter: (data: string) => void) {
     const target = event.target as HTMLInputElement;
     setter(target.value);
   }
 
-  function handleSubmit() {
-    console.log({login, password});
+  async function handleSubmit() {
+    const credentials = {
+      email: login,
+      password: password
+    };
+    const response = await loginRequest(credentials) as User;
+    if (response) {
+      setCurrentUser(response);
+      toggleLogin();
+      toggleLoginModal();
+      navigate('/tutors');
+    } else {
+      window.alert('Login failed');
+    }
   }
 
   useEffect(() => {

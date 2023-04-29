@@ -6,7 +6,7 @@ import TutorsList from './Pages/tutors-list';
 import TutorPage from './Pages/tutor-page';
 import Register from './Pages/Register';
 import NotFound from './Pages/not-found-page';
-import SignUpModal from './components/sign-up';
+import StudentSignUpForm from './Pages/student-registration';
 
 import { useState, useEffect } from 'react';
 import fetchFunction from './api-services';
@@ -65,6 +65,7 @@ function App() {
         </Route>
         <Route path="/register" element={<Register postTutorAndRedirect={postTutorAndRedirect}  />} />
         <Route path='*' element={<NotFound />} />
+        <Route path='/studentsignup' element={<StudentSignUpForm />} />
       </Routes>
         
       {/* <Outlet/> */}
