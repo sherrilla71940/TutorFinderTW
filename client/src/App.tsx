@@ -6,7 +6,7 @@ import TutorsList from './Pages/tutors-list';
 import TutorPage from './Pages/tutor-page';
 import Register from './Pages/tutor-registration';
 import NotFound from './Pages/not-found-page';
-import StudentSignUpForm from './Pages/student-registration';
+import SignUpForm from './Pages/user-registration';
 import Chats from './Pages/chats';
 
 import { useState, useEffect } from 'react';
@@ -65,9 +65,10 @@ function App() {
           <Route index element={<TutorsList tutors={tutors} />} />
           <Route path=":id" element={<TutorPage tutors={tutors} />} />
         </Route>
-        <Route path="/register" element={<Register postTutorAndRedirect={postTutorAndRedirect} />} />
+        <Route path="/tutorDetailsForm" element={<Register postTutorAndRedirect={postTutorAndRedirect} />} />
+        <Route path="/studentDetailsForm" element={<NotFound />} />
         <Route path='*' element={<NotFound />} />
-        <Route path='/studentsignup' element={<StudentSignUpForm />} />
+        <Route path='/signup' element={<SignUpForm />} />
         <Route path='/chats' element={<Chats tutors={tutors}/>} />
       </Routes>
     </>

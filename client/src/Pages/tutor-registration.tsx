@@ -120,7 +120,7 @@ function Register({postTutorAndRedirect}: Props) {
     return (
         <>
             <section className="p-6">
-                <h2 className="title">New tutor sign up</h2>
+                <h2 className="title">Please fill in tutor details</h2>
                 <form data-testid='form' action="" onSubmit={handleSubmit} id='tutor-registration-form'>
 
                     <div className="field">

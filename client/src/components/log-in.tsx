@@ -29,7 +29,11 @@ export default function LogInModal({ toggleLoginModal, toggleLogin, setCurrentUs
       setCurrentUser(response);
       toggleLogin();
       toggleLoginModal();
-      navigate('/tutors');
+      if (response.isComplete) {
+        navigate('/tutors');
+      } else {
+        response.type === 'tutor' ? navigate('/tutorDetailsForm') : navigate('/studentDetailsForm')
+      }
       window.location.reload();
     } else {
       window.alert('Login failed');

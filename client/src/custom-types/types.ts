@@ -79,6 +79,7 @@ export interface User {
   name: string,
   email: string,
   password: string,
-  type: 'student' | 'tutor'
+  type: 'student' | 'tutor',
+  isComplete: boolean
 }
 

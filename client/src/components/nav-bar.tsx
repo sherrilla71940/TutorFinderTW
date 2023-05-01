@@ -55,8 +55,12 @@ export default function NavBar() {
     navigate('/chats');
   }
 
+  function goToSignUp() {
+    navigate('/signup');
+  }
+
   useEffect(() => {
-    document.getElementById('signUpButton')?.addEventListener('click', toggleSignUpModal);
+    document.getElementById('signUpButton')?.addEventListener('click', goToSignUp);
     document.getElementById('loginButton')?.addEventListener('click', toggleLoginModal);
     if (sessionStorage.getItem('session')) {
       setLoggedIn(true);
