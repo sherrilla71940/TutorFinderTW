@@ -1,12 +1,18 @@
 import React, { useEffect } from "react";
 import fetchFunction from "../api-services";
 import TutorInterface from "../custom-types/types";
+import Chat from "../components/chat";
 
 interface Props {
   tutors: TutorInterface[]
 }
 
 export default function Chats({ tutors }: Props) {
+
+  const styleObj = {
+    height: '70vh',
+    'overflow-y': 'scroll'
+  }
 
   // TODO: SHOULD SHOW ONLY TUTORS WITH MESSAGE HISTORY
   const myTutors = tutors.map((tutor) => {
@@ -25,11 +31,13 @@ export default function Chats({ tutors }: Props) {
   return (
     <>
       <div className="columns">
-        <div className="column is-one-third m-4">
-          {myTutors}
+        <div className="column is-one-third m-2">
+          <div className="box" style={styleObj}>
+            {myTutors}
+          </div>
         </div>
-        <div className="column m-4">
-          
+        <div className="column m-2">
+          <Chat />
         </div>
       </div>
     </>
