@@ -5,13 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema; // CLASS
-const userSchema = new Schema({
+const studentSchema = new Schema({
     // DEFINE OUR DATA
     name: String,
+    profilePicUrl: String,
+    age: Number,
     email: String,
-    type: String,
-    password: String,
-    isComplete: Boolean
+    selfIntroduction: String
 });
-const Users = mongoose_1.default.model('users', userSchema); // MAKE A 'TABLE' BASED ON A SCHEMA
-exports.default = Users;
+const Students = mongoose_1.default.model('students', studentSchema); // MAKE A 'TABLE' BASED ON A SCHEMA
+exports.default = Students;

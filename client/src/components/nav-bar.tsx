@@ -96,8 +96,8 @@ export default function NavBar() {
           </div> : null}
           {loggedIn ?
             <>
-              <p className="subtitle mt-3 mr-2">Welcome, {sessionStorage.name}!</p>
-              <div id="messagesButton" className="navbar-item button m-1" onClick={goToChats}>Messages</div> 
+              <p className="subtitle mt-3 mr-2">Welcome, {sessionStorage.name}! Signed in as {sessionStorage.type}</p>
+              <div id="messagesButton" className="navbar-item button m-1 ml-3" onClick={goToChats}>Messages</div> 
               <div id="logoutButton" className="navbar-item button m-1" onClick={logOut}>Log out</div>
             </>
             : null}

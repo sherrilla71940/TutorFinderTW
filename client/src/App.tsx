@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react';
 import fetchFunction from './api-services';
 import TutorInterface from './custom-types/types';
 import NavBar from './components/nav-bar';
+import CompleteStudentDetails from './Pages/student-registration';
 
 // have a global state for tutors,
 // and when create profile form is submitted,
@@ -66,7 +67,7 @@ function App() {
           <Route path=":id" element={<TutorPage tutors={tutors} />} />
         </Route>
         <Route path="/tutorDetailsForm" element={<Register postTutorAndRedirect={postTutorAndRedirect} />} />
-        <Route path="/studentDetailsForm" element={<NotFound />} />
+        <Route path="/studentDetailsForm" element={<CompleteStudentDetails />} />
         <Route path='*' element={<NotFound />} />
         <Route path='/signup' element={<SignUpForm />} />
         <Route path='/chats' element={<Chats tutors={tutors}/>} />

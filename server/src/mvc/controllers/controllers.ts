@@ -1,3 +1,4 @@
+import Students from '../models/student';
 import {Tutor} from '../models/tutor';
 import {Request, Response} from 'express';
 
@@ -68,6 +69,24 @@ export async function updateTutor (req: Request, res: Response): Promise<void>{
   } catch (e: unknown) {
     res.status(400);
     res.json(`could not update tutor by id: ${tutorId}`);
+  }
+}
+
+export async function addStudent (req: Request, res: Response): Promise<void>{
+  try {
+    const newStudent = await Students.create(req.body);
+    res.status(201);
+    res.send('OK!');
+  } catch (e: unknown) {
+    res.status(400);
+      if (e instanceof Error) {
+        console.log(e);
+        res.send(e);
+      }
+      else {
+        console.log('Failed to create a student record');
+        res.send('Failed to create a student record');
+      }
   }
 }
 

@@ -60,7 +60,7 @@ interface Person {
   name: string,
   profilePicUrl: string,
   age: number,
-  gender: string,
+  gender?: string,
   email: string,
   selfIntroduction?: string
 }

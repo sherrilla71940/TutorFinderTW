@@ -8,8 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateTutor = exports.deleteTutor = exports.getTutor = exports.addTutor = exports.getAllTutors = void 0;
+exports.addStudent = exports.updateTutor = exports.deleteTutor = exports.getTutor = exports.addTutor = exports.getAllTutors = void 0;
+const student_1 = __importDefault(require("../models/student"));
 const tutor_1 = require("../models/tutor");
 function getAllTutors(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -100,3 +104,24 @@ function updateTutor(req, res) {
     });
 }
 exports.updateTutor = updateTutor;
+function addStudent(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const newStudent = yield student_1.default.create(req.body);
+            res.status(201);
+            res.send('OK!');
+        }
+        catch (e) {
+            res.status(400);
+            if (e instanceof Error) {
+                console.log(e);
+                res.send(e);
+            }
+            else {
+                console.log('Failed to create a student record');
+                res.send('Failed to create a student record');
+            }
+        }
+    });
+}
+exports.addStudent = addStudent;

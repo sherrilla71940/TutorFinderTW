@@ -19,7 +19,8 @@ export default async function registerUser(request: Request, response: Response)
       const newUserRecord = newUser;
       newUserRecord.password = passwordHash;
       const save = await Users.create(newUserRecord)
-        .then(() => {
+      .then(() => {
+          console.log('here', newUserRecord);
           response.status(200);
           response.send('You can now login with your credentials');
         })
@@ -29,7 +30,7 @@ export default async function registerUser(request: Request, response: Response)
     response.status(500);
     response.send('Failed to register a new user');
   }
-}
+} 
 
 export async function loginUser(request: Request, response: Response): Promise<void> {
   try {
@@ -57,5 +58,17 @@ export async function loginUser(request: Request, response: Response): Promise<v
     console.log(error);
     response.status(500);
     response.send('Authentication error');
+  }
+}
+
+export async function updateUserInfo(request: Request, response: Response): Promise<void> {
+  const data = request.body;
+  const update = await Users.findByIdAndUpdate(data.user.id, { isComplete: data.isComplete });
+  if (!update) {
+    response.status(404);
+    response.send('Failed to update');
+  } else {
+    response.status(200);
+    response.send('User status updated');
   }
 }
