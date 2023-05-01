@@ -44,4 +44,9 @@ router.post('/signup', auth_1.default);
 router.post('/login', auth_1.loginUser);
 // UPDATE USER INFO ROUTE
 router.put('/updateuserinfo', verify_1.verifyToken, auth_1.updateUserInfo);
+// CHAT ROUTES
+router.get('/chats', verify_1.verifyToken, controller.getChats);
+// GET A SPECIFIC CHAT
+router.post('/chat', verify_1.verifyToken, controller.getAChat);
+router.post('/postmessage', verify_1.verifyToken, controller.postMessage);
 exports.default = router;

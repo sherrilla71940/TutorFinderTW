@@ -25,4 +25,10 @@ router.post('/login', loginUser);
 // UPDATE USER INFO ROUTE
 router.put('/updateuserinfo', verifyToken, updateUserInfo)
 
+// CHAT ROUTES
+router.get('/chats', verifyToken, controller.getChats);
+// GET A SPECIFIC CHAT
+router.post('/chat', verifyToken, controller.getAChat);
+router.post('/postmessage', verifyToken, controller.postMessage);
+
 export default router;

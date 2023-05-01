@@ -4,10 +4,13 @@ import TutorInterface, { User, Student } from './custom-types/types'
 type HttpMethod = 'GET' | "POST" | 'PUT' | 'DELETE'
 
 
+interface messageData { 
+  party2Id: string,
+  message?: string 
+}
 
 
-
-export default async function fetchFunction <T>(url: string, method: HttpMethod, setter:any, body?: TutorInterface | Student | { isComplete: boolean }): Promise<void> {
+export default async function fetchFunction <T>(url: string, method: HttpMethod, setter:any, body?: TutorInterface | Student | { isComplete: boolean } | messageData): Promise<void | Response> {
   // fetch api returns a promise that resolves to a response object readable stream, when calling .json on it returns another promise that resolves to JS object of data
 
   const fetchOptions: RequestInit = {
@@ -26,6 +29,7 @@ export default async function fetchFunction <T>(url: string, method: HttpMethod,
     const tutors = await responseObj.json();
     console.log(tutors)
     setter(tutors);
+    return tutors;
   } catch (e: unknown) {
     console.log(e);
   }

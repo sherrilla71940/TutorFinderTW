@@ -3,14 +3,30 @@ import { useParams } from 'react-router-dom';
 import TutorInterface from '../custom-types/types';
 import { useState, useEffect } from 'react';
 import NotFound from './not-found-page';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
-  tutors: TutorInterface[];
+  tutors: TutorInterface[],
+  setCurrentTutor: (string: string) => void
 };
 
-function TutorPage({ tutors }: Props) {
+const styleObj = {
+  maxWidth: '60%'
+}
+
+
+function TutorPage({ tutors, setCurrentTutor }: Props) {
   const { id } = useParams();
   const [tutor, setTutor] = useState<TutorInterface>({} as TutorInterface);
+  
+  const navigate = useNavigate();
+
+  function contactTutor(): void {
+    // SAVE ID OF A TUTOR WE PLAN TO CHAT WITH TO APP STATE
+    setCurrentTutor(id as string);
+    console.log('Setting current tutor to:', id);
+    navigate('/chats');
+  }
 
   useEffect(() => {
     const foundTutor = tutors.find((tutor) => tutor._id === id);
@@ -24,8 +40,9 @@ function TutorPage({ tutors }: Props) {
   else {
     return (
       <>
-        <section className='section is-flex is-flex-direction-row'>
-          <figure className='image mr-2'>
+        <section className='section is-flex is-flex-direction-row is-justify-content-space-around is-flex-wrap-wrap'>
+          <div className='box is-flex'>
+          <figure className='image is-align-self-center mr-4'>
             <img src={tutor.profilePicUrl} alt='tutor image' />
           </figure>
           <div>
@@ -35,9 +52,11 @@ function TutorPage({ tutors }: Props) {
             {tutor.inPerson ? <div className='tag is-primary m-1'>In-person</div> : null}
             {tutor.remote ? <div className='tag is-link m-1'>Remote</div> : null}
           </div>
-        </section>
-        <section className='section'>
+          </div>
+          <div className='box' style={styleObj}>
           <p className='subtitle'>{tutor.selfIntroduction || 'This tutor has yet to make an introduction!'}</p>
+          <button className='button is-large is-danger is-align-self-center is-pulled-right' onClick={contactTutor}>Contact this tutor</button>
+          </div>
         </section>
         <section className='section is-flex is-justify-content-space-around is-flex-wrap-wrap'>
           {tutor.subjects &&

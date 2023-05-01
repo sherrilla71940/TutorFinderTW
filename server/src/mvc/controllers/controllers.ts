@@ -1,6 +1,7 @@
 import Students from '../models/student';
 import {Tutor} from '../models/tutor';
 import {Request, Response} from 'express';
+import Chats from '../models/chat';
 
 export async function getAllTutors (req: Request, res: Response): Promise<void> {
   try {
@@ -89,5 +90,67 @@ export async function addStudent (req: Request, res: Response): Promise<void>{
       }
   }
 }
+
+export async function getChats (req: Request, res: Response): Promise<void> {
+  try {
+    const data = req.body;
+    // GET DOCS WITH THIS USER'S CHATS
+    const chats = await Chats.find( { $or: [{ partyId1: data.user.id }, { partyId2: data.user.id }] });
+    if (!chats.length) throw new Error();
+    res.status(200);
+    res.json(chats);
+  } catch (error) {
+    console.log(error);
+    res.status(404);
+    res.send('Failed to get chats');
+  }
+}
+
+export async function getAChat (req: Request, res: Response): Promise<void> {
+  try {
+    const data = req.body;
+    console.log(data);
+    console.log('Got a request for a chat');
+    const chat = await Chats.findOne( { $or: [{ partyId1: data.user.id, partyId2: data.party2Id }, { partyId1: data.party2Id, partyId2: data.user.id }] });
+    res.status(200);
+    res.json(chat);
+  } catch (error) {
+    console.log(error);
+    res.status(404);
+    res.send('Failed to get the chat');
+  }
+}
+
+// IF NO CHAT DOC, CREATE IT, ELSE UPDATE
+export async function postMessage (req: Request, res: Response): Promise<void> {
+  try {
+    const data = req.body;
+    console.log('Post message request body:', data);
+    const newMessage = {
+      senderId: data.user.id,
+      timestamp: Date.now(),
+      message: data.message
+    }
+    const chat = await Chats.findOne({ $or: [{ partyId1: data.user.id, partyId2: data.party2Id }, { partyId1: data.party2Id, partyId2: data.user.id }] });
+    if (chat) {
+      const update = await Chats.findByIdAndUpdate(chat.id, { $push: { messageLog: newMessage }});
+      console.log(update);
+    } else {
+      const create = await Chats.create({
+        partyId1: data.user.id,
+        partyId2: data.party2Id,
+        messageLog: [newMessage]
+      });
+      console.log(create);
+    }
+    res.status(201);
+    console.log('Message posted!');
+    res.send('Message posted!');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
 
 

@@ -24,6 +24,8 @@ function App() {
 
   const [tutors, setTutors] = useState<TutorInterface[]>([]);
 
+  const [currentTutor, setCurrentTutor] = useState("");
+
   function setTutorsFunc(data: TutorInterface[]) {
     setTutors(data);
   }
@@ -64,13 +66,13 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/tutors">
           <Route index element={<TutorsList tutors={tutors} />} />
-          <Route path=":id" element={<TutorPage tutors={tutors} />} />
+          <Route path=":id" element={<TutorPage tutors={tutors} setCurrentTutor={setCurrentTutor} />} />
         </Route>
         <Route path="/tutorDetailsForm" element={<Register postTutorAndRedirect={postTutorAndRedirect} />} />
         <Route path="/studentDetailsForm" element={<CompleteStudentDetails />} />
         <Route path='*' element={<NotFound />} />
         <Route path='/signup' element={<SignUpForm />} />
-        <Route path='/chats' element={<Chats tutors={tutors}/>} />
+        <Route path='/chats' element={<Chats tutors={tutors} currentTutor={currentTutor} setCurrentTutor={setCurrentTutor}/>} />
       </Routes>
     </>
   );
