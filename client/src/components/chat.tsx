@@ -30,7 +30,6 @@ export default function Chat({ currentTutor }: Props) {
     setTypedIn(target.value);
   }
 
-  // const myRef = createRef() as RefObject<HTMLElement>;
   const myRef = useRef() as RefObject<HTMLElement>;
 
   async function postMessage() {
