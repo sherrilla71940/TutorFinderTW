@@ -1,16 +1,16 @@
 import React, { CSSProperties, useState, useEffect } from "react";
-import Student from "../custom-types/types";
+import Student, { User } from "../custom-types/types";
+import TutorInterface from "../custom-types/types";
 import ChatTutorSide from "../components/chat-tutor-side";
 import fetchFunction from "../api-services";
-import TutorInterface from "../custom-types/types";
 
 interface Props {
   tutors: TutorInterface[]
 }
 
 export default function ChatsTutorSide({ tutors }: Props) {
-  const [contacts, setContacts] = useState([] as any);
   const [currentContact, setCurrentContact] = useState({} as any);
+  const [contacts, setContacts] = useState([] as any);
 
   const styleObj: CSSProperties = {
     height: '80vh',
@@ -40,13 +40,13 @@ export default function ChatsTutorSide({ tutors }: Props) {
   async function fetchContacts() {
     console.log(tutors);
     const tutorId = tutors.find(element => element.email === sessionStorage.getItem('email'))?._id;
-    const result = await fetchFunction(`http://localhost:8080/contacts/students`, 'POST', setContacts, { tutorId: tutorId });
-    console.log(contacts);
+    const result = await fetchFunction(`http://localhost:8080/contacts/students`, 'POST', setContacts, { tutorId: tutorId }) as unknown as TutorInterface[]
+    setCurrentContact(result[0]);
   }
 
   // STUDENTS INITIATE CHATS BASED ON USER IDs SO SHOULD BE NO ISSUE HERE
   useEffect(() => {
-    fetchContacts();
+    fetchContacts()
   }, [])
 
   return (

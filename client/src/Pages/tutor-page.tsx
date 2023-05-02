@@ -56,7 +56,10 @@ function TutorPage({ tutors, setCurrentTutor }: Props) {
           </div>
           <div className='box' style={styleObj}>
           <p className='subtitle'>{tutor.selfIntroduction || 'This tutor has yet to make an introduction!'}</p>
-          <button className='button is-large is-danger is-align-self-center is-pulled-right' onClick={contactTutor}>Contact this tutor</button>
+          { sessionStorage.getItem('type') === 'student' ?
+            <button className='button is-large is-danger is-align-self-center is-pulled-right' onClick={contactTutor}>Contact this tutor</button>
+            : null
+          }
           </div>
         </section>
         <section className='section is-flex is-justify-content-space-around is-flex-wrap-wrap'>
