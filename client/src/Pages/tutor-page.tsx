@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 type Props = {
   tutors: TutorInterface[],
-  setCurrentTutor: (string: string) => void
+  setCurrentTutor: (tutor: TutorInterface) => void
 };
 
 const styleObj = {
@@ -23,8 +23,9 @@ function TutorPage({ tutors, setCurrentTutor }: Props) {
 
   function contactTutor(): void {
     // SAVE ID OF A TUTOR WE PLAN TO CHAT WITH TO APP STATE
-    setCurrentTutor(id as string);
-    console.log('Setting current tutor to:', id);
+    const theOne = tutors.find((tutor) => tutor._id === id)
+    setCurrentTutor(theOne!);
+    console.log('Setting current tutor to:', theOne);
     navigate('/chats');
   }
 

@@ -1,27 +1,27 @@
-import React, { useState } from "react";
+import React, { CSSProperties, useState } from "react";
 import TutorInterface from "../custom-types/types";
 import Chat from "../components/chat";
 
 interface Props {
   tutors: TutorInterface[],
-  currentTutor: string,
-  setCurrentTutor: (string: string) => void
+  currentTutor: TutorInterface,
+  setCurrentTutor: (tutor: TutorInterface) => void
 }
 
 export default function Chats({ tutors, currentTutor, setCurrentTutor }: Props) {
   const [contacts, setContacts] = useState([] as string[]);
   const [tutor, setTutor] = useState(currentTutor);
 
-  const styleObj = {
-    height: '70vh',
-    // overflowY: 'scroll'!
+  const styleObj: CSSProperties = {
+    height: '80vh',
+    overflowY: 'scroll'
   }
 
   function changeChat(tutor: TutorInterface) {
     console.log(tutor);
     console.log(currentTutor);
-    setCurrentTutor(tutor._id as string);
-    setTutor(tutor._id as string);
+    setCurrentTutor(tutor);
+    setTutor(tutor);
   }
 
   // TODO: SHOULD SHOW ONLY TUTORS WITH MESSAGE HISTORY, NOT THE WHOLE BUNCH

@@ -1,10 +1,10 @@
 import React, { CSSProperties, useState, useEffect, ChangeEvent } from 'react';
 import fetchFunction from '../api-services';
-import userEvent from '@testing-library/user-event';
-import { get } from 'http';
+import { parseDateString } from '../utils/parsers';
+import TutorInterface from '../custom-types/types';
 
 interface Props {
-  currentTutor: string
+  currentTutor: TutorInterface
 }
 
 interface Message {
@@ -32,13 +32,15 @@ export default function Chat({ currentTutor }: Props) {
 
   async function postMessage() {
     const messageData = {
-      party2Id: currentTutor,
+      party2Id: currentTutor._id as string,
       message: typedIn
     };
     try {
       const send = await fetchFunction('http://localhost:8080/postmessage', 'POST', () => null, messageData)
         .then(() => {
           getMessages();
+          const textarea = document.querySelector('textarea');
+          textarea!.value = '';
         })
     } catch (error) {
       console.log(error);
@@ -48,7 +50,7 @@ export default function Chat({ currentTutor }: Props) {
 
   async function getMessages() {
     const messageData = {
-      party2Id: currentTutor,
+      party2Id: currentTutor._id as string,
     };
     try {
       const getChat = await fetchFunction('http://localhost:8080/chat', 'POST', () => null, messageData) as unknown as Chat;
@@ -60,7 +62,7 @@ export default function Chat({ currentTutor }: Props) {
   }
 
   const styleObj: CSSProperties = {
-    height: '70vh',
+    height: '80vh',
   }
 
   const textareaStyleObj: CSSProperties = {
@@ -74,20 +76,22 @@ export default function Chat({ currentTutor }: Props) {
   const chatStyleObj: CSSProperties = {
     overflowY: 'scroll'
   }
-
+  
   const messageElements = messages.map((message) => {
     return (
       <>
-        <article className="message" style={messageStyleObj}>
-          <div className="message-body">
-            {message.message}<br/>
-            {message.timestamp}<br/>
-            {message.senderId}
+        <article className={ message.senderId === sessionStorage.getItem('id') ? 'message is-pulled-right' : 'message' } style={messageStyleObj}>
+          <div className='message-body'>
+            {message.message}
+            <p className='help'>
+              sent on {parseDateString(message.timestamp)} by {message.senderId === sessionStorage.getItem('id') ? sessionStorage.getItem('name') : currentTutor.name }
+            </p>
           </div>
         </article>
       </>
     )
   })
+
 
   useEffect(() => {
     getMessages();
@@ -101,9 +105,9 @@ export default function Chat({ currentTutor }: Props) {
           {messageElements}
         </section>
         <section className='is-flex'>
-          <textarea className="textarea" style={textareaStyleObj} placeholder="Your message"
-            onChange={(event) => handleChange(event)}></textarea>
-          <button className="button is-large is-primary m-2" onClick={postMessage}>Send</button>
+          <textarea className="textarea mt-3" style={textareaStyleObj} placeholder="Your message"
+            onChange={(event) => handleChange(event)} onKeyDown={ (event) => event.keyCode === 13 ? postMessage () : null }></textarea>
+          <button className="button is-large is-primary m-2 mt-3" onClick={postMessage}>Send</button>
         </section>
       </div>
     </>

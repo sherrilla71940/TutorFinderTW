@@ -197,28 +197,3 @@ function postMessage(req, res) {
     });
 }
 exports.postMessage = postMessage;
-// const filter = { name: "John" };
-// const update = { age: 30 };
-// const options = { upsert: true, new: true };
-// const result = await MyModel.findOneAndUpdate(filter, update, options);
-// { $push: { myArrayField: "new item" } };
-// export async function createChat (req: Request, res: Response): Promise<void> {
-//   // data.user.id
-//   try {
-//     const data = req.body;
-//     console.log(req.body);
-//     // const newChat = await Chats.create(req.body);
-//     // res.status(201);
-//     // res.send('OK!');
-//   } catch (e: unknown) {
-//     res.status(400);
-//       if (e instanceof Error) {
-//         console.log(e);
-//         res.send(e);
-//       }
-//       else {
-//         console.log('Failed to create a student record');
-//         res.send('Failed to create a student record');
-//       }
-//   }
-// }
