@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState, useEffect, ChangeEvent } from 'react';
+import React, { CSSProperties, useState, useEffect, ChangeEvent, createRef, LegacyRef, RefObject, useRef } from 'react';
 import fetchFunction from '../api-services';
 import { parseDateString } from '../utils/parsers';
 import TutorInterface from '../custom-types/types';
@@ -30,6 +30,9 @@ export default function Chat({ currentTutor }: Props) {
     setTypedIn(target.value);
   }
 
+  // const myRef = createRef() as RefObject<HTMLElement>;
+  const myRef = useRef() as RefObject<HTMLElement>;
+
   async function postMessage() {
     const messageData = {
       party2Id: currentTutor._id as string,
@@ -53,8 +56,9 @@ export default function Chat({ currentTutor }: Props) {
       party2Id: currentTutor._id as string,
     };
     try {
-      const getChat = await fetchFunction('http://localhost:8080/chat', 'POST', () => null, messageData) as unknown as Chat;
+      const getChat = await fetchFunction('http://localhost:8080/chat', 'POST', () => null, messageData) as unknown as Chat
       setMessages(getChat.messageLog);
+
     } catch (error) {
       console.log(error);
       setMessages([]);
@@ -76,15 +80,15 @@ export default function Chat({ currentTutor }: Props) {
   const chatStyleObj: CSSProperties = {
     overflowY: 'scroll'
   }
-  
+
   const messageElements = messages.map((message) => {
     return (
       <>
-        <article className={ message.senderId === sessionStorage.getItem('id') ? 'message is-pulled-right' : 'message' } style={messageStyleObj}>
+        <article className={message.senderId === sessionStorage.getItem('id') ? 'message is-pulled-right' : 'message'} style={messageStyleObj}>
           <div className='message-body'>
             {message.message}
             <p className='help'>
-              sent on {parseDateString(message.timestamp)} by {message.senderId === sessionStorage.getItem('id') ? sessionStorage.getItem('name') : currentTutor.name }
+              sent on {parseDateString(message.timestamp)} by {message.senderId === sessionStorage.getItem('id') ? sessionStorage.getItem('name') : currentTutor.name}
             </p>
           </div>
         </article>
@@ -92,21 +96,35 @@ export default function Chat({ currentTutor }: Props) {
     )
   })
 
-
+  
   useEffect(() => {
+    // USE EFFECT EXECUTES RETURN CODE FIRST
+    // SO WE CLEAR INTERVAL FIRST, THEN MAKE A NEW ONE
     getMessages();
+    console.log('side effect')
+    const id = setInterval(getMessages, 2000);
+    return function cleanUp() {
+      console.log('cleaning up');
+      clearInterval(id);
+    }
   }, [currentTutor]);
   // REVISE THIS: DEFINE A DEPENDENCY ARRAY (NOT EMPTY) TO TRACK AND DETECT CHANGES AND RUN FUNCTIONS AND RE-RENDER
+
+  useEffect(() => {
+    if (myRef) {
+      myRef.current?.scroll(0, myRef.current?.scrollHeight);
+    }
+  }, [messages])
 
   return (
     <>
       <div className='box is-flex is-flex-direction-column is-justify-content-space-between' style={styleObj}>
-        <section style={chatStyleObj}>
+        <section ref={myRef} id="chat-box" style={chatStyleObj}>
           {messageElements}
         </section>
         <section className='is-flex'>
           <textarea className="textarea mt-3" style={textareaStyleObj} placeholder="Your message"
-            onChange={(event) => handleChange(event)} onKeyDown={ (event) => event.keyCode === 13 ? postMessage () : null }></textarea>
+            onChange={(event) => handleChange(event)} onKeyDown={(event) => event.keyCode === 13 ? postMessage() : null}></textarea>
           <button className="button is-large is-primary m-2 mt-3" onClick={postMessage}>Send</button>
         </section>
       </div>
