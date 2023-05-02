@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import fetchFunction from "../api-services";
+import React, { useState } from "react";
 import TutorInterface from "../custom-types/types";
 import Chat from "../components/chat";
 
@@ -25,21 +24,7 @@ export default function Chats({ tutors, currentTutor, setCurrentTutor }: Props) 
     setTutor(tutor._id as string);
   }
 
-  // componentDidUpdate(prevProps: any, prevState: any) {
-  //   if (prevState.pokemons !== this.state.pokemons) {
-  //     console.log('pokemons state has changed.')
-  //   }
-  // }
-
-  useEffect(() => {
-    console.log('Entering chats, current tutor is:', currentTutor);
-    // const newContacts = contacts;
-    // newContacts.push(currentTutor);
-    // setContacts(newContacts);
-    // console.log(contacts);
-  }, [])
-
-  // TODO: SHOULD SHOW ONLY TUTORS WITH MESSAGE HISTORY
+  // TODO: SHOULD SHOW ONLY TUTORS WITH MESSAGE HISTORY, NOT THE WHOLE BUNCH
   const myTutors = tutors.map((tutor) => {
     return (
       <>
@@ -68,8 +53,4 @@ export default function Chats({ tutors, currentTutor, setCurrentTutor }: Props) 
       </div>
     </>
   )
-}
-
-function componentDidUpdate(prevProps: any, prevState: any) {
-  throw new Error("Function not implemented.");
 }
