@@ -11,19 +11,24 @@ function TutorsList({ tutors }: Props) {
 
   useEffect(() => console.log('updated tutors'), [tutors])
 
-  return (
-    <>
-      <div className='container is-flex is-flex-direction-row is-flex-wrap-wrap'>
-      {
-          tutors.map((tutor) => {
-            return (
-              <TutorCard key={tutor._id as string} tutorKey={tutor._id as string} tutor={tutor} />
-            );
-          })
-        }
-      </div>
-    </>
-  );
+  if (!Array.isArray(tutors)) {
+    return null;
+  } else {
+    console.log(tutors);
+    return (
+      <>
+        <div className='container is-flex is-flex-direction-row is-flex-wrap-wrap'>
+          {
+            tutors.map((tutor) => {
+              return (
+                <TutorCard key={tutor._id as string} tutorKey={tutor._id as string} tutor={tutor} />
+              );
+            })
+          }
+        </div>
+      </>
+    );
+  }
 }
 
 export default TutorsList;

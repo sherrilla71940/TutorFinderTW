@@ -7,13 +7,14 @@ import TutorPage from './Pages/tutor-page';
 import Register from './Pages/tutor-registration';
 import NotFound from './Pages/not-found-page';
 import SignUpForm from './Pages/user-registration';
-import Chats from './Pages/chats';
+import ChatsStudentSide from './Pages/chats-student-side';
 
 import { useState, useEffect } from 'react';
 import fetchFunction from './api-services';
 import TutorInterface from './custom-types/types';
 import NavBar from './components/nav-bar';
 import CompleteStudentDetails from './Pages/student-registration';
+import ChatsTutorSide from './Pages/chats-tutor-side';
 
 // have a global state for tutors,
 // and when create profile form is submitted,
@@ -72,7 +73,11 @@ function App() {
         <Route path="/studentDetailsForm" element={<CompleteStudentDetails />} />
         <Route path='*' element={<NotFound />} />
         <Route path='/signup' element={<SignUpForm />} />
-        <Route path='/chats' element={<Chats tutors={tutors} currentTutor={currentTutor} setCurrentTutor={setCurrentTutor}/>} />
+        <Route path='/chats' element={
+          sessionStorage.getItem('type') === 'student' ?
+          <ChatsStudentSide tutors={tutors} currentTutor={currentTutor} setCurrentTutor={setCurrentTutor}/>
+          : <ChatsTutorSide tutors={tutors} />
+        } />
       </Routes>
     </>
   );

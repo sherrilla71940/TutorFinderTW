@@ -4,7 +4,8 @@ import { parseDateString } from '../utils/parsers';
 import TutorInterface from '../custom-types/types';
 
 interface Props {
-  currentTutor: TutorInterface
+  currentContact: any,
+  tutors: TutorInterface[]
 }
 
 interface Message {
@@ -20,7 +21,7 @@ interface Chat {
   messageLog: Message[]
 }
 
-export default function Chat({ currentTutor }: Props) {
+export default function ChatTutorSide({ currentContact, tutors }: Props) {
   const [messages, setMessages] = useState([] as Message[]);
 
   const [typedIn, setTypedIn] = useState("");
@@ -30,13 +31,14 @@ export default function Chat({ currentTutor }: Props) {
     setTypedIn(target.value);
   }
 
-  // const myRef = createRef() as RefObject<HTMLElement>;
   const myRef = useRef() as RefObject<HTMLElement>;
 
   async function postMessage() {
+    const tutorId = tutors.find(element => element.email === sessionStorage.getItem('email'))?._id;
     const messageData = {
-      party2Id: currentTutor._id as string,
-      message: typedIn
+      party2Id: currentContact._id as string,
+      message: typedIn,
+      tutorId: tutorId
     };
     try {
       const send = await fetchFunction('http://localhost:8080/postmessage', 'POST', () => null, messageData)
@@ -52,8 +54,10 @@ export default function Chat({ currentTutor }: Props) {
   }
 
   async function getMessages() {
+    const tutorId = tutors.find(element => element.email === sessionStorage.getItem('email'))?._id;
     const messageData = {
-      party2Id: currentTutor._id as string,
+      party2Id: currentContact._id as string,
+      tutorId: tutorId
     };
     try {
       const getChat = await fetchFunction('http://localhost:8080/chat', 'POST', () => null, messageData) as unknown as Chat
@@ -84,11 +88,11 @@ export default function Chat({ currentTutor }: Props) {
   const messageElements = messages.map((message) => {
     return (
       <>
-        <article className={message.senderId === sessionStorage.getItem('id') ? 'message is-pulled-right' : 'message is-pulled-left'} style={messageStyleObj}>
+        <article className={message.senderId === currentContact._id ? 'message is-pulled-left' : 'message is-pulled-right'} style={messageStyleObj}>
           <div className='message-body'>
             {message.message}
             <p className='help'>
-              sent on {parseDateString(message.timestamp)} by {message.senderId === sessionStorage.getItem('id') ? sessionStorage.getItem('name') : currentTutor.name}
+              sent on {parseDateString(message.timestamp)} by {message.senderId === currentContact._id ? currentContact.name : sessionStorage.getItem('name') }
             </p>
           </div>
         </article>
@@ -107,7 +111,7 @@ export default function Chat({ currentTutor }: Props) {
       console.log('cleaning up');
       clearInterval(id);
     }
-  }, [currentTutor]);
+  }, [currentContact]);
   // REVISE THIS: DEFINE A DEPENDENCY ARRAY (NOT EMPTY) TO TRACK AND DETECT CHANGES AND RUN FUNCTIONS AND RE-RENDER
 
   useEffect(() => {

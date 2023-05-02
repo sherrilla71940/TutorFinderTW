@@ -10,7 +10,7 @@ interface messageData {
 }
 
 
-export default async function fetchFunction <T>(url: string, method: HttpMethod, setter:any, body?: TutorInterface | Student | { isComplete: boolean } | messageData): Promise<void | Response> {
+export default async function fetchFunction <T>(url: string, method: HttpMethod, setter:any, body?: TutorInterface | Student | { isComplete: boolean } | messageData | { tutorId: string | undefined }): Promise<void | Response> {
   // fetch api returns a promise that resolves to a response object readable stream, when calling .json on it returns another promise that resolves to JS object of data
 
   const fetchOptions: RequestInit = {
@@ -22,6 +22,7 @@ export default async function fetchFunction <T>(url: string, method: HttpMethod,
   }
   if (body) {
     fetchOptions.body = JSON.stringify(body);
+    console.log(body);
   }
 
   try {

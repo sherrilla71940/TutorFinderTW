@@ -9,8 +9,8 @@ interface Props {
   setCurrentTutor: (tutor: TutorInterface) => void
 }
 
-export default function Chats({ tutors, currentTutor, setCurrentTutor }: Props) {
-  const [contacts, setContacts] = useState([] as any);
+export default function ChatsStudentSide({ tutors, currentTutor, setCurrentTutor }: Props) {
+  const [contacts, setContacts] = useState([currentTutor] as any);
   const [tutor, setTutor] = useState(currentTutor);
 
   const styleObj: CSSProperties = {
@@ -29,32 +29,20 @@ export default function Chats({ tutors, currentTutor, setCurrentTutor }: Props) 
   // FOR STUDENT - ADD CURRENT TO LIST OF CONTACTS
   // FOR TUTOR - ONLY STUDENTS WITH MESSAGES
   const myTutors = contacts.map((tutor: any) => {
-    return (
-      <>
-        {/* <div className={ tutor._id === currentTutor._id ? "notification is-flex is-link" : "notification is-flex" } */}
-        <div className="notification is-flex"
-         onClick={(event) => changeChat(tutor)}>
-          <figure className="image is-48x48">
-            {/* <img className="is-rounded" src={tutor.profilePicUrl} alt="userpic" /> */}
-          </figure>
-          <span className="subtitle m-3">{tutor.name}</span>
-        </div>
-      </>
-    )
+    if (tutor) {
+      return (
+        <>
+          <div className={tutor._id === currentTutor._id ? "notification is-flex is-link" : "notification is-flex"}
+            onClick={(event) => changeChat(tutor)}>
+            <figure className="image is-48x48">
+              <img className="is-rounded" src={tutor.profilePicUrl} alt="userpic" />
+            </figure>
+            <span className="subtitle m-3">{tutor.name}</span>
+          </div>
+        </>
+      )
+    }
   })
-  // const myTutors = tutors.map((tutor) => {
-  //   return (
-  //     <>
-  //       <div className={ tutor._id === currentTutor._id ? "notification is-flex is-link" : "notification is-flex" }
-  //        onClick={(event) => changeChat(tutor)}>
-  //         <figure className="image is-48x48">
-  //           <img className="is-rounded" src={tutor.profilePicUrl} alt="userpic" />
-  //         </figure>
-  //         <span className="subtitle m-3">{tutor.name}</span>
-  //       </div>
-  //     </>
-  //   )
-  // })
 
   async function fetchContacts(type: string) {
     const result = await fetchFunction(`http://localhost:8080/contacts/${type}`, 'GET', setContacts);
