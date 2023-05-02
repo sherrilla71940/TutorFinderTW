@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postMessage = exports.getAChat = exports.getChats = exports.addStudent = exports.updateTutor = exports.deleteTutor = exports.getTutor = exports.addTutor = exports.getAllTutors = void 0;
+exports.getContacts = exports.postMessage = exports.getAChat = exports.getChats = exports.addStudent = exports.updateTutor = exports.deleteTutor = exports.getTutor = exports.addTutor = exports.getAllTutors = void 0;
 const student_1 = __importDefault(require("../models/student"));
 const tutor_1 = require("../models/tutor");
 const chat_1 = __importDefault(require("../models/chat"));
@@ -149,10 +149,11 @@ function getAChat(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const data = req.body;
-            console.log(data);
-            console.log('Got a request for a chat');
+            // console.log(data);
+            // console.log('Got a request for a chat');
             const chat = yield chat_1.default.findOne({ $or: [{ partyId1: data.user.id, partyId2: data.party2Id }, { partyId1: data.party2Id, partyId2: data.user.id }] });
             res.status(200);
+            // console.log(chat);
             res.json(chat);
         }
         catch (error) {
@@ -197,3 +198,55 @@ function postMessage(req, res) {
     });
 }
 exports.postMessage = postMessage;
+function getContacts(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const type = req.params.type;
+            console.log('Got a request for', type);
+            const data = req.body;
+            const chats = yield chat_1.default.find({ $or: [{ partyId1: data.user.id }, { partyId2: data.user.id }] });
+            const ids = [];
+            chats.forEach((chat) => {
+                if (chat.partyId1 === data.user.id) {
+                    ids.push(chat.partyId2);
+                }
+                else {
+                    ids.push(chat.partyId1);
+                }
+            });
+            // TODO: FIX THE TYPE
+            const contacts = [];
+            if (type === 'tutors') {
+                yield Promise.all(ids.map((id) => __awaiter(this, void 0, void 0, function* () {
+                    const record = yield tutor_1.Tutor.findById(id);
+                    contacts.push(record);
+                })))
+                    .then(() => {
+                    console.log(`Found ${contacts.length} contacts`);
+                    res.status(200);
+                    res.json(contacts);
+                });
+            }
+            else if (type === 'students') {
+                yield Promise.all(ids.map((id) => __awaiter(this, void 0, void 0, function* () {
+                    const record = yield student_1.default.findById(id);
+                    console.log(id);
+                    console.log(record);
+                    contacts.push(record);
+                })))
+                    .then(() => {
+                    console.log(`Found ${contacts.length} contacts`);
+                    console.log(contacts);
+                    res.status(200);
+                    res.json(contacts);
+                });
+            }
+        }
+        catch (error) {
+            console.log(error);
+            res.status(404);
+            res.send('Failed to get contacts');
+        }
+    });
+}
+exports.getContacts = getContacts;

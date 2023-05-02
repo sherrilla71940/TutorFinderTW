@@ -30,5 +30,7 @@ router.get('/chats', verifyToken, controller.getChats);
 // GET A SPECIFIC CHAT
 router.post('/chat', verifyToken, controller.getAChat);
 router.post('/postmessage', verifyToken, controller.postMessage);
+// CONTACTS ROUTE
+router.get('/contacts/:type', verifyToken, controller.getContacts);
 
 export default router;

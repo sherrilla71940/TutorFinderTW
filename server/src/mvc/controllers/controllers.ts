@@ -109,10 +109,11 @@ export async function getChats (req: Request, res: Response): Promise<void> {
 export async function getAChat (req: Request, res: Response): Promise<void> {
   try {
     const data = req.body;
-    console.log(data);
-    console.log('Got a request for a chat');
+    // console.log(data);
+    // console.log('Got a request for a chat');
     const chat = await Chats.findOne( { $or: [{ partyId1: data.user.id, partyId2: data.party2Id }, { partyId1: data.party2Id, partyId2: data.user.id }] });
     res.status(200);
+    // console.log(chat);
     res.json(chat);
   } catch (error) {
     console.log(error);
@@ -148,6 +149,56 @@ export async function postMessage (req: Request, res: Response): Promise<void> {
     res.send('Message posted!');
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  export async function getContacts (req: Request, res: Response): Promise<void> {
+    try {
+      const type = req.params.type;
+      console.log('Got a request for', type);
+      const data = req.body;
+      const chats = await Chats.find( { $or: [{ partyId1: data.user.id }, { partyId2: data.user.id }] } );
+      const ids: string[] = [];
+      chats.forEach((chat) => {
+        if (chat.partyId1 === data.user.id) {
+          ids.push(chat.partyId2!);
+        } else {
+          ids.push(chat.partyId1!);
+        }
+      })
+      // TODO: FIX THE TYPE
+      // USERS AND TUTORS/STUDENTS HAVE DIFFERENT IDS - REMEMBER THAT
+      // FIX: THE ID-BASED LOGIC WORKS FOR STUDENTS, BUT NOT FOR TUTORS
+      // CAN BE FIXED BY SECONDARY KEYS (IDS) IN THE MODELS OR... BY USING EMAIL AS UNIQUE IDENTIFIER
+      const contacts: any[] = [];
+      if (type === 'tutors') {
+        await Promise.all(ids.map(async (id) => {
+          const record = await Tutor.findById(id);
+          contacts.push(record);
+        }))
+          .then(() => {
+            console.log(`Found ${contacts.length} contacts`);
+            res.status(200);
+            res.json(contacts);
+          })
+      } else if (type === 'students') {
+        await Promise.all(ids.map(async (id) => {
+          const record = await Students.findById(id);
+          console.log(id);
+          console.log(record);
+          contacts.push(record);
+        }))
+          .then(() => {
+            console.log(`Found ${contacts.length} contacts`);
+            console.log(contacts);
+            res.status(200);
+            res.json(contacts);
+          })
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(404);
+      res.send('Failed to get contacts');
     }
   }
 
