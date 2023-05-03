@@ -1,12 +1,12 @@
 import React, { CSSProperties, useState, useEffect } from "react";
-import TutorInterface from "../custom-types/types";
+import { Tutor, User } from "../custom-types/types";
 import Chat from "../components/chat";
 import fetchFunction from "../api-services";
 
 interface Props {
-  tutors: TutorInterface[],
-  currentTutor: TutorInterface,
-  setCurrentTutor: (tutor: TutorInterface) => void
+  tutors: Tutor[],
+  currentTutor: Tutor,
+  setCurrentTutor: (tutor: Tutor) => void
 }
 
 export default function ChatsStudentSide({ tutors, currentTutor, setCurrentTutor }: Props) {
@@ -18,16 +18,11 @@ export default function ChatsStudentSide({ tutors, currentTutor, setCurrentTutor
     overflowY: 'scroll'
   }
 
-  function changeChat(tutor: TutorInterface) {
-    console.log(tutor);
-    console.log(currentTutor);
+  function changeChat(tutor: Tutor) {
     setCurrentTutor(tutor);
     setTutor(tutor);
   }
 
-  // TODO: SHOULD SHOW ONLY TUTORS WITH MESSAGE HISTORY, NOT THE WHOLE BUNCH
-  // FOR STUDENT - ADD CURRENT TO LIST OF CONTACTS
-  // FOR TUTOR - ONLY STUDENTS WITH MESSAGES
   const myTutors = contacts.map((tutor: any) => {
     if (tutor) {
       return (
@@ -44,17 +39,17 @@ export default function ChatsStudentSide({ tutors, currentTutor, setCurrentTutor
     }
   })
 
-  async function fetchContacts(type: string) {
-    const result = await fetchFunction(`http://localhost:8080/contacts/${type}`, 'GET', setContacts);
-    console.log(contacts);
+  async function fetchContacts() {
+    const result = await fetchFunction(
+      `http://localhost:8080/contacts`, 
+      'GET', 
+      (response: any) => {
+        setContacts([...response, currentTutor])
+      });
   }
 
   useEffect(() => {
-    if (sessionStorage.getItem('type') === 'tutor') {
-      fetchContacts('students');
-    } else if (sessionStorage.getItem('type') === 'student') {
-      fetchContacts('tutors');
-    }
+    fetchContacts();
   }, [])
 
   return (
@@ -66,8 +61,7 @@ export default function ChatsStudentSide({ tutors, currentTutor, setCurrentTutor
           </div>
         </div>
         <div className="column m-2">
-          {/* CHAT COMPONENT HERE */}
-          <Chat currentTutor={currentTutor} />
+          <Chat theOtherParty={currentTutor} />
         </div>
       </div>
     </>

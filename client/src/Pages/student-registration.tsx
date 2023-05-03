@@ -1,6 +1,5 @@
 import React, { SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Student from '../custom-types/types';
 import fetchFunction from '../api-services';
 
 export default function CompleteStudentDetails() {
@@ -13,26 +12,28 @@ export default function CompleteStudentDetails() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    const newStudent = {
-      name: sessionStorage.name,
+    const newDetails = {
       profilePicUrl: profilePicUrl,
       age: age,
-      email: sessionStorage.email,
       selfIntroduction: introduction,
-    } as Student;
+      isComplete: true
+    };
     try {
-      const postStudentDetails = await fetchFunction('http://localhost:8080/newstudent', 'POST', () => null, newStudent)
+      const postStudentDetails = await fetchFunction(
+        `http://localhost:8080/updateuserinfo`, 
+        'PUT', 
+        () => null, 
+        newDetails)
         .then(async () => {
           console.log('Student details posted')
-          const updateProfileStatus = await fetchFunction('http://localhost:8080/updateuserinfo', 'PUT', () => null, { isComplete: true });
           navigate('/tutors');
         })
     } catch (error) {
       console.log(error);
+      window.alert('Failed to update student info');
     }
   }
 
-  // tried making handleChange an async func, but realized that for some reason when i await setState and console.log state below that, the console.log does not wait for the await statement
   function handleChange<T>(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, setter: React.Dispatch<React.SetStateAction<T>>, value: SetStateAction<T>) {
     if (typeof value === 'string' && value.length < 0) return;
     setter(value);
@@ -67,7 +68,7 @@ export default function CompleteStudentDetails() {
 
           <div className="field">
             <div className="control">
-              <label className='label' htmlFor="introduction">Introduce Yourself: </label>
+              <label className='label' htmlFor="introduction">Introduce yourself: </label>
               <textarea className='textarea' name="introduction" id="introduction" cols={20} rows={5}
                 onChange={(e) => handleChange(e, setIntroduction, e.target.value)}></textarea>
             </div>

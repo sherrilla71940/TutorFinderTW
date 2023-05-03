@@ -4,14 +4,14 @@ import './App.css';
 import Home from './Pages/Home';
 import TutorsList from './Pages/tutors-list';
 import TutorPage from './Pages/tutor-page';
-import Register from './Pages/tutor-registration';
+import CompleteTutorDetails from './Pages/tutor-registration';
 import NotFound from './Pages/not-found-page';
 import SignUpForm from './Pages/user-registration';
 import ChatsStudentSide from './Pages/chats-student-side';
 
 import { useState, useEffect } from 'react';
 import fetchFunction from './api-services';
-import TutorInterface from './custom-types/types';
+import { Tutor } from './custom-types/types';
 import NavBar from './components/nav-bar';
 import CompleteStudentDetails from './Pages/student-registration';
 import ChatsTutorSide from './Pages/chats-tutor-side';
@@ -22,40 +22,17 @@ import ChatsTutorSide from './Pages/chats-tutor-side';
 // refresh when redirecting
 
 function App() {
-
-  const [tutors, setTutors] = useState<TutorInterface[]>([]);
-
-  const [currentTutor, setCurrentTutor] = useState({} as TutorInterface);
-
-  function setTutorsFunc(data: TutorInterface[]) {
-    setTutors(data);
-  }
-
-  async function postTutorAndRedirect(userFormData: TutorInterface) {
-    // if (!allNewTutorSubjectsArr.length) return;
-    try {
-      console.log(userFormData)
-      // await fetchFunction(`http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}`, 'POST', tutorsSetter, userFormData);
-      await fetchFunction(`http://localhost:8080`, 'POST', setTutorsFunc, userFormData);
-      // setSubmissionFailure(false);
-      // navigate('/');
-    } catch (e) {
-      console.log(e);
-      // if formsubmissionfailure is set to true, render extra 'failed to submit' component
-      // setSubmissionFailure(true);
-    }
-  }
-
-
-
+  const [tutors, setTutors] = useState<Tutor[]>([]);
+  const [currentTutor, setCurrentTutor] = useState({} as Tutor);
 
   useEffect(() => {
     (async () => {
       try {
-        // await fetchFunction(`http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}`, 'GET', setTutors);
-        await fetchFunction(`http://localhost:8080`, 'GET', setTutorsFunc);
-      } catch (e) {
-        console.log(e);
+        await fetchFunction(`http://localhost:8080/tutors`,
+          'GET',
+          setTutors);
+      } catch (error) {
+        console.log(error);
       }
     })();
   }, []);
@@ -69,14 +46,14 @@ function App() {
           <Route index element={<TutorsList tutors={tutors} />} />
           <Route path=":id" element={<TutorPage tutors={tutors} setCurrentTutor={setCurrentTutor} />} />
         </Route>
-        <Route path="/tutorDetailsForm" element={<Register postTutorAndRedirect={postTutorAndRedirect} />} />
+        <Route path="/tutorDetailsForm" element={<CompleteTutorDetails />} />
         <Route path="/studentDetailsForm" element={<CompleteStudentDetails />} />
         <Route path='*' element={<NotFound />} />
         <Route path='/signup' element={<SignUpForm />} />
         <Route path='/chats' element={
           sessionStorage.getItem('type') === 'student' ?
-          <ChatsStudentSide tutors={tutors} currentTutor={currentTutor} setCurrentTutor={setCurrentTutor}/>
-          : <ChatsTutorSide tutors={tutors} />
+            <ChatsStudentSide tutors={tutors} currentTutor={currentTutor} setCurrentTutor={setCurrentTutor} />
+            : <ChatsTutorSide tutors={tutors} />
         } />
       </Routes>
     </>

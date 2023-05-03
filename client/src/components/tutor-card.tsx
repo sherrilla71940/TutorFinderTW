@@ -1,9 +1,9 @@
 import React from 'react';
-import TutorInterface from '../custom-types/types';
+import { Tutor } from '../custom-types/types';
 import { NavLink } from 'react-router-dom';
 
 type Props = {
-  tutor: TutorInterface,
+  tutor: Tutor,
   tutorKey: string;
 }
 
@@ -24,7 +24,7 @@ export default function TutorCard({ tutor, tutorKey }: Props) {
           <p className='title is-5'>{tutor.name}</p>
           <p className='subtitle is-6'>{tutor.age}</p> 
             {
-              tutor.teachingLocations?.map((location) => {
+              tutor.tutorDetails.teachingLocations?.map((location) => {
                 return (
                   <span key={location.city}>{location.city} </span>
                   );
@@ -32,7 +32,7 @@ export default function TutorCard({ tutor, tutorKey }: Props) {
               }
           <div className='mb-2'>
             {
-              tutor.subjects.map((subObj) => {
+              tutor.tutorDetails.subjects.map((subObj) => {
                 return (
                   <span key={subObj.subject}>{subObj.subject} </span>
                 );
@@ -41,8 +41,8 @@ export default function TutorCard({ tutor, tutorKey }: Props) {
           </div>
         </div>
         <div className='card-footer'>
-          {tutor.inPerson ? <div className='tag is-success m-1'>In-person</div> : null}
-          {tutor.remote ? <div className='tag is-link m-1'>Remote</div> : null}
+          {tutor.tutorDetails.inPerson ? <div className='tag is-success m-1'>In-person</div> : null}
+          {tutor.tutorDetails.remote ? <div className='tag is-link m-1'>Remote</div> : null}
         </div>
       </div>
     </NavLink>

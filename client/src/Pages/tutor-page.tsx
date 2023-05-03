@@ -1,13 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import TutorInterface from '../custom-types/types';
+import { Tutor } from '../custom-types/types';
 import { useState, useEffect } from 'react';
 import NotFound from './not-found-page';
 import { useNavigate } from 'react-router-dom';
 
 type Props = {
-  tutors: TutorInterface[],
-  setCurrentTutor: (tutor: TutorInterface) => void
+  tutors: Tutor[],
+  setCurrentTutor: (tutor: Tutor) => void
 };
 
 const styleObj = {
@@ -17,7 +17,7 @@ const styleObj = {
 
 function TutorPage({ tutors, setCurrentTutor }: Props) {
   const { id } = useParams();
-  const [tutor, setTutor] = useState<TutorInterface>({} as TutorInterface);
+  const [tutor, setTutor] = useState<Tutor>({} as Tutor);
   
   const navigate = useNavigate();
 
@@ -34,8 +34,6 @@ function TutorPage({ tutors, setCurrentTutor }: Props) {
     if (foundTutor) setTutor(foundTutor);
   });
 
-  // not sure why this doesnt work: if (!tutor) return <NotFound/>, but line below works
-  // answer: because if tutor does not exist and we try to access prop on it, it will throw an error instead so it would return neither component. This is JS behaviour
   if (!tutor.name) return <NotFound />;
 
   else {
@@ -50,8 +48,8 @@ function TutorPage({ tutors, setCurrentTutor }: Props) {
             <h1 className='title'>{tutor.name}</h1>
             <p className='subtitle'>{tutor.age}</p>
             <p className='subtitle'>{tutor.email}</p>
-            {tutor.inPerson ? <div className='tag is-primary m-1'>In-person</div> : null}
-            {tutor.remote ? <div className='tag is-link m-1'>Remote</div> : null}
+            {tutor.tutorDetails.inPerson ? <div className='tag is-primary m-1'>In-person</div> : null}
+            {tutor.tutorDetails.remote ? <div className='tag is-link m-1'>Remote</div> : null}
           </div>
           </div>
           <div className='box' style={styleObj}>
@@ -63,8 +61,8 @@ function TutorPage({ tutors, setCurrentTutor }: Props) {
           </div>
         </section>
         <section className='section is-flex is-justify-content-space-around is-flex-wrap-wrap'>
-          {tutor.subjects &&
-            tutor.subjects.map((subject) => {
+          {tutor.tutorDetails.subjects &&
+            tutor.tutorDetails.subjects.map((subject) => {
               return (
                 <>
                 <div>

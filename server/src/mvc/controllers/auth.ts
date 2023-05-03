@@ -61,15 +61,3 @@ export async function loginUser(request: Request, response: Response): Promise<v
     response.send('Authentication error');
   }
 }
-
-export async function updateUserInfo(request: Request, response: Response): Promise<void> {
-  const data = request.body;
-  const update = await Users.findByIdAndUpdate(data.user.id, { isComplete: data.isComplete });
-  if (!update) {
-    response.status(404);
-    response.send('Failed to update');
-  } else {
-    response.status(200);
-    response.send('User status updated');
-  }
-}

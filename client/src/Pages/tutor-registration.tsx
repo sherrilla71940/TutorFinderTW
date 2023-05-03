@@ -1,24 +1,16 @@
 import React, { SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TutorInterface, { Subject, Subjects } from '../custom-types/types';
+import { User, Subject, Subjects } from '../custom-types/types';
 import fetchFunction from '../api-services';
 
-type Props = {
-  postTutorAndRedirect(data: TutorInterface): void
-}
-
-
-function Register({ postTutorAndRedirect }: Props) {
+function CompleteTutorDetails() {
 
   const [userHasSubmit, setHasUserSubmit] = useState<boolean>(false);
   const [submissionFailure, setSubmissionFailure] = useState<boolean>(false);
-  const [userFormData, setUserFormData] = useState<TutorInterface>({} as TutorInterface);
+  const [userFormData, setUserFormData] = useState<User>({} as User);
 
   const [newTutorProfileUrl, setNewTutorProfileUrl] = useState<string>('');
-  const [newTutorName, setNewTutorName] = useState<string>('');
   const [newTutorAge, setNewTutorAge] = useState<number>(18);
-  const [newTutorGender, setNewTutorGender] = useState<string>('male');
-  const [newTutorEmail, setNewTutorEmail] = useState<string>('');
   const [newTutorIntroduction, setNewTutorIntroduction] = useState<string>('');
   const [newTutorInPerson, setNewTutorInPerson] = useState<boolean>(false);
   const [newTutorRemote, setNewTutorRemote] = useState<boolean>(false);
@@ -32,31 +24,34 @@ function Register({ postTutorAndRedirect }: Props) {
 
   const navigate = useNavigate();
 
-
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    const newTutor = {
-      name: newTutorName,
+    const newDetails = {
       profilePicUrl: newTutorProfileUrl,
       age: newTutorAge,
-      gender: newTutorGender,
-      email: newTutorEmail,
-      remote: newTutorRemote,
-      subjects: allNewTutorSubjectsArr,
-      inPerson: newTutorInPerson,
       selfIntroduction: newTutorIntroduction ? newTutorIntroduction : '',
+      isComplete: true,
+      tutorDetails: {
+        userId: sessionStorage.getItem("id"),
+        remote: newTutorRemote,
+        subjects: allNewTutorSubjectsArr,
+        inPerson: newTutorInPerson,
+      }
     };
-
     try {
-      const postTutorDetails = await fetchFunction('http://localhost:8080/newtutor', 'POST', () => null, newTutor)
+      const postTutorDetails = await fetchFunction(
+        `http://localhost:8080/updateuserinfo`, 
+        'PUT', 
+        () => null, 
+        newDetails as any)
         .then(async () => {
           console.log('Tutor details posted')
-          const updateProfileStatus = await fetchFunction('http://localhost:8080/updateuserinfo', 'PUT', () => null, { isComplete: true });
+          // TODO: NAVIGATE TO MESSAGES, THERE IS NO REASON TO SEE OTHER TUTORS
           navigate('/tutors');
-          window.location.reload();
         })
     } catch (error) {
       console.log(error);
+      window.alert('Failed to update tutor info');
     }
   }
 
@@ -118,8 +113,6 @@ function Register({ postTutorAndRedirect }: Props) {
     }
   }
 
-
-  // tried making handleChange an async func, but realized that for some reason when i await setState and console.log state below that, the console.log does not wait for the await statement
   function handleChange<T>(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, setter: React.Dispatch<React.SetStateAction<T>>, value: SetStateAction<T>) {
     if (typeof value === 'string' && value.length < 0) return;
     if (newTutorInPerson) setNewTutorInPerson(false)
@@ -135,7 +128,7 @@ function Register({ postTutorAndRedirect }: Props) {
 
           <div className="field">
             <div className="control">
-              <label htmlFor="profile" className='label'>*Your Profile Picture URL: </label>
+              <label htmlFor="profile" className='label'>Your Profile Picture URL: </label>
               <input id="profile" data-testid='urlInput' className='input' type="text"
                 value={newTutorProfileUrl}
                 onChange={(e) => handleChange(e, setNewTutorProfileUrl, e.target.value)}
@@ -146,25 +139,7 @@ function Register({ postTutorAndRedirect }: Props) {
 
           <div className="field">
             <div className="control">
-              <label htmlFor="name" className='label'>*Your name: </label>
-              <input className="input" id="name" data-testid='nameInput' type="text" value={newTutorName}
-                name='name' required
-                onChange={(e) => handleChange(e, setNewTutorName, e.target.value)} />
-            </div>
-          </div>
-
-          <div className="field">
-            <div className="control">
-              <label htmlFor="email" className='label'>*Your email: </label>
-              <input className='input' data-testid='emailInput' type="email" name="email" id="email"
-                value={newTutorEmail} required
-                onChange={(e) => handleChange(e, setNewTutorEmail, e.target.value)} />
-            </div>
-          </div>
-
-          <div className="field">
-            <div className="control">
-              <label htmlFor="age" className='label'>*Your age: </label>
+              <label htmlFor="age" className='label'>Your age: </label>
               <input id="age" className='input' data-testid='ageInput' type="number" name='age' min={0}
                 max={150}
                 defaultValue={18} required
@@ -172,30 +147,15 @@ function Register({ postTutorAndRedirect }: Props) {
             </div>
           </div>
 
-
           <div className="field">
             <div className="control">
-              <label htmlFor="gender" className='label'>*Your gender: </label>
-              <div className="select">
-                <select data-testid='genderInput' name="gender" id="gender" required onChange={(e) => {
-                  handleChange(e, setNewTutorGender, e.target.value)
-                }}>
-                  <option value="male">male</option>
-                  <option value="female">female</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div className="field">
-            <div className="control">
-              <label className='label' htmlFor="introduction">*Introduce Yourself: </label>
+              <label className='label' htmlFor="introduction">Introduce Yourself: </label>
               <textarea className='textarea' name="introduction" id="introduction" cols={20} rows={5}
                 onChange={(e) => handleChange(e, setNewTutorIntroduction, e.target.value)}></textarea>
             </div>
           </div>
 
-          <label className='label'>*How you will teach: </label>
+          <label className='label'>How you will teach: </label>
           <div className="field">
             <div className="control">
               <label className='checkbox' htmlFor="remote">
@@ -238,10 +198,10 @@ function Register({ postTutorAndRedirect }: Props) {
               </select>
               {newTutorSubjectName !== '' && (
                 <>
-                  <label htmlFor="branch">*Subject branch: </label>
+                  <label htmlFor="branch">Subject branch: </label>
                   <input data-testid='branchInput' type="text" value={newTutorSubjectBranchName}
                     onChange={(e) => handleChange(e, setNewTutorSubjectBranchName, e.target.value)} />
-                  <label htmlFor="hourly-rate">*Hourly Rate: </label>
+                  <label htmlFor="hourly-rate">Hourly Rate: </label>
                   <input type="number" required name="hourly-rate" min={0} max={10000} step="25"
                     defaultValue={300}
                     onChange={(e) => handleChange(e, setNewTutorSubjectBranchRate, e.target.valueAsNumber)} />
@@ -284,7 +244,7 @@ function Register({ postTutorAndRedirect }: Props) {
 
           <div className="control">
             <button type='submit'
-              disabled={!newTutorProfileUrl || !newTutorEmail || !newTutorIntroduction || !newTutorName || allNewTutorSubjectsArr.length === 0 || !newTutorRemote && !newTutorInPerson}
+              disabled={!newTutorProfileUrl || !newTutorIntroduction || allNewTutorSubjectsArr.length === 0 || !newTutorRemote && !newTutorInPerson}
               className="button is-link">Submit
             </button>
           </div>
@@ -298,4 +258,4 @@ function Register({ postTutorAndRedirect }: Props) {
 
 }
 
-export default Register;
+export default CompleteTutorDetails;

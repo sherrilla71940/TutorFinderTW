@@ -32,7 +32,7 @@ export default function NavBar() {
     setLoggedIn(false);
     sessionStorage.clear();
     navigate('/');
-    window.location.reload();
+    // window.location.reload();
   }
 
   function goToChats() {

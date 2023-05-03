@@ -54,17 +54,8 @@ export type Availability = {
   timeslots: Timeslot[]
 }
 
-interface Person {
-  __v?: number,
-  _id?: string,
-  name: string,
-  profilePicUrl: string,
-  age: number,
-  email: string,
-  selfIntroduction?: string
-}
-
-export default interface TutorInterface extends Person {
+interface TutorDetails {
+  userId: string,
   remote: boolean,
   subjects: Subject[],
   inPerson: boolean,
@@ -72,16 +63,21 @@ export default interface TutorInterface extends Person {
   availability?: Availability[]
 }
 
-export type Student = Person
-
 export interface User {
   name: string,
   email: string,
   password: string,
   type: 'student' | 'tutor',
   isComplete: boolean,
+  age?: number,
+  selfIntroduction?: string,
   _id?: string,
-  token?: string
+  token?: string,
+  profilePicUrl?: string,
+}
+
+export interface Tutor extends User {
+  tutorDetails: TutorDetails
 }
 
 export interface Credentials {

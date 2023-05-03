@@ -1,10 +1,10 @@
 import React, { CSSProperties, useState, useEffect, ChangeEvent, createRef, LegacyRef, RefObject, useRef } from 'react';
 import fetchFunction from '../api-services';
 import { parseDateString } from '../utils/parsers';
-import TutorInterface from '../custom-types/types';
+import { User } from '../custom-types/types';
 
 interface Props {
-  currentTutor: TutorInterface
+  theOtherParty: User
 }
 
 interface Message {
@@ -20,9 +20,8 @@ interface Chat {
   messageLog: Message[]
 }
 
-export default function Chat({ currentTutor }: Props) {
+export default function Chat({ theOtherParty }: Props) {
   const [messages, setMessages] = useState([] as Message[]);
-
   const [typedIn, setTypedIn] = useState("");
 
   function handleChange(event: ChangeEvent<HTMLTextAreaElement>) {
@@ -34,11 +33,15 @@ export default function Chat({ currentTutor }: Props) {
 
   async function postMessage() {
     const messageData = {
-      party2Id: currentTutor._id as string,
+      party2Id: theOtherParty._id as string,
       message: typedIn
     };
     try {
-      const send = await fetchFunction('http://localhost:8080/postmessage', 'POST', () => null, messageData)
+      const send = await fetchFunction(
+        'http://localhost:8080/postmessage',
+        'POST',
+        () => null,
+        messageData)
         .then(() => {
           getMessages();
           const textarea = document.querySelector('textarea');
@@ -52,10 +55,14 @@ export default function Chat({ currentTutor }: Props) {
 
   async function getMessages() {
     const messageData = {
-      party2Id: currentTutor._id as string,
+      otherId: theOtherParty._id as string,
     };
     try {
-      const getChat = await fetchFunction('http://localhost:8080/chat', 'POST', () => null, messageData) as unknown as Chat
+      const getChat = await fetchFunction(
+        'http://localhost:8080/chat',
+        'POST',
+        () => null,
+        messageData) as unknown as Chat
       if (getChat) setMessages(getChat.messageLog);
     } catch (error) {
       console.log(error);
@@ -79,33 +86,35 @@ export default function Chat({ currentTutor }: Props) {
     overflowY: 'scroll'
   }
 
-  const messageElements = messages.map((message) => {
-    return (
-      <>
-        <article className={message.senderId === sessionStorage.getItem('id') ? 'message is-pulled-right' : 'message is-pulled-left'} style={messageStyleObj}>
-          <div className='message-body'>
-            {message.message}
-            <p className='help'>
-              sent on {parseDateString(message.timestamp)} by {message.senderId === sessionStorage.getItem('id') ? sessionStorage.getItem('name') : currentTutor.name}
-            </p>
-          </div>
-        </article>
-      </>
-    )
-  })
+  const messageElements = messages ?
+    messages.map((message) => {
+      return (
+        <>
+          <article className={message.senderId === sessionStorage.getItem('id') ? 'message is-pulled-right' : 'message is-pulled-left'} style={messageStyleObj}>
+            <div className='message-body'>
+              {message.message}
+              <p className='help'>
+                sent on {parseDateString(message.timestamp)} by {message.senderId === sessionStorage.getItem('id') ? sessionStorage.getItem('name') : theOtherParty.name}
+              </p>
+            </div>
+          </article>
+        </>
+      )
+    })
+    : null
 
-  
+
   useEffect(() => {
     // USE EFFECT EXECUTES RETURN CODE FIRST
     // SO WE CLEAR INTERVAL FIRST, THEN MAKE A NEW ONE
     getMessages();
     console.log('side effect')
-    const id = setInterval(getMessages, 2000);
-    return function cleanUp() {
-      console.log('cleaning up');
-      clearInterval(id);
-    }
-  }, [currentTutor]);
+    // const id = setInterval(getMessages, 2000);
+    // return function cleanUp() {
+    //   console.log('cleaning up');
+    //   clearInterval(id);
+    // }
+  }, [theOtherParty]);
   // REVISE THIS: DEFINE A DEPENDENCY ARRAY (NOT EMPTY) TO TRACK AND DETECT CHANGES AND RUN FUNCTIONS AND RE-RENDER
 
   useEffect(() => {

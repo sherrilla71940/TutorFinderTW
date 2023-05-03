@@ -27,10 +27,10 @@ export default function LogInModal({ toggleLoginModal, toggleLogin }: Props) {
       const sendLoginDetails = await fetchFunction(
         "http://localhost:8080/login",
         "POST",
-        (parsedResponse: { userData: User }) => {
+        (parsedResponse: { userData: User, token: string }) => {
+          parsedResponse.token ? sessionStorage.setItem('token', parsedResponse.token) : null;
           const userData = parsedResponse.userData;
           userData._id ? sessionStorage.setItem('id', userData._id) : null;
-          userData.token ? sessionStorage.setItem('id', userData.token) : null;
           sessionStorage.setItem('name', userData.name);
           sessionStorage.setItem('type', userData.type);
           sessionStorage.setItem('email', userData.email);
@@ -46,7 +46,7 @@ export default function LogInModal({ toggleLoginModal, toggleLogin }: Props) {
           } else {
             sessionStorage.getItem('type') === 'tutor' ? navigate('/tutorDetailsForm') : navigate('/studentDetailsForm');
           }
-          window.location.reload();
+          // window.location.reload();
         })
     } catch (error) {
       console.error(error);

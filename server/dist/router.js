@@ -28,27 +28,12 @@ const router = (0, express_1.Router)();
 const controller = __importStar(require("./mvc/controllers/controllers"));
 const auth_1 = __importStar(require("./mvc/controllers/auth"));
 const verify_1 = require("./mvc/verify");
-// LEGACY ROUTES
-// TODO: ADD PROPER ROUTES
-router.get('/', verify_1.verifyToken, controller.getAllTutors);
-router.get('/:id', verify_1.verifyToken, controller.getTutor);
-// THIS ROUTE CONFLICTS WITH USER UPDATE ROUTE
-// router.put('/:id', verifyToken, controller.updateTutor);
-router.delete('/:id', verify_1.verifyToken, controller.deleteTutor);
-// NEW TUTOR ROUTES
-router.post('/newtutor', verify_1.verifyToken, controller.addTutor);
-// STUDENT ROUTES
-router.post('/newstudent', verify_1.verifyToken, controller.addStudent);
-// USER SIGN-UP AND LOG IN ROUTES
+const controllers_1 = require("./mvc/controllers/controllers");
+router.get('/tutors', verify_1.verifyToken, controller.getAllTutors);
+router.get('/contacts', verify_1.verifyToken, controller.getContacts);
 router.post('/signup', auth_1.default);
 router.post('/login', auth_1.loginUser);
-// UPDATE USER INFO ROUTE
-router.put('/updateuserinfo', verify_1.verifyToken, auth_1.updateUserInfo);
-// CHAT ROUTES
-router.get('/chats', verify_1.verifyToken, controller.getChats);
-// GET A SPECIFIC CHAT
+router.put('/updateuserinfo', verify_1.verifyToken, controllers_1.updateUserDetails);
 router.post('/chat', verify_1.verifyToken, controller.getAChat);
 router.post('/postmessage', verify_1.verifyToken, controller.postMessage);
-// CONTACTS ROUTE
-router.post('/contacts/:type', verify_1.verifyToken, controller.getContacts);
 exports.default = router;

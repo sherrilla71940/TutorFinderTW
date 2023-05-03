@@ -1,11 +1,11 @@
 import React, { CSSProperties, useState, useEffect } from "react";
-import Student, { User } from "../custom-types/types";
-import TutorInterface from "../custom-types/types";
+import { Tutor, User } from "../custom-types/types";
 import ChatTutorSide from "../components/chat-tutor-side";
 import fetchFunction from "../api-services";
+import Chat from "../components/chat";
 
 interface Props {
-  tutors: TutorInterface[]
+  tutors: Tutor[]
 }
 
 export default function ChatsTutorSide({ tutors }: Props) {
@@ -38,13 +38,15 @@ export default function ChatsTutorSide({ tutors }: Props) {
   })
 
   async function fetchContacts() {
-    console.log(tutors);
-    const tutorId = tutors.find(element => element.email === sessionStorage.getItem('email'))?._id;
-    const result = await fetchFunction(`http://localhost:8080/contacts/students`, 'POST', setContacts, { tutorId: tutorId }) as unknown as TutorInterface[]
-    setCurrentContact(result[0]);
+    const result = await fetchFunction(
+      `http://localhost:8080/contacts`, 
+      'GET', 
+      (response: any) => {
+        setContacts([...response, currentContact]);
+        setCurrentContact(contacts[0]);
+      });
   }
 
-  // STUDENTS INITIATE CHATS BASED ON USER IDs SO SHOULD BE NO ISSUE HERE
   useEffect(() => {
     fetchContacts()
   }, [])
@@ -58,8 +60,7 @@ export default function ChatsTutorSide({ tutors }: Props) {
           </div>
         </div>
         <div className="column m-2">
-          {/* CHAT COMPONENT HERE */}
-          <ChatTutorSide currentContact={currentContact} tutors={tutors} />
+          <Chat theOtherParty={currentContact} />
         </div>
       </div>
     </>

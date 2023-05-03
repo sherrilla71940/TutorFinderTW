@@ -1,4 +1,4 @@
-import TutorInterface, { User, Student, Credentials } from './custom-types/types'
+import { Tutor, User, Credentials } from './custom-types/types'
 
 type HttpMethod = 'GET' | "POST" | 'PUT' | 'DELETE'
 
@@ -12,14 +12,14 @@ export default async function fetchFunction (
   method: HttpMethod, 
   // TODO: COME UP WITH A TYPE FOR THE SETTERS
   setter: any, 
-  body?: TutorInterface | Student | User | { isComplete: boolean } | messageData | { tutorId: string | undefined } | Credentials
+  body?: Tutor | User | { isComplete: boolean } | messageData | { otherId: string | undefined } | Credentials
   )
   : Promise<void | Response> {
 
   const fetchOptions: RequestInit = {
     method: method,
     headers: {
-      'Authorization': sessionStorage.getItem('session') || 'no credentials',
+      'Authorization': sessionStorage.getItem('token') || 'no credentials',
       'Content-Type': 'application/json'
     }
   }
