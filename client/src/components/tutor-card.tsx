@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, RefObject, LegacyRef } from 'react';
 import { Tutor } from '../custom-types/types';
 import { NavLink } from 'react-router-dom';
 import getImage from '../utils/image-getter';
@@ -9,11 +9,13 @@ type Props = {
 }
 
 export default function TutorCard({ tutor, tutorKey }: Props) {
+  const myRef = useRef() as RefObject<HTMLImageElement>;
 
   useEffect(() => {
     (async () => {
+      console.log(tutor.picPath);
       const url = await getImage(tutor.picPath as string);
-      document.getElementById('tutor-pic')?.setAttribute('src', url as string);
+      myRef.current?.setAttribute('src', url as string);
     })();
   }, [])
 
@@ -25,7 +27,7 @@ export default function TutorCard({ tutor, tutorKey }: Props) {
       is-flex-justify-content-space-evenly">
           <div className='card-image'>
             <figure className='image is-1by1'>
-              <img id="tutor-pic" alt={tutor.name + '\'s profile picture'} />
+              <img ref={myRef} id="tutor-pic" alt={tutor.name + '\'s profile picture'} />
             </figure>
           </div>
           <div className='card-content'>

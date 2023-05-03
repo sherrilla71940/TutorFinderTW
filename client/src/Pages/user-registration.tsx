@@ -40,6 +40,7 @@ export default function SignUpForm() {
       const send = sendUserData(newUser)
         .then(() => {
           window.alert('You can now login with your credentials');
+          navigate('/');
         })
     } catch (error) {
       window.alert('Failed to register');
