@@ -1,6 +1,7 @@
 import React, { SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import fetchFunction from '../api-services';
+import { User } from '../custom-types/types';
 
 export default function CompleteStudentDetails() {
 
@@ -23,7 +24,7 @@ export default function CompleteStudentDetails() {
         `http://localhost:8080/updateuserinfo`, 
         'PUT', 
         () => null, 
-        newDetails)
+        newDetails as User)
         .then(async () => {
           console.log('Student details posted')
           navigate('/tutors');
