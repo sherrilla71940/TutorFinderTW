@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function ChatsStudentSide({ tutors, currentTutor, setCurrentTutor }: Props) {
-  const [contacts, setContacts] = useState([currentTutor] as any);
+  const [contacts, setContacts] = useState([currentTutor]);
   const [tutor, setTutor] = useState(currentTutor);
 
   const styleObj: CSSProperties = {
@@ -23,7 +23,7 @@ export default function ChatsStudentSide({ tutors, currentTutor, setCurrentTutor
     setTutor(tutor);
   }
 
-  const myTutors = contacts.map((tutor: any) => {
+  const myTutors = contacts.map((tutor: Tutor) => {
     if (tutor) {
       return (
         <>
@@ -43,7 +43,7 @@ export default function ChatsStudentSide({ tutors, currentTutor, setCurrentTutor
     const result = await fetchFunction(
       `http://localhost:8080/contacts`, 
       'GET', 
-      (response: any) => {
+      (response: Tutor[]) => {
         console.log('contacts', response);
         if (response.some((element: User) => element._id === currentTutor._id)) {
           setContacts(response);

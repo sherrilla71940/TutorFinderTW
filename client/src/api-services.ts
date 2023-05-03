@@ -12,7 +12,7 @@ export default async function fetchFunction (
   method: HttpMethod, 
   // TODO: COME UP WITH A TYPE FOR THE SETTERS
   setter: any, 
-  body?: Tutor | User | { isComplete: boolean } | messageData | { otherId: string | undefined } | Credentials
+  body?: Tutor | User | messageData | { otherId: string | undefined } | Credentials
   )
   : Promise<void | Response> {
 

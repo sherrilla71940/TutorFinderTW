@@ -1,6 +1,6 @@
 import React, { SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Subject, Subjects } from '../custom-types/types';
+import { User, Subject, Subjects, Branch } from '../custom-types/types';
 import fetchFunction from '../api-services';
 
 function CompleteTutorDetails() {
@@ -45,7 +45,7 @@ function CompleteTutorDetails() {
         `http://localhost:8080/updateuserinfo`,
         'PUT',
         () => null,
-        newDetails as any)
+        newDetails as unknown as User)
         .then(async () => {
           console.log('Tutor details posted')
           // TODO: NAVIGATE TO MESSAGES, THERE IS NO REASON TO SEE OTHER TUTORS
@@ -91,7 +91,7 @@ function CompleteTutorDetails() {
     return newSubj;
   }
 
-  function removeSubject(subject: any, branch: any) {
+  function removeSubject(subject: Subject, branch: Branch) {
     if (subject.branches.length > 1) {
       const allSubjCopy = [...allNewTutorSubjectsArr];
       const transformedCopy = allSubjCopy.map(subObj => {

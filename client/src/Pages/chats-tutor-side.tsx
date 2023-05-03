@@ -8,19 +8,19 @@ interface Props {
 }
 
 export default function ChatsTutorSide({ tutors }: Props) {
-  const [currentContact, setCurrentContact] = useState({} as any);
-  const [contacts, setContacts] = useState([] as any);
+  const [currentContact, setCurrentContact] = useState({} as User);
+  const [contacts, setContacts] = useState([] as User[]);
 
   const styleObj: CSSProperties = {
     height: '80vh',
     overflowY: 'scroll'
   }
 
-  function changeChat(contact: any) {
+  function changeChat(contact: User) {
     setCurrentContact(contact);
   }
 
-  const myContacts = contacts.map((contact: any) => {
+  const myContacts = contacts.map((contact: User) => {
     if (contact) {
       return (
         <>
@@ -40,7 +40,7 @@ export default function ChatsTutorSide({ tutors }: Props) {
     const result = await fetchFunction(
       `http://localhost:8080/contacts`, 
       'GET', 
-      (response: any) => {
+      (response: User[]) => {
         console.log(response);
           setContacts(response);
           setCurrentContact(contacts[0]);

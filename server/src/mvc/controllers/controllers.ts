@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Users from '../models/user';
 import Chats from '../models/chat';
+import { User } from '../custom-types/types';
 
 export async function getAllTutors(req: Request, res: Response): Promise<void> {
   try {
@@ -32,7 +33,7 @@ export async function getContacts(req: Request, res: Response): Promise<void> {
   const userId = req.body.user.id;
   try {
     const ids: string[] = [];
-    const contacts: any[] = [];
+    const contacts: User[] = [];
     const chats = await Chats.find({ $or: [{ partyId1: userId }, { partyId2: userId }] });
       chats.forEach((chat) => {
         if (chat.partyId1 === userId) {
