@@ -2,6 +2,7 @@ import React, { CSSProperties, useState, useEffect } from "react";
 import { Tutor, User } from "../custom-types/types";
 import fetchFunction from "../api-services";
 import Chat from "../components/chat";
+import ChatPic from "../components/chat-pic";
 
 interface Props {
   tutors: Tutor[]
@@ -27,7 +28,7 @@ export default function ChatsTutorSide({ tutors }: Props) {
           <div className="notification is-flex is-link"
             onClick={(event) => changeChat(contact)}>
             <figure className="image is-48x48">
-              <img className="is-rounded" src={contact.profilePicUrl} alt="userpic" />
+              <ChatPic tutor={contact} />
             </figure>
             <span className="subtitle m-3">{contact.name}</span>
           </div>

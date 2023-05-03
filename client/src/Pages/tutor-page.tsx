@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { RefObject, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { Tutor } from '../custom-types/types';
 import { useState, useEffect } from 'react';
 import NotFound from './not-found-page';
 import { useNavigate } from 'react-router-dom';
+import getImage from '../utils/image-getter';
 
 type Props = {
   tutors: Tutor[],
@@ -14,11 +15,17 @@ const styleObj = {
   maxWidth: '60%'
 }
 
+const imgStyleObj = {
+  width: '400px'
+}
+
 
 function TutorPage({ tutors, setCurrentTutor }: Props) {
   const { id } = useParams();
   const [tutor, setTutor] = useState<Tutor>({} as Tutor);
   
+  const myRef = useRef() as RefObject<HTMLImageElement>;
+
   const navigate = useNavigate();
 
   function contactTutor(): void {
@@ -32,6 +39,11 @@ function TutorPage({ tutors, setCurrentTutor }: Props) {
   useEffect(() => {
     const foundTutor = tutors.find((tutor) => tutor._id === id);
     if (foundTutor) setTutor(foundTutor);
+    (async () => {
+      console.log(tutor.picPath);
+      const url = await getImage(tutor.picPath as string);
+      myRef.current?.setAttribute('src', url as string);
+    })();
   });
 
   if (!tutor.name) return <NotFound />;
@@ -42,7 +54,7 @@ function TutorPage({ tutors, setCurrentTutor }: Props) {
         <section className='section is-flex is-flex-direction-row is-justify-content-space-around is-flex-wrap-wrap'>
           <div className='box is-flex'>
           <figure className='image is-align-self-center mr-4'>
-            <img src={tutor.profilePicUrl} alt='tutor image' />
+            <img ref={myRef} alt='tutor image' style={imgStyleObj} />
           </figure>
           <div>
             <h1 className='title'>{tutor.name}</h1>

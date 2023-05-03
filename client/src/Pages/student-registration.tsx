@@ -46,7 +46,7 @@ export default function CompleteStudentDetails() {
         <h2 className="title">{sessionStorage.name}, please fill in student details:</h2>
         <form data-testid='form' action="" onSubmit={handleSubmit} id='student-registration-form'>
 
-          <div className="field">
+          {/* <div className="field">
             <div className="control">
               <label htmlFor="profile" className='label'>Your profile picture URL: </label>
               <input id="profile" data-testid='urlInput' className='input' type="text"
@@ -55,7 +55,7 @@ export default function CompleteStudentDetails() {
                 name='profile'
                 required />
             </div>
-          </div>
+          </div> */}
 
           <div className="field">
             <div className="control">

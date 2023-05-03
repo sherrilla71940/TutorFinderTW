@@ -122,7 +122,7 @@ function CompleteTutorDetails() {
         <h2 className="title">Please fill in tutor details</h2>
         <form data-testid='form' action="" onSubmit={handleSubmit} id='tutor-registration-form'>
 
-          <div className="field">
+          {/* <div className="field">
             <div className="control">
               <label htmlFor="profile" className='label'>Your Profile Picture URL: </label>
               <input id="profile" data-testid='urlInput' className='input' type="text"
@@ -131,7 +131,7 @@ function CompleteTutorDetails() {
                 name='profile'
                 required />
             </div>
-          </div>
+          </div> */}
 
           <div className="field">
             <div className="control">
