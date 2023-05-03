@@ -40,9 +40,9 @@ function CompleteTutorDetails() {
     };
     try {
       const postTutorDetails = await fetchFunction(
-        `http://localhost:8080/updateuserinfo`, 
-        'PUT', 
-        () => null, 
+        `http://localhost:8080/updateuserinfo`,
+        'PUT',
+        () => null,
         newDetails as any)
         .then(async () => {
           console.log('Tutor details posted')
@@ -115,8 +115,8 @@ function CompleteTutorDetails() {
 
   function handleChange<T>(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, setter: React.Dispatch<React.SetStateAction<T>>, value: SetStateAction<T>) {
     if (typeof value === 'string' && value.length < 0) return;
-    if (newTutorInPerson) setNewTutorInPerson(false)
-    if (newTutorRemote) setNewTutorRemote(false)
+    if (newTutorInPerson) setNewTutorInPerson(true)
+    if (newTutorRemote) setNewTutorRemote(true)
     setter(value);
   }
 
@@ -159,7 +159,7 @@ function CompleteTutorDetails() {
           <div className="field">
             <div className="control">
               <label className='checkbox' htmlFor="remote">
-                <input type="checkbox" checked={newTutorRemote} name="remote" id="remote"
+                <input className='mr-2' type="checkbox" checked={newTutorRemote} name="remote" id="remote"
                   onChange={(e) => handleChange(e, setNewTutorRemote, e.target.checked)} />
                 Remote
               </label>
@@ -168,44 +168,56 @@ function CompleteTutorDetails() {
           <div className="field">
             <div className="control">
               <label className='checkbox' htmlFor="in-person">
-                <input data-testid='inPersonInput' checked={newTutorInPerson} type="checkbox"
+                <input className='mr-2' data-testid='inPersonInput' checked={newTutorInPerson} type="checkbox"
                   name="in-person" id="in-person"
                   onChange={(e) => handleChange(e, setNewTutorInPerson, e.target.checked)} />
                 In-person </label>
             </div>
           </div>
 
-          <div className='add-subject-wrapper'>
-            <fieldset>
-              <legend>*Add courses you will teach:</legend>
-              <label htmlFor="subject">*Subject: </label>
-              <select data-testid='subjectInput' required name="subject" id="subject" onChange={(e) => {
-                handleChange(e, setNewTutorSubjectName, e.target.value)
-              }}>
-                <option selected>Select a Subject</option>
-                <option value="Arts">Arts</option>
-                <option value="Business and Economics">Business and Economics</option>
-                <option value="Communication Studies">Communication Studies</option>
-                <option value="Computer Science">Computer Science</option>
-                <option value="Education and Teaching">Education and Teaching</option>
-                <option value="Engineering">Engineering</option>
-                <option value="Environmental Studies">Environmental Studies and Sustainability</option>
-                <option value="Health Sciences">Health Sciences</option>
-                <option value="Humanities">Humanities</option>
-                <option value="Law and Government">Law and Government</option>
-                <option value="Natural Sciences">Natural Sciences</option>
-                <option value="Social Sciences">Social Sciences</option>
-              </select>
+          <div className='field'>
+            <label className='label'>Add courses you will teach:</label>
+            <div className="control">
+              <label className="label has-text-weight-normal" htmlFor="subject">Subject: </label>
+              <div className='select'>
+                <select className="select mr-2" data-testid='subjectInput' required name="subject" id="subject" onChange={(e) => {
+                  handleChange(e, setNewTutorSubjectName, e.target.value)
+                }}>
+                  <option selected>Select a Subject</option>
+                  <option value="Arts">Arts</option>
+                  <option value="Business and Economics">Business and Economics</option>
+                  <option value="Communication Studies">Communication Studies</option>
+                  <option value="Computer Science">Computer Science</option>
+                  <option value="Education and Teaching">Education and Teaching</option>
+                  <option value="Engineering">Engineering</option>
+                  <option value="Environmental Studies">Environmental Studies and Sustainability</option>
+                  <option value="Health Sciences">Health Sciences</option>
+                  <option value="Humanities">Humanities</option>
+                  <option value="Law and Government">Law and Government</option>
+                  <option value="Natural Sciences">Natural Sciences</option>
+                  <option value="Social Sciences">Social Sciences</option>
+                </select>
+              </div>
               {newTutorSubjectName !== '' && (
                 <>
-                  <label htmlFor="branch">Subject branch: </label>
-                  <input data-testid='branchInput' type="text" value={newTutorSubjectBranchName}
-                    onChange={(e) => handleChange(e, setNewTutorSubjectBranchName, e.target.value)} />
-                  <label htmlFor="hourly-rate">Hourly Rate: </label>
-                  <input type="number" required name="hourly-rate" min={0} max={10000} step="25"
-                    defaultValue={300}
-                    onChange={(e) => handleChange(e, setNewTutorSubjectBranchRate, e.target.valueAsNumber)} />
-                  <button id='add-button' disabled={!newTutorSubjectBranchName} type="button"
+                  <div className="field">
+                    <div className="control">
+                      <label className="label has-text-weight-normal" htmlFor="branch">Subject branch: </label>
+                      <input className='input' data-testid='branchInput' type="text" value={newTutorSubjectBranchName}
+                        onChange={(e) => handleChange(e, setNewTutorSubjectBranchName, e.target.value)} />
+                    </div>
+                  </div>
+
+                  <div className="field">
+                    <div className="control">
+                      <label className="label has-text-weight-normal" htmlFor="hourly-rate">Hourly Rate: </label>
+                      <input className='input' type="number" required name="hourly-rate" min={0} max={10000} step="25"
+                        defaultValue={300}
+                        onChange={(e) => handleChange(e, setNewTutorSubjectBranchRate, e.target.valueAsNumber)} />
+                    </div>
+                  </div>
+
+                  <button className="button is-light" id='add-button' disabled={!newTutorSubjectBranchName} type="button"
                     onClick={(e) => {
                       e.preventDefault();
                       addSubject();
@@ -213,22 +225,24 @@ function CompleteTutorDetails() {
                   </button>
                 </>
               )}
-            </fieldset>
+
+            </div>
           </div>
 
           <div className='added-subject-wrapper'>
-            <p>Subjects:</p>
-            <ul style={{ display: 'flex', flexDirection: 'column', alignItems: 'start' }}>
+            <p className='label'>Your courses:</p>
+            <ul style={{ display: 'flex', flexDirection: 'row', alignItems: 'start' }}>
               {allNewTutorSubjectsArr && allNewTutorSubjectsArr.map(subject => (
-                <li key={subject.subject}>
+                <li className="box mr-3" key={subject.subject}>
                   <div style={{ display: 'block' }}>
-                    <div style={{ display: 'fixed' }}>
-                      <strong>{subject.subject}</strong>
-                    </div>
+                    <p className='is-italic mb-2'>{subject.subject}</p>
                     <ul style={{ listStyleType: 'none', padding: 0 }}>
                       {subject.branches.map(branch => (
-                        <li key={branch.branch}>{branch.branch}
-                          <button onClick={(e) => {
+                        <li className="mb-3" key={branch.branch}>
+                          <span className='mr-3'>
+                            {branch.branch}
+                          </span>
+                          <button className="button is-light is-small" onClick={(e) => {
                             e.preventDefault();
                             removeSubject(subject, branch)
                           }}>Remove
@@ -245,7 +259,7 @@ function CompleteTutorDetails() {
           <div className="control">
             <button type='submit'
               disabled={!newTutorProfileUrl || !newTutorIntroduction || allNewTutorSubjectsArr.length === 0 || !newTutorRemote && !newTutorInPerson}
-              className="button is-link">Submit
+              className="button is-link mt-4">Submit
             </button>
           </div>
 
