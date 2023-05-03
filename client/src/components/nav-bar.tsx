@@ -46,7 +46,7 @@ export default function NavBar() {
   useEffect(() => {
     document.getElementById('signUpButton')?.addEventListener('click', goToSignUp);
     document.getElementById('loginButton')?.addEventListener('click', toggleLoginModal);
-    if (sessionStorage.getItem('session')) {
+    if (sessionStorage.getItem('token')) {
       setLoggedIn(true);
     }
   })
