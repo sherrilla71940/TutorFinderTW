@@ -14,6 +14,7 @@ function CompleteTutorDetails() {
   const [newTutorIntroduction, setNewTutorIntroduction] = useState<string>('');
   const [newTutorInPerson, setNewTutorInPerson] = useState<boolean>(false);
   const [newTutorRemote, setNewTutorRemote] = useState<boolean>(false);
+  const [location, setLocation] = useState("");
 
   const [newTutorSubjectName, setNewTutorSubjectName] = useState<string>('');
   const [newTutorSubjectBranchName, setNewTutorSubjectBranchName] = useState<string>('');
@@ -36,6 +37,7 @@ function CompleteTutorDetails() {
         remote: newTutorRemote,
         subjects: allNewTutorSubjectsArr,
         inPerson: newTutorInPerson,
+        location: location
       }
     };
     try {
@@ -100,7 +102,6 @@ function CompleteTutorDetails() {
             subject: subObj.subject,
             branches: [...subObj.branches]
           }
-
         }
         return subObj;
 
@@ -144,6 +145,17 @@ function CompleteTutorDetails() {
                 max={150}
                 defaultValue={18} required
                 onChange={(e) => handleChange(e, setNewTutorAge, e.target.valueAsNumber)} />
+            </div>
+          </div>
+
+          <div className="field">
+            <div className="control">
+              <label htmlFor="location" className='label'>You are based in:</label>
+              <input id="location" className='input' type="text"
+                value={location}
+                onChange={(e) => handleChange(e, setLocation, e.target.value)}
+                name='location'
+                required />
             </div>
           </div>
 

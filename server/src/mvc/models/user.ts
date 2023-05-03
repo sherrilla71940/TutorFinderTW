@@ -37,8 +37,8 @@ const TutorSchema = new Schema({
     type: Boolean,
     required: true
   },
-  teachingLocations: {
-    type: Schema.Types.Mixed,
+  teachingLocation: {
+    type: String,
     required: false
   },
   availability: {
