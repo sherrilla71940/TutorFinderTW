@@ -19,7 +19,7 @@ function Home() {
       <footer className="footer">
         <div className="content has-text-centered">
           <p>
-            <strong>TutorFinderTW</strong> by Bosskey International Software Consumer Products Limited Liablity Company.
+            <strong>TutorFinderTW</strong> by Boss Key International Software Consumer Products Limited Liablity Company.
           </p>
         </div>
       </footer>

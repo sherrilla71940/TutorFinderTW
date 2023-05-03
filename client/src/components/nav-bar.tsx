@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import icon from '../assets/icon.png'
-import SignUpModal from "./sign-up";
 import LogInModal from "./log-in";
 
 export default function NavBar() {
-
-  const [signUpModal, setSignUpModalVisibility] = useState(false);
   const [loginModal, setLoginModalVisibility] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
 
   const navigate = useNavigate();
 
@@ -18,17 +14,6 @@ export default function NavBar() {
       setLoggedIn(true)
     } else {
       setLoggedIn(false);
-    }
-  }
-
-  function toggleSignUpModal() {
-    const modal = document.getElementById("signUpModal");
-    if (!signUpModal) {
-      modal?.classList.add('is-active');
-      setSignUpModalVisibility(true);
-    } else {
-      modal?.classList.remove('is-active');
-      setSignUpModalVisibility(false);
     }
   }
 
@@ -45,7 +30,6 @@ export default function NavBar() {
 
   function logOut() {
     setLoggedIn(false);
-    setCurrentUser({});
     sessionStorage.clear();
     navigate('/');
     window.location.reload();
@@ -103,8 +87,7 @@ export default function NavBar() {
             : null}
         </div>
       </nav>
-      <SignUpModal toggleSignUpModal={toggleSignUpModal} />
-      <LogInModal toggleLoginModal={toggleLoginModal} toggleLogin={toggleLogin} setCurrentUser={setCurrentUser} />
+      <LogInModal toggleLoginModal={toggleLoginModal} toggleLogin={toggleLogin} />
     </>
   )
 }

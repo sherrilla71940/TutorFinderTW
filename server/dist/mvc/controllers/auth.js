@@ -20,6 +20,7 @@ function registerUser(request, response) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const newUser = request.body;
+            console.log(newUser);
             // CHECK FOR DUPLICATE EMAILS
             const emailCheck = yield user_1.default.findOne({ email: newUser.email });
             console.log(emailCheck);

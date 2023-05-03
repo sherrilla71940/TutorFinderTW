@@ -1,7 +1,5 @@
-import app, {PORT, HOST} from './app'
+import app from './app'
 
-
-// app.listen(PORT, () => {
 app.listen(8080, () => {
-  console.log(`app listening at http://${HOST}:${PORT}`)
+  console.log(`app listening at http://localhost:8080`)
 })

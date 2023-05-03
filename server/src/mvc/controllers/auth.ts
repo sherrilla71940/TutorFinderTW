@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 export default async function registerUser(request: Request, response: Response): Promise<void> {
   try {
     const newUser = request.body;
+    console.log(newUser);
     // CHECK FOR DUPLICATE EMAILS
     const emailCheck = await Users.findOne({ email: newUser.email });
     console.log(emailCheck);

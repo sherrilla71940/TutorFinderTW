@@ -60,7 +60,6 @@ interface Person {
   name: string,
   profilePicUrl: string,
   age: number,
-  gender?: string,
   email: string,
   selfIntroduction?: string
 }
@@ -80,6 +79,12 @@ export interface User {
   email: string,
   password: string,
   type: 'student' | 'tutor',
-  isComplete: boolean
+  isComplete: boolean,
+  _id?: string,
+  token?: string
 }
 
+export interface Credentials {
+  email: string,
+  password: string
+}

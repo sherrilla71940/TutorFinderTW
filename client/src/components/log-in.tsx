@@ -1,15 +1,14 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { loginRequest } from "../api-services";
+import fetchFunction from "../api-services";
 import { useNavigate } from "react-router-dom";
 import { User } from "../custom-types/types";
 
 interface Props {
   toggleLoginModal(): void;
   toggleLogin(): void;
-  setCurrentUser(user: User): void;
 }
 
-export default function LogInModal({ toggleLoginModal, toggleLogin, setCurrentUser }: Props) {
+export default function LogInModal({ toggleLoginModal, toggleLogin }: Props) {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -24,18 +23,33 @@ export default function LogInModal({ toggleLoginModal, toggleLogin, setCurrentUs
       email: login,
       password: password
     };
-    const response = await loginRequest(credentials) as User;
-    if (response) {
-      setCurrentUser(response);
-      toggleLogin();
-      toggleLoginModal();
-      if (response.isComplete) {
-        navigate('/tutors');
-      } else {
-        response.type === 'tutor' ? navigate('/tutorDetailsForm') : navigate('/studentDetailsForm')
-      }
-      window.location.reload();
-    } else {
+      try {
+      const sendLoginDetails = await fetchFunction(
+        "http://localhost:8080/login",
+        "POST",
+        (parsedResponse: { userData: User }) => {
+          const userData = parsedResponse.userData;
+          userData._id ? sessionStorage.setItem('id', userData._id) : null;
+          userData.token ? sessionStorage.setItem('id', userData.token) : null;
+          sessionStorage.setItem('name', userData.name);
+          sessionStorage.setItem('type', userData.type);
+          sessionStorage.setItem('email', userData.email);
+          sessionStorage.setItem('isComplete', userData.isComplete.toString());
+          },
+        credentials
+      )
+        .then(() => {
+          toggleLogin();
+          toggleLoginModal();
+          if (sessionStorage.getItem('isComplete') === 'true') {
+            navigate('/tutors');
+          } else {
+            sessionStorage.getItem('type') === 'tutor' ? navigate('/tutorDetailsForm') : navigate('/studentDetailsForm');
+          }
+          window.location.reload();
+        })
+    } catch (error) {
+      console.error(error);
       window.alert('Login failed');
     }
   }

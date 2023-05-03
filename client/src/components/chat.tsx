@@ -56,8 +56,7 @@ export default function Chat({ currentTutor }: Props) {
     };
     try {
       const getChat = await fetchFunction('http://localhost:8080/chat', 'POST', () => null, messageData) as unknown as Chat
-      setMessages(getChat.messageLog);
-
+      if (getChat) setMessages(getChat.messageLog);
     } catch (error) {
       console.log(error);
       setMessages([]);

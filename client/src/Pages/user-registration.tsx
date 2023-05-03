@@ -1,7 +1,8 @@
 import React, { ChangeEvent, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { signUpRequest } from "../api-services";
+import fetchFunction from "../api-services";
 import { validateEmail, validatePassword } from "../utils/validatiors";
+import { User } from "../custom-types/types";
 
 export default function SignUpForm() {
   const [name, setName] = useState("");
@@ -13,7 +14,6 @@ export default function SignUpForm() {
 
   function handleChange(event: ChangeEvent<HTMLInputElement>, setter: (data: string) => void) {
     const target = event.target as HTMLInputElement;
-    console.log(target.value);
     setter(target.value);
   }
 
@@ -24,26 +24,30 @@ export default function SignUpForm() {
       password: password,
       type: userType,
       isComplete: false
-    };
+    } as User;
 
     if (!validateEmail(newUser.email) && !validatePassword(newUser.password)) {
       window.alert('Your submission form does not meet the requirements');
       return;
     }
+
     try {
-      const response = await signUpRequest(newUser)
-        .then(function (response) {
-          return response!.text()
-        })
-        .then(function (data) {
-          window.alert(data);
+      const sendNewUser = await fetchFunction(
+        "http://localhost:8080/signup",
+        "POST",
+        () => null,
+        newUser
+      )
+        .then(() => {
           setName("");
           setEmail("");
           setPassword("");
+          window.alert('You can now login with you credentials');
           navigate('/');
         })
     } catch (error) {
       console.error(error);
+      window.alert('Registration failed, try again');
     }
   }
 
@@ -53,17 +57,17 @@ export default function SignUpForm() {
         <h2 className="title">New user sign up</h2>
 
         <div className="field">
-        <label className="label">Who are you?</label>
-        <div className="control">
-          <label className="radio m-3">
-            <input type="radio" name="answer" value="student" onChange={(event) => handleChange(event, setUserType)} />
+          <label className="label">Who are you?</label>
+          <div className="control">
+            <label className="radio m-3">
+              <input type="radio" name="answer" value="student" onChange={(event) => handleChange(event, setUserType)} />
               <span className="m-2">Student</span>
-          </label>
-          <label className="radio m-3">
-            <input type="radio" name="answer" value="tutor" onChange={(event) => handleChange(event, setUserType)} />
+            </label>
+            <label className="radio m-3">
+              <input type="radio" name="answer" value="tutor" onChange={(event) => handleChange(event, setUserType)} />
               <span className="m-2">Tutor</span>
-          </label>
-        </div>
+            </label>
+          </div>
         </div>
 
         <div className="field">

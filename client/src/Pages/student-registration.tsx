@@ -19,7 +19,7 @@ export default function CompleteStudentDetails() {
       age: age,
       email: sessionStorage.email,
       selfIntroduction: introduction,
-    };
+    } as Student;
     try {
       const postStudentDetails = await fetchFunction('http://localhost:8080/newstudent', 'POST', () => null, newStudent)
         .then(async () => {
