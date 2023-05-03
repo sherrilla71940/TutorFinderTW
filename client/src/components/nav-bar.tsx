@@ -65,9 +65,12 @@ export default function NavBar() {
             <div className="navbar-item">
               <NavLink to='/'>Home page</NavLink>
             </div>
-            <div className="navbar-item">
-              <NavLink to='/tutors'>Tutors</NavLink>
-            </div>
+            { sessionStorage.getItem('type') === 'student' ?
+              <div className="navbar-item">
+                <NavLink to='/tutors'>Tutors</NavLink>
+              </div>
+              : null
+            }
           </div>
         </div>
 
@@ -81,8 +84,8 @@ export default function NavBar() {
           {loggedIn ?
             <>
               <p className="subtitle mt-3 mr-2">Welcome, {sessionStorage.name}! Signed in as {sessionStorage.type}</p>
-              <div id="messagesButton" className="navbar-item button m-1 ml-3" onClick={goToChats}>Messages</div> 
-              <div id="logoutButton" className="navbar-item button m-1" onClick={logOut}>Log out</div>
+              <button type="button" id="messagesButton" className="navbar-item button m-1 ml-3 is-link has-text-white" onClick={goToChats}>Messages</button> 
+              <button type="button" id="logoutButton" className="navbar-item button m-1 is-danger has-text-white" onClick={logOut}>Log out</button>
             </>
             : null}
         </div>

@@ -42,7 +42,11 @@ export default function LogInModal({ toggleLoginModal, toggleLogin }: Props) {
           toggleLogin();
           toggleLoginModal();
           if (sessionStorage.getItem('isComplete') === 'true') {
-            navigate('/tutors');
+            if (sessionStorage.getItem('type') === 'tutor') {
+              navigate('/messages');
+            } else {
+              navigate('/tutors');
+            }
           } else {
             sessionStorage.getItem('type') === 'tutor' ? navigate('/tutorDetailsForm') : navigate('/studentDetailsForm');
           }
