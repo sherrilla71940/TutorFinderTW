@@ -9,6 +9,7 @@ export default function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userType, setUserType] = useState("");
+  const [pic, setPic] = useState<File | null>(null);
 
   const navigate = useNavigate();
 
@@ -51,6 +52,12 @@ export default function SignUpForm() {
     }
   }
 
+  function handleFile(event: React.ChangeEvent<HTMLInputElement>) {
+    const fileInput = event.target.files as FileList;
+    console.log(fileInput[0]);
+    setPic(fileInput[0]);
+  }
+
   return (
     <>
       <section className="p-6">
@@ -77,6 +84,7 @@ export default function SignUpForm() {
               onChange={(event) => handleChange(event, setName)} />
           </div>
         </div>
+
         <div className="field">
           <label htmlFor="emailInput" className="label">Email</label>
           <div className="control">
@@ -85,6 +93,7 @@ export default function SignUpForm() {
             {!validateEmail(email) ? <p className="help">Please provide a valid email</p> : null}
           </div>
         </div>
+
         <div className="field">
           <label htmlFor="passwordInput" className="label">Password</label>
           <div className="control">
@@ -94,6 +103,13 @@ export default function SignUpForm() {
             {!validatePassword(password) ? <p className="help">Password must be at least 9 characters long and have at least one uppercase letter and at least one digit with (no # or !)</p> : null}
           </div>
         </div>
+
+        <div className="field">
+          <label className="label">Profile picture</label>
+          <input className="input" type="file" name="resume" onChange={handleFile} />
+          <p className="help">Optional</p>
+        </div>
+
         <div className="field is-grouped">
           <div className="control">
             <button className="button is-link m-2" onClick={() => handleSubmit()}>Submit</button>
@@ -104,6 +120,7 @@ export default function SignUpForm() {
             </NavLink>
           </div>
         </div>
+
       </section>
     </>
   )

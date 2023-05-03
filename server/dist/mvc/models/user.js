@@ -69,8 +69,8 @@ const TutorSchema = new exports.Schema({
         type: Boolean,
         required: true
     },
-    teachingLocations: {
-        type: exports.Schema.Types.Mixed,
+    teachingLocation: {
+        type: String,
         required: false
     },
     availability: {

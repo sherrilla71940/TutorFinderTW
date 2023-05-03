@@ -5,10 +5,6 @@ import fetchFunction from '../api-services';
 
 function CompleteTutorDetails() {
 
-  const [userHasSubmit, setHasUserSubmit] = useState<boolean>(false);
-  const [submissionFailure, setSubmissionFailure] = useState<boolean>(false);
-  const [userFormData, setUserFormData] = useState<User>({} as User);
-
   const [newTutorProfileUrl, setNewTutorProfileUrl] = useState<string>('');
   const [newTutorAge, setNewTutorAge] = useState<number>(18);
   const [newTutorIntroduction, setNewTutorIntroduction] = useState<string>('');
@@ -20,7 +16,6 @@ function CompleteTutorDetails() {
   const [newTutorSubjectBranchName, setNewTutorSubjectBranchName] = useState<string>('');
   const [newTutorSubjectBranchRate, setNewTutorSubjectBranchRate] = useState<number>(300);
 
-  const [newTutorSubjectObj, setNewTutorSubjectObj] = useState<Subject>({} as Subject);
   const [allNewTutorSubjectsArr, setAllNewTutorSubjectsArr] = useState<Subjects>([] as Subjects);
 
   const navigate = useNavigate();

@@ -48,6 +48,7 @@ function TutorPage({ tutors, setCurrentTutor }: Props) {
             <h1 className='title'>{tutor.name}</h1>
             <p className='subtitle'>{tutor.age}</p>
             <p className='subtitle'>{tutor.email}</p>
+            <p className='subtitle'>{tutor.tutorDetails.teachingLocation}</p>
             {tutor.tutorDetails.inPerson ? <div className='tag is-primary m-1'>In-person</div> : null}
             {tutor.tutorDetails.remote ? <div className='tag is-link m-1'>Remote</div> : null}
           </div>

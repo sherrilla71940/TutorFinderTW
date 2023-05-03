@@ -7,6 +7,7 @@ export async function getAllTutors(req: Request, res: Response): Promise<void> {
   try {
     const allTutors = await Users.find({ type: 'tutor' });
     if (!allTutors.length) throw new Error();
+    // TODO: REMOVE PASSWORDS FROM THE OUTPUT
     res.status(200);
     res.json(allTutors);
   } catch (e: unknown) {
@@ -45,7 +46,7 @@ export async function getContacts(req: Request, res: Response): Promise<void> {
       await Promise.all(ids.map(async (id) => {
         const record = await Users.findById(id);
         record!.password = '';
-        contacts.push(record);
+        contacts.push(record as User);
       }))
         .then(() => {
           console.log(`Found ${contacts.length} contacts`);
