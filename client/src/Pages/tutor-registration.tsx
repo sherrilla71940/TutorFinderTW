@@ -179,7 +179,7 @@ function CompleteTutorDetails() {
             <label className='label'>Add courses you will teach:</label>
             <div className="control">
               <label className="label has-text-weight-normal" htmlFor="subject">Subject: </label>
-              <div className='select'>
+              <div className='select mb-2'>
                 <select className="select mr-2" data-testid='subjectInput' required name="subject" id="subject" onChange={(e) => {
                   handleChange(e, setNewTutorSubjectName, e.target.value)
                 }}>
