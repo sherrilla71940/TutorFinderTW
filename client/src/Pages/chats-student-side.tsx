@@ -44,7 +44,12 @@ export default function ChatsStudentSide({ tutors, currentTutor, setCurrentTutor
       `http://localhost:8080/contacts`, 
       'GET', 
       (response: any) => {
-        setContacts([...response, currentTutor])
+        console.log('contacts', response);
+        if (response.some((element: User) => element._id === currentTutor._id)) {
+          setContacts(response);
+        } else {
+          setContacts([...response, currentTutor]);
+        }
       });
   }
 

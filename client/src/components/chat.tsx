@@ -109,11 +109,11 @@ export default function Chat({ theOtherParty }: Props) {
     // SO WE CLEAR INTERVAL FIRST, THEN MAKE A NEW ONE
     getMessages();
     console.log('side effect')
-    // const id = setInterval(getMessages, 2000);
-    // return function cleanUp() {
-    //   console.log('cleaning up');
-    //   clearInterval(id);
-    // }
+    const id = setInterval(getMessages, 2000);
+    return function cleanUp() {
+      console.log('cleaning up');
+      clearInterval(id);
+    }
   }, [theOtherParty]);
   // REVISE THIS: DEFINE A DEPENDENCY ARRAY (NOT EMPTY) TO TRACK AND DETECT CHANGES AND RUN FUNCTIONS AND RE-RENDER
 

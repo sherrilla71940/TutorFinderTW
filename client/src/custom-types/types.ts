@@ -77,6 +77,7 @@ export interface User {
 }
 
 export interface Tutor extends User {
+  teachingLocations: any;
   tutorDetails: TutorDetails
 }
 

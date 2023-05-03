@@ -1,6 +1,5 @@
 import React, { CSSProperties, useState, useEffect } from "react";
 import { Tutor, User } from "../custom-types/types";
-import ChatTutorSide from "../components/chat-tutor-side";
 import fetchFunction from "../api-services";
 import Chat from "../components/chat";
 
@@ -42,8 +41,9 @@ export default function ChatsTutorSide({ tutors }: Props) {
       `http://localhost:8080/contacts`, 
       'GET', 
       (response: any) => {
-        setContacts([...response, currentContact]);
-        setCurrentContact(contacts[0]);
+        console.log(response);
+          setContacts(response);
+          setCurrentContact(contacts[0]);
       });
   }
 
