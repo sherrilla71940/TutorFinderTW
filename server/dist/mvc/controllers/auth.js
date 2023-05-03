@@ -16,11 +16,15 @@ exports.loginUser = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const user_1 = __importDefault(require("../models/user"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const image_handler_1 = __importDefault(require("./image_handler"));
 function registerUser(request, response) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const newUser = request.body;
-            console.log(newUser);
+            const file = request.file;
+            const imagePath = yield (0, image_handler_1.default)(file);
+            console.log('Image ID:', imagePath);
+            const newUser = JSON.parse(request.body.data);
+            newUser.picPath = imagePath;
             // CHECK FOR DUPLICATE EMAILS
             const emailCheck = yield user_1.default.findOne({ email: newUser.email });
             console.log(emailCheck);

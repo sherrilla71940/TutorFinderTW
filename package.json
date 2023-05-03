@@ -19,6 +19,7 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "jest": "^29.5.0",
+    "multer": "^1.4.5-lts.1",
     "react-scroll": "^1.8.9"
   },
   "devDependencies": {

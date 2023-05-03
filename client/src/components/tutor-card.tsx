@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tutor } from '../custom-types/types';
 import { NavLink } from 'react-router-dom';
+import getImage from '../utils/image-getter';
 
 type Props = {
   tutor: Tutor,
@@ -8,6 +9,14 @@ type Props = {
 }
 
 export default function TutorCard({ tutor, tutorKey }: Props) {
+
+  useEffect(() => {
+    (async () => {
+      const url = await getImage(tutor.picPath as string);
+      document.getElementById('tutor-pic')?.setAttribute('src', url as string);
+    })();
+  }, [])
+
   if (tutor.tutorDetails) {
     return (
       <NavLink key={tutorKey} to={tutorKey}>
@@ -16,7 +25,7 @@ export default function TutorCard({ tutor, tutorKey }: Props) {
       is-flex-justify-content-space-evenly">
           <div className='card-image'>
             <figure className='image is-1by1'>
-              <img src={tutor.profilePicUrl} alt={tutor.name + '\'s profile picture'} />
+              <img id="tutor-pic" alt={tutor.name + '\'s profile picture'} />
             </figure>
           </div>
           <div className='card-content'>

@@ -21,6 +21,7 @@ function getAllTutors(req, res) {
             const allTutors = yield user_1.default.find({ type: 'tutor' });
             if (!allTutors.length)
                 throw new Error();
+            // TODO: REMOVE PASSWORDS FROM THE OUTPUT
             res.status(200);
             res.json(allTutors);
         }

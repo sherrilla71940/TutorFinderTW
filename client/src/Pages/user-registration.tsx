@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import fetchFunction from "../api-services";
+import fetchFunction, { sendUserData } from "../api-services";
 import { validateEmail, validatePassword } from "../utils/validatiors";
 import { User } from "../custom-types/types";
 
@@ -19,36 +19,30 @@ export default function SignUpForm() {
   }
 
   async function handleSubmit() {
-    const newUser = {
+    const newUser = new FormData();
+    newUser.append('data', JSON.stringify({
       name: name,
       email: email,
       password: password,
       type: userType,
-      isComplete: false
-    } as User;
+      isComplete: false,
+    }));
 
-    if (!validateEmail(newUser.email) && !validatePassword(newUser.password)) {
+    pic ? newUser.append('file', pic) : null;
+    console.log(...newUser);
+
+    if (!validateEmail(email) && !validatePassword(password)) {
       window.alert('Your submission form does not meet the requirements');
       return;
     }
 
     try {
-      const sendNewUser = await fetchFunction(
-        "http://localhost:8080/signup",
-        "POST",
-        () => null,
-        newUser
-      )
+      const send = sendUserData(newUser)
         .then(() => {
-          setName("");
-          setEmail("");
-          setPassword("");
-          window.alert('You can now login with you credentials');
-          navigate('/');
+          window.alert('You can now login with your credentials');
         })
     } catch (error) {
-      console.error(error);
-      window.alert('Registration failed, try again');
+      window.alert('Failed to register');
     }
   }
 

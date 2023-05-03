@@ -74,6 +74,7 @@ export interface User {
   _id?: string,
   token?: string,
   profilePicUrl?: string,
+  picPath?: string
 }
 
 export interface Tutor extends User {

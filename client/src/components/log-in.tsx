@@ -50,7 +50,7 @@ export default function LogInModal({ toggleLoginModal, toggleLogin }: Props) {
           } else {
             sessionStorage.getItem('type') === 'tutor' ? navigate('/tutorDetailsForm') : navigate('/studentDetailsForm');
           }
-          // window.location.reload();
+          window.location.reload();
         })
     } catch (error) {
       console.error(error);

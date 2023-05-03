@@ -86,7 +86,7 @@ const UserSchema = new exports.Schema({
     isComplete: { type: Boolean, required: true },
     age: Number,
     selfIntroduction: String,
-    profilePicUrl: String,
+    picPath: String,
     tutorDetails: {
         type: TutorSchema
     }

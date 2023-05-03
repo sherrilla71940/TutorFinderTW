@@ -2,11 +2,16 @@ import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import Users from '../models/user';
 import jwt from 'jsonwebtoken';
+import handleImage from './image_handler';
 
 export default async function registerUser(request: Request, response: Response): Promise<void> {
   try {
-    const newUser = request.body;
-    console.log(newUser);
+    
+    const file = request.file;
+    const imagePath = await handleImage(file as unknown as File);
+    console.log('Image ID:', imagePath);
+    const newUser = JSON.parse(request.body.data);
+    newUser.picPath = imagePath;
     // CHECK FOR DUPLICATE EMAILS
     const emailCheck = await Users.findOne({ email: newUser.email });
     console.log(emailCheck);
