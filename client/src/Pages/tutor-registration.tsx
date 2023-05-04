@@ -42,7 +42,7 @@ function CompleteTutorDetails() {
         .then(async () => {
           console.log('Tutor details posted')
           // TODO: NAVIGATE TO MESSAGES, THERE IS NO REASON TO SEE OTHER TUTORS
-          navigate('/messages');
+          navigate('/chats');
         })
     } catch (error) {
       console.log(error);
@@ -119,17 +119,6 @@ function CompleteTutorDetails() {
       <section className="p-6">
         <h2 className="title">Please fill in tutor details</h2>
         <form data-testid='form' action="" onSubmit={handleSubmit} id='tutor-registration-form'>
-
-          {/* <div className="field">
-            <div className="control">
-              <label htmlFor="profile" className='label'>Your Profile Picture URL: </label>
-              <input id="profile" data-testid='urlInput' className='input' type="text"
-                value={newTutorProfileUrl}
-                onChange={(e) => handleChange(e, setNewTutorProfileUrl, e.target.value)}
-                name='profile'
-                required />
-            </div>
-          </div> */}
 
           <div className="field">
             <div className="control">
