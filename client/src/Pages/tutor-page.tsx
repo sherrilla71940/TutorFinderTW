@@ -16,7 +16,8 @@ const styleObj = {
 }
 
 const imgStyleObj = {
-  width: '400px'
+  width: '256px',
+  height: '256px'
 }
 
 

@@ -27,9 +27,7 @@ export default function ChatsTutorSide({ tutors }: Props) {
         <>
           <div className="notification is-flex is-link"
             onClick={(event) => changeChat(contact)}>
-            <figure className="image is-48x48">
               <ChatPic tutor={contact} />
-            </figure>
             <span className="subtitle m-3">{contact.name}</span>
           </div>
         </>

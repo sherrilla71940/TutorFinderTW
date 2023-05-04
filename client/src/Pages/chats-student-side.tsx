@@ -30,9 +30,7 @@ export default function ChatsStudentSide({ tutors, currentTutor, setCurrentTutor
         <>
           <div className={tutor._id === currentTutor._id ? "notification is-flex is-link" : "notification is-flex"}
             onClick={(event) => changeChat(tutor)}>
-            <figure className="image is-48x48">
               <ChatPic tutor={tutor} />
-            </figure>
             <span className="subtitle m-3">{tutor.name}</span>
           </div>
         </>
