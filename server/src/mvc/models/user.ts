@@ -37,14 +37,18 @@ const TutorSchema = new Schema({
     type: Boolean,
     required: true
   },
-  teachingLocation: {
+  remote: {
+    type: Boolean,
+    required: true
+  },
+  location: {
     type: String,
     required: false
   },
-  availability: {
-    type: Schema.Types.Mixed,
-    required: false
-  }
+  // availability: {
+  //   type: Schema.Types.Mixed,
+  //   required: false
+  // }
 });
 
 const UserSchema = new Schema({

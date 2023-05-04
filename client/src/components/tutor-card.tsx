@@ -33,7 +33,7 @@ export default function TutorCard({ tutor, tutorKey }: Props) {
           <div className='card-content'>
             <p className='title is-5'>{tutor.name}</p>
             <p className='subtitle is-6'>{tutor.age}</p>
-            <p className='subtitle is-6'>{tutor.tutorDetails.teachingLocation}</p>
+            <p className='subtitle is-6'>{tutor.tutorDetails.location}</p>
             <div className='mb-2'>
               {
                 tutor.tutorDetails.subjects.map((subObj) => {

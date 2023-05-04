@@ -10,10 +10,10 @@ export type Subject = {
   branches: Branch[]
 }
 
-export type Location = {
-  city: string,
-  districts: string[] | 'entire city'
-};
+// export type Location = {
+//   city: string,
+//   districts: string[] | 'entire city'
+// };
 
 export type Day = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
 
@@ -69,7 +69,7 @@ export interface TutorInterface extends Person {
   remote: boolean,
   subjects: Subject[],
   inPerson: boolean,
-  teachingLocations?: Location[]
+  location: string
   availability?: Availability[]
 }
 

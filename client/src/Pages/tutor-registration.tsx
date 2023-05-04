@@ -5,7 +5,6 @@ import fetchFunction from '../api-services';
 
 function CompleteTutorDetails() {
 
-  const [newTutorProfileUrl, setNewTutorProfileUrl] = useState<string>('');
   const [newTutorAge, setNewTutorAge] = useState<number>(18);
   const [newTutorIntroduction, setNewTutorIntroduction] = useState<string>('');
   const [newTutorInPerson, setNewTutorInPerson] = useState<boolean>(false);
@@ -23,7 +22,6 @@ function CompleteTutorDetails() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const newDetails = {
-      profilePicUrl: newTutorProfileUrl,
       age: newTutorAge,
       selfIntroduction: newTutorIntroduction ? newTutorIntroduction : '',
       isComplete: true,
@@ -44,7 +42,7 @@ function CompleteTutorDetails() {
         .then(async () => {
           console.log('Tutor details posted')
           // TODO: NAVIGATE TO MESSAGES, THERE IS NO REASON TO SEE OTHER TUTORS
-          navigate('/tutors');
+          navigate('/messages');
         })
     } catch (error) {
       console.log(error);
@@ -265,7 +263,7 @@ function CompleteTutorDetails() {
 
           <div className="control">
             <button type='submit'
-              disabled={!newTutorProfileUrl || !newTutorIntroduction || allNewTutorSubjectsArr.length === 0 || !newTutorRemote && !newTutorInPerson}
+              disabled={ !newTutorIntroduction || allNewTutorSubjectsArr.length === 0 || !newTutorRemote && !newTutorInPerson}
               className="button is-link mt-4">Submit
             </button>
           </div>

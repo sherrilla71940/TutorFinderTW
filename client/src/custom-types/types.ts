@@ -59,7 +59,7 @@ interface TutorDetails {
   remote: boolean,
   subjects: Subject[],
   inPerson: boolean,
-  teachingLocation: string
+  location: string
   availability?: Availability[]
 }
 

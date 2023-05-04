@@ -69,14 +69,18 @@ const TutorSchema = new exports.Schema({
         type: Boolean,
         required: true
     },
-    teachingLocation: {
+    remote: {
+        type: Boolean,
+        required: true
+    },
+    location: {
         type: String,
         required: false
     },
-    availability: {
-        type: exports.Schema.Types.Mixed,
-        required: false
-    }
+    // availability: {
+    //   type: Schema.Types.Mixed,
+    //   required: false
+    // }
 });
 const UserSchema = new exports.Schema({
     name: { type: String, required: true },

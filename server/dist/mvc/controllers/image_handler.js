@@ -28,7 +28,6 @@ function serveImage(request, response) {
         const filename = request.params.filename;
         console.log(path_1.default.join(currentPath, `..\\..\\..\\uploads\\${filename}`));
         const image = path_1.default.join(currentPath, `..\\..\\..\\uploads\\${filename}`);
-        // response.setHeader('Content-Type', 'image/*');
         response.sendFile(image);
     });
 }
