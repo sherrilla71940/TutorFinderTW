@@ -5,7 +5,6 @@ import { User } from '../custom-types/types';
 
 export default function CompleteStudentDetails() {
 
-  const [profilePicUrl, setProfilePicUrl] = useState<string>('');
   const [age, setAge] = useState<number>(18);
   const [introduction, setIntroduction] = useState<string>('');
 
@@ -14,7 +13,6 @@ export default function CompleteStudentDetails() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const newDetails = {
-      profilePicUrl: profilePicUrl,
       age: age,
       selfIntroduction: introduction,
       isComplete: true
@@ -46,17 +44,6 @@ export default function CompleteStudentDetails() {
         <h2 className="title">{sessionStorage.name}, please fill in student details:</h2>
         <form data-testid='form' action="" onSubmit={handleSubmit} id='student-registration-form'>
 
-          {/* <div className="field">
-            <div className="control">
-              <label htmlFor="profile" className='label'>Your profile picture URL: </label>
-              <input id="profile" data-testid='urlInput' className='input' type="text"
-                value={profilePicUrl}
-                onChange={(e) => handleChange(e, setProfilePicUrl, e.target.value)}
-                name='profile'
-                required />
-            </div>
-          </div> */}
-
           <div className="field">
             <div className="control">
               <label htmlFor="age" className='label'>Your age:</label>
@@ -77,7 +64,7 @@ export default function CompleteStudentDetails() {
 
           <div className="control">
             <button type='submit'
-              disabled={!profilePicUrl || !introduction || !age}
+              disabled={!introduction || !age}
               className="button is-link">Submit
             </button>
           </div>
