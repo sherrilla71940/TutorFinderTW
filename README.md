@@ -41,7 +41,7 @@ In the `mocks` directory you will find a `json` file with four user profiles: on
 
 # Tech stack
 
-TypeScript on the frontend and the backend
+[`TypeScript`](https://www.typescriptlang.org/) on both the frontend and backend
 
 ## Front end
 
