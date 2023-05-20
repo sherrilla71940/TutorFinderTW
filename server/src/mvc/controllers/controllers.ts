@@ -1,73 +1,112 @@
-import {Tutor} from '../models/tutor';
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
+import Users from '../models/user';
+import Chats from '../models/chat';
+import { User } from '../custom-types/types';
 
-export async function getAllTutors (req: Request, res: Response): Promise<void> {
+export async function getAllTutors(req: Request, res: Response): Promise<void> {
   try {
-    const allTutors = await Tutor.find({});
+    const allTutors = await Users.find({ type: 'tutor' });
     if (!allTutors.length) throw new Error();
+    allTutors.forEach((tutor) => tutor.password = "");
     res.status(200);
     res.json(allTutors);
   } catch (e: unknown) {
     res.status(404);
-    res.json('could not find tutors');
+    res.send('Failed to get tutors');
   }
 }
 
-export async function addTutor (req: Request, res: Response): Promise<void>{
+export async function updateUserDetails(req: Request, res: Response): Promise<void> {
+  const userId = req.body.user.id;
   try {
-    const newTutor = await Tutor.create(req.body);
-    const allTutors = await Tutor.find({});
+    const updatedUser = await Users.findByIdAndUpdate(userId, req.body);
+    if (!updatedUser) throw new Error();
+    res.status(200);
+    updatedUser.password = "";
+    res.json(updatedUser);
+  } catch (error: unknown) {
+    res.status(400);
+    res.send(`Could not update user info for user ${userId}`);
+  }
+}
+
+export async function getContacts(req: Request, res: Response): Promise<void> {
+  const userId = req.body.user.id;
+  try {
+    const ids: string[] = [];
+    const contacts: User[] = [];
+    const chats = await Chats.find({ $or: [{ partyId1: userId }, { partyId2: userId }] });
+      chats.forEach((chat) => {
+        if (chat.partyId1 === userId) {
+          ids.push(chat.partyId2!);
+        } else {
+          ids.push(chat.partyId1!);
+        }
+      })
+      await Promise.all(ids.map(async (id) => {
+        const record = await Users.findById(id);
+        record!.password = '';
+        contacts.push(record as User);
+      }))
+        .then(() => {
+          console.log(`Found ${contacts.length} contacts`);
+          console.log(contacts);
+          res.status(200);
+          res.json(contacts);
+        })
+  } catch (error) {
+    console.log(error);
+    res.status(404);
+    res.send('Failed to get contacts');
+  }
+}
+
+export async function getAChat(req: Request, res: Response): Promise<void> {
+  try {
+    const data = req.body;
+    const requesterId = data.user.id;
+    console.log('Got a request for a chat');
+    const chat = await Chats.findOne({ $or: [{ partyId1: requesterId, partyId2: data.otherId }, { partyId1: data.otherId, partyId2: requesterId }] });
+    res.status(200);
+    console.log(chat);
+    res.json(chat);
+  } catch (error) {
+    console.log(error);
+    res.status(404);
+    res.send('Failed to get the chat');
+  }
+}
+
+// IF NO CHAT DOC, CREATE IT, ELSE UPDATE
+export async function postMessage(req: Request, res: Response): Promise<void> {
+  try {
+    const data = req.body;
+    console.log('Post message request body:', data);
+    const requesterId = data.user.id;
+    const newMessage = {
+      senderId: requesterId, // THIS ONE IS ALWAYS PRECISE AS IT HAS USER ID
+      timestamp: Date.now(),
+      message: data.message
+    }
+    const chat = await Chats.findOne({ $or: [{ partyId1: requesterId, partyId2: data.party2Id }, { partyId1: data.party2Id, partyId2: requesterId }] });
+    if (chat) {
+      const update = await Chats.findByIdAndUpdate(chat.id, { $push: { messageLog: newMessage } });
+      console.log(update);
+    } else {
+      const create = await Chats.create({
+        partyId1: requesterId,
+        partyId2: data.party2Id,
+        messageLog: [newMessage]
+      });
+      console.log(create);
+    }
     res.status(201);
-    res.json(allTutors);
-  } catch (e: unknown) {
-    res.status(400);
-      if (e instanceof Error) {
-        res.json('could not create tutor, remember that your email must be unique')
-      }
-      else {
-        res.json('could not create tutor');
-      }
+    console.log('Message posted!');
+    res.send('Message posted!');
+  } catch (error) {
+    console.log(error);
   }
 }
 
-export async function getTutor (req: Request, res: Response): Promise<void>{
-  const tutorId = req.params.id;
-  try {
-    const foundTutor = await Tutor.findById(tutorId);
-      if (!foundTutor) throw new Error();
-      res.status(200);
-      res.json(foundTutor);
-  } catch (e: unknown) {
-      res.status(404);
-      res.json(`could not find tutor by id: ${tutorId}`);
-  }
-}
-
-export async function deleteTutor (req: Request, res: Response): Promise<void>{
-  const tutorId = req.params.id;
-  try {
-    const deletedTutor = await Tutor.findByIdAndDelete(tutorId);
-    if (!deletedTutor) throw new Error();
-    res.status(200);
-    res.json(`deleted tutor: ${deletedTutor.name}`);
-  } catch (e) {
-    res.status(404);
-    res.json(`could not delete tutor by id: ${tutorId}`);
-  }
-}
-
-export async function updateTutor (req: Request, res: Response): Promise<void>{
-  const tutorId = req.params.id;
-  try {
-    const updatedTutor = await Tutor.findByIdAndUpdate(tutorId,req.body);
-    if (!updatedTutor) throw new Error();
-    res.status(200);
-    res.json(updatedTutor);
-  } catch (e: unknown) {
-    res.status(400);
-    // res.json(`could not update tutor by id: ${tutorId}`);
-    res.json(`could not update tutor by id: ${tutorId}`);
-  }
-}
 
 
