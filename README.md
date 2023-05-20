@@ -45,11 +45,11 @@ TypeScript on the frontend and the backend
 
 ## Front end
 
-React, Bulma (CSS framework)
+[`React`](https://react.dev/), [`Bulma`](https://bulma.io/) (CSS framework)
 
 ## Backend
 
-[`Node.js`](https://nodejs.org/en) and [`Express`](https://nodejs.org/en) for creating server, [`jsonwebtoken`](https://www.npmjs.com/package/jsonwebtoken) and [`bcrypt`](https://www.npmjs.com/package/bcrypt) for authentication, [`multer`](https://www.npmjs.com/package/multer) for form data handling, [`MongoDB`](https://www.mongodb.com/) with [`Mongoose`](https://mongoosejs.com/) ODM library
+[`Node.js`](https://nodejs.org/en) and [`Express`](https://nodejs.org/en) for creating the server, [`jsonwebtoken`](https://www.npmjs.com/package/jsonwebtoken) and [`bcrypt`](https://www.npmjs.com/package/bcrypt) for authentication, [`multer`](https://www.npmjs.com/package/multer) for form data handling, [`MongoDB`](https://www.mongodb.com/) with [`Mongoose`](https://mongoosejs.com/) (ODM library).
 
 # Contributors
 
