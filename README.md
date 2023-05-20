@@ -53,4 +53,4 @@ React, Bulma (CSS framework)
 
 # Contributors
 
-This is project was intially started by [Aaron Sherill](https://github.com/sherrilla71940) and improved by [Anton Novak](https://github.com/anton-novak) and [Danny Gold](https://github.com/dgold01).
+This is project was intially started by [Aaron Sherill](https://github.com/sherrilla71940) and has been greatly improved through the contributions [Anton Novak](https://github.com/anton-novak) and [Danny Gold](https://github.com/dgold01).
