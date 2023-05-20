@@ -11,7 +11,7 @@ function Home() {
               TutorFinderTW
             </p>
             <p className="subtitle">
-              TutorFinderTW allows you to find tutors based in Taiwan. Here you can find tutors that teach in person or remotely, or even both! A wide variety of subjects/branches are offered by tutors at different prices, and you can even become one yourself for free by registering!
+              TutorFinderTW allows you to find tutors. Here you can find tutors that teach in person or remotely, or even both! A wide variety of subjects/branches are offered by tutors at different prices, and you can even become one yourself for free by registering!
             </p>
           </div>
         </div>

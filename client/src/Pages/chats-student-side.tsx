@@ -26,7 +26,7 @@ export default function ChatsStudentSide({ tutors, currentTutor, setCurrentTutor
   }
 
   const myTutors = contacts.map((tutor: Tutor) => {
-    if (tutor) {
+    if (Object.keys(tutor).length > 0) {
       return (
         <>
           <div className={tutor._id === currentTutor._id ? "notification is-flex is-link" : "notification is-flex"}

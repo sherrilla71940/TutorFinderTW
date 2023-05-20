@@ -1,0 +1,113 @@
+[{
+  "_id": {
+    "$oid": "6468847aebe0172324bec18f"
+  },
+  "name": "Omar Hassan",
+  "email": "student@email.com",
+  "type": "student",
+  "password": "$2b$10$I6PSaS3TR61FK/1p4dCkPuq8AA8gKPAG7bpHpFlZmXa59FIZWx02u",
+  "isComplete": true,
+  "picPath": "uploads\\1d337c5395f7b7050bf02aad06c578b3",
+  "__v": 0,
+  "age": 21,
+  "selfIntroduction": "This is a mock student record."
+},{
+  "_id": {
+    "$oid": "646886d2ebe0172324bec25e"
+  },
+  "name": "John Smith",
+  "email": "tutor1@email.com",
+  "type": "tutor",
+  "password": "$2b$10$w61BOr/wUREBRiM9RU/LCuoufJDtscwZkrjHb.7CmcHFpbWjABhSO",
+  "isComplete": true,
+  "picPath": "uploads\\b0ba2622709ba438eadfa85503efc3f4",
+  "__v": 0,
+  "age": 39,
+  "selfIntroduction": "Introducing John Smith, a highly skilled and dedicated martial arts tutor with years of experience in various disciplines. With a deep passion for martial arts and a commitment to sharing its profound benefits, Master John offers personalized training sessions tailored to your goals and abilities. Whether you're a beginner looking to improve self-defense skills, an intermediate practitioner aiming to refine techniques, or an advanced student seeking to master a specific style, Master John has the expertise to guide you on your martial arts journey. With a strong emphasis on discipline, respect, and mindfulness, Master John not only focuses on physical techniques but also cultivates mental strength and personal growth. Through a combination of rigorous training, practical applications, and insightful teachings, Master Hassan ensures that each session is both challenging and rewarding. Join Master John's classes and embark on a transformative martial arts experience that will enhance your self-confidence, instill discipline, and promote overall well-being.",
+  "tutorDetails": {
+    "userId": "646886d2ebe0172324bec25e",
+    "subjects": [
+      {
+        "subject": "Arts",
+        "branches": [
+          {
+            "branch": "Martial arts",
+            "hourlyRate": 300
+          }
+        ]
+      }
+    ],
+    "inPerson": false,
+    "remote": true,
+    "location": "London",
+    "_id": {
+      "$oid": "646886f6ebe0172324bec263"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "64688769c8da326cd06500d2"
+  },
+  "name": "Mae Ling",
+  "email": "tutor2@email.com",
+  "type": "tutor",
+  "password": "$2b$10$egmLTrIDnQ6OgeMh64ExJOn6u1/Gmo8LMgXUmInpJRsF8mToc8Tk2",
+  "isComplete": true,
+  "picPath": "uploads\\22c2cf1c755189cd0f17c9a8c64b81c1",
+  "__v": 0,
+  "age": 25,
+  "selfIntroduction": "Introducing Mae, a skilled and enthusiastic tutor specializing in teaching Chinese language and culture. With extensive experience and a deep understanding of Mandarin, Mae is passionate about helping students develop their proficiency in one of the world's most widely spoken languages. Whether you're a beginner or looking to advance your existing skills, Mae designs engaging and interactive lessons tailored to your specific needs and learning style. Through a combination of practical exercises, immersive conversations, and cultural insights, Mae provides a comprehensive learning experience that goes beyond just language acquisition. Patient, encouraging, and adaptable, Mae creates a supportive atmosphere that empowers students to confidently embrace the complexities of Chinese characters, tones, and grammar. Join Mae's classes and embark on a fascinating journey into the rich traditions and modern nuances of Chinese language and culture.",
+  "tutorDetails": {
+    "userId": "64688769c8da326cd06500d2",
+    "subjects": [
+      {
+        "subject": "Education and Teaching",
+        "branches": [
+          {
+            "branch": "Chinese",
+            "hourlyRate": 600
+          }
+        ]
+      }
+    ],
+    "inPerson": true,
+    "remote": false,
+    "location": "Paris",
+    "_id": {
+      "$oid": "646887f5c8da326cd06500d7"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "64688907c8da326cd06500ec"
+  },
+  "name": "Charles Cobb",
+  "email": "tutor3@email.com",
+  "type": "tutor",
+  "password": "$2b$10$b3Lm0H73sb6pDBm19iAEeuQR4aZAG/fbUAjsw/Pio7fdDO.Yl6wAe",
+  "isComplete": true,
+  "picPath": "uploads\\e1775d74edcdb5c39528114d98b8dfdc",
+  "__v": 0,
+  "age": 42,
+  "selfIntroduction": "Introducing Charles Cobb, a seasoned and knowledgeable tutor specializing in the field of accounting. With a wealth of experience in financial analysis, tax regulations, and managerial accounting, Charles is dedicated to helping students grasp the intricacies of this vital discipline. Whether you're studying accounting as part of your academic curriculum or seeking to enhance your professional skills, Charles provides comprehensive and personalized tutoring sessions tailored to your specific needs. With a patient and methodical teaching approach, he breaks down complex concepts into understandable terms, ensuring that you gain a solid foundation in accounting principles. From balancing financial statements to analyzing profit and loss statements, Charles guides you through real-world examples and practical exercises to strengthen your analytical skills. His commitment to your success extends beyond the tutoring sessions, as he offers ongoing support and resources to reinforce your learning. Join Charles Cobb's tutoring sessions and unlock your potential in the fascinating world of accounting, gaining the skills necessary for academic achievement or professional advancement.",
+  "tutorDetails": {
+    "userId": "64688907c8da326cd06500ec",
+    "subjects": [
+      {
+        "subject": "Business and Economics",
+        "branches": [
+          {
+            "branch": "Accounting",
+            "hourlyRate": 1000
+          }
+        ]
+      }
+    ],
+    "inPerson": true,
+    "remote": true,
+    "location": "Berlin",
+    "_id": {
+      "$oid": "64688939c8da326cd06500f1"
+    }
+  }
+}]
