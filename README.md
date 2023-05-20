@@ -3,11 +3,12 @@
 A place to connect tutors and students.
 
 App features:
-* Clean and responsive user interface based on Bulma CSS framework
-* Different user journeys with focus on the students - the tutors do not have access to the catalogue
-* Chats between students and tutors
-* Stateless authentication based on [`jsonwebtoken`](https://www.npmjs.com/package/jsonwebtoken)
-* Simple "in-house" image handling and storage
+
+- Clean and responsive user interface based on Bulma CSS framework
+- Different user journeys with focus on the students - the tutors do not have access to the catalogue
+- Chats between students and tutors
+- Stateless authentication based on [`jsonwebtoken`](https://www.npmjs.com/package/jsonwebtoken)
+- Simple "in-house" image handling and storage
 
 <div style="display: flex; flex-direction: row; align-items: start; flex-wrap: wrap; gap: 5px">
 <img src="./screenshots/tf1.png" width="400px" />
@@ -19,15 +20,17 @@ App features:
 
 # Getting started
 
-Make sure you have Node.js installed or install it. Install the dependencies by running `npm install` command in the `server` and `client` directories. 
+Make sure you have Node.js installed or install it. Install the dependencies by running `npm install` command in the `server` and `client` directories.
 
 To start a local development server:
+
 1. create a `.env` file in `server/src` directory and populate it with `PORT` and `SECRET` variables:
 
 ```TypeScript
 PORT=8080
 SECRET="YOUR SECRET KEY"
 ```
+
 2. run `nodemon index.ts` command from `server/src` directory
 
 To start the frontend server run `npm start` command from the top of the `client` directory.
@@ -42,12 +45,12 @@ TypeScript on the frontend and the backend
 
 ## Front end
 
-React, Bulma CSS framework
+React, Bulma (CSS framework)
 
 ## Backend
 
-Node.js server (Express), [`jsonwebtoken`](https://www.npmjs.com/package/jsonwebtoken) and [`bcrypt`](https://www.npmjs.com/package/bcrypt) for authentication, [`multer`](https://www.npmjs.com/package/multer) for form data handling, MongoDB with Mongoose ORM library
+[`Node.js`](https://nodejs.org/en) and [`Express`](https://nodejs.org/en) for creating server, [`jsonwebtoken`](https://www.npmjs.com/package/jsonwebtoken) and [`bcrypt`](https://www.npmjs.com/package/bcrypt) for authentication, [`multer`](https://www.npmjs.com/package/multer) for form data handling, [`MongoDB`](https://www.mongodb.com/) with [`Mongoose`](https://mongoosejs.com/) ODM library
 
 # Contributors
 
-This is a fork of [Aaron Sherill](https://github.com/sherrilla71940)'s [project](https://github.com/sherrilla71940/TutorFinderTW). Developed by [Anton Novak](https://github.com/anton-novak) and [Danny Gold](https://github.com/dgold01).
+This is project was intially started by [Aaron Sherill](https://github.com/sherrilla71940) and improved by [Anton Novak](https://github.com/anton-novak) and [Danny Gold](https://github.com/dgold01).
