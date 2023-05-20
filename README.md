@@ -53,4 +53,4 @@ TypeScript on the frontend and the backend
 
 # Contributors
 
-This project was intially started by [Aaron Sherill](https://github.com/sherrilla71940) and has been greatly improved through the contributions [Anton Novak](https://github.com/anton-novak) and [Danny Gold](https://github.com/dgold01). Their valuable contributions and enhancements have been instrumental in elevating the project's development and enhancing its overall quality.
+This project was intially started by [Aaron Sherill](https://github.com/sherrilla71940) and has been greatly improved through the contributions of [Anton Novak](https://github.com/anton-novak) and [Danny Gold](https://github.com/dgold01). Their valuable contributions and enhancements have been instrumental in elevating the project's development and enhancing its overall quality.
