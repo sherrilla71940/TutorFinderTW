@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+import { mongooseInstance } from "./db";
 
-const Schema = mongoose.Schema; // CLASS
+const Schema = mongooseInstance.Schema;
 
 const messageSchema = new Schema({
   senderId: String,
@@ -15,6 +15,6 @@ const chatSchema = new Schema({
 	}
 );
 
-const Chats = mongoose.model('chats', chatSchema); // MAKE A 'TABLE' BASED ON A SCHEMA
+const Chats = mongooseInstance.model('chats', chatSchema);
 
 export default Chats;

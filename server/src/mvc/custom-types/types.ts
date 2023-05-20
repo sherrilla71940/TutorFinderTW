@@ -1,5 +1,6 @@
 // below are TypeScript defintions
-// each subject can have different branches. For example subject=English, branch=English Language and Literature (more specific)
+// each subject can have different branches. For example subject = English, 
+// branch = English Language and Literature (more specific)
 export type Branch = {
   branch: string,
   hourlyRate: number
@@ -9,11 +10,6 @@ export type Subject = {
   subject: string,
   branches: Branch[]
 }
-
-// export type Location = {
-//   city: string,
-//   districts: string[] | 'entire city'
-// };
 
 export type Day = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
 
@@ -80,4 +76,8 @@ export interface User {
   email: string,
   password: string,
   type: 'student' | 'tutor'
+}
+
+export interface multerFile extends File {
+  path: string
 }

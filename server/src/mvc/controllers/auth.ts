@@ -3,12 +3,14 @@ import { Request, Response } from 'express';
 import Users from '../models/user';
 import jwt from 'jsonwebtoken';
 import handleImage from './image_handler';
+import { SECRET } from '../../config';
+import { multerFile } from '../custom-types/types';
 
 export default async function registerUser(request: Request, response: Response): Promise<void> {
   try {
     
     const file = request.file;
-    const imagePath = await handleImage(file as unknown as File);
+    const imagePath = await handleImage(file as unknown as multerFile);
     console.log('Image ID:', imagePath);
     const newUser = JSON.parse(request.body.data);
     newUser.picPath = imagePath;
@@ -52,8 +54,7 @@ export async function loginUser(request: Request, response: Response): Promise<v
         response.send('Invalid credentials');
       } else {
         console.log('Successful login!');
-        // TODO: HIDE SECRET
-        const token = jwt.sign({ id: userCheck._id }, 'shrek');
+        const token = jwt.sign({ id: userCheck._id }, `${SECRET}`);
         const userData = userCheck;
         userData.password = "";
         response.status(200);

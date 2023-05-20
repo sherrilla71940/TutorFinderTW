@@ -1,3 +1,5 @@
 *.env
 **/node_modules/
-server/dist/git 
+server/dist/
+client/public/
+/server/uploads/

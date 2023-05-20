@@ -3,6 +3,7 @@ import { Tutor, User } from "../custom-types/types";
 import fetchFunction from "../api-services";
 import Chat from "../components/chat";
 import ChatPic from "../components/chat-pic";
+import { PORT } from "../env";
 
 interface Props {
   tutors: Tutor[]
@@ -37,7 +38,7 @@ export default function ChatsTutorSide({ tutors }: Props) {
 
   async function fetchContacts() {
     const result = await fetchFunction(
-      `http://localhost:8080/contacts`, 
+      `http://localhost:${PORT}/contacts`, 
       'GET', 
       (response: User[]) => {
         console.log(response);

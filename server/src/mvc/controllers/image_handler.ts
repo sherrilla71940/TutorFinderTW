@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import path from "path";
+import { multerFile } from "../custom-types/types";
 
-export default async function handleImage(file: any) {
+export default async function handleImage(file: multerFile) {
   const oldPath = file.path;
   console.log('Image saved here:', oldPath);
   return oldPath;

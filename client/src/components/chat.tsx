@@ -2,6 +2,7 @@ import React, { CSSProperties, useState, useEffect, ChangeEvent, createRef, Lega
 import fetchFunction from '../api-services';
 import { parseDateString } from '../utils/parsers';
 import { User } from '../custom-types/types';
+import { PORT } from '../env';
 
 interface Props {
   theOtherParty: User
@@ -38,7 +39,7 @@ export default function Chat({ theOtherParty }: Props) {
     };
     try {
       const send = await fetchFunction(
-        'http://localhost:8080/postmessage',
+        `http://localhost:${PORT}/postmessage`,
         'POST',
         () => null,
         messageData)
@@ -59,7 +60,7 @@ export default function Chat({ theOtherParty }: Props) {
     };
     try {
       const getChat = await fetchFunction(
-        'http://localhost:8080/chat',
+        `http://localhost:${PORT}/chat`,
         'POST',
         () => null,
         messageData) as unknown as Chat
@@ -115,7 +116,6 @@ export default function Chat({ theOtherParty }: Props) {
       clearInterval(id);
     }
   }, [theOtherParty]);
-  // REVISE THIS: DEFINE A DEPENDENCY ARRAY (NOT EMPTY) TO TRACK AND DETECT CHANGES AND RUN FUNCTIONS AND RE-RENDER
 
   useEffect(() => {
     if (myRef) {

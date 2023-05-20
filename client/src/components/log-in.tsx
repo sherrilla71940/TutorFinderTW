@@ -2,6 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import fetchFunction from "../api-services";
 import { useNavigate } from "react-router-dom";
 import { User } from "../custom-types/types";
+import { PORT } from "../env";
 
 interface Props {
   toggleLoginModal(): void;
@@ -25,7 +26,7 @@ export default function LogInModal({ toggleLoginModal, toggleLogin }: Props) {
     };
       try {
       const sendLoginDetails = await fetchFunction(
-        "http://localhost:8080/login",
+        `http://localhost:${PORT}/login`,
         "POST",
         (parsedResponse: { userData: User, token: string }) => {
           parsedResponse.token ? sessionStorage.setItem('token', parsedResponse.token) : null;

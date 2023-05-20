@@ -15,6 +15,7 @@ import { Tutor } from './custom-types/types';
 import NavBar from './components/nav-bar';
 import CompleteStudentDetails from './Pages/student-registration';
 import ChatsTutorSide from './Pages/chats-tutor-side';
+import { PORT } from './env';
 
 // have a global state for tutors,
 // and when create profile form is submitted,
@@ -28,7 +29,7 @@ function App() {
   useEffect(() => {
     (async () => {
       try {
-        await fetchFunction(`http://localhost:8080/tutors`,
+        await fetchFunction(`http://localhost:${PORT}/tutors`,
           'GET',
           setTutors);
       } catch (error) {

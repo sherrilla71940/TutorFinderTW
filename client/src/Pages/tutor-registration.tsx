@@ -2,6 +2,7 @@ import React, { SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User, Subject, Subjects, Branch } from '../custom-types/types';
 import fetchFunction from '../api-services';
+import { PORT } from '../env';
 
 function CompleteTutorDetails() {
 
@@ -35,7 +36,7 @@ function CompleteTutorDetails() {
     };
     try {
       const postTutorDetails = await fetchFunction(
-        `http://localhost:8080/updateuserinfo`,
+        `http://localhost:${PORT}/updateuserinfo`,
         'PUT',
         () => null,
         newDetails as unknown as User)

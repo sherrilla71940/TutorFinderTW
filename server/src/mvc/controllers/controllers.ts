@@ -7,7 +7,7 @@ export async function getAllTutors(req: Request, res: Response): Promise<void> {
   try {
     const allTutors = await Users.find({ type: 'tutor' });
     if (!allTutors.length) throw new Error();
-    // TODO: REMOVE PASSWORDS FROM THE OUTPUT
+    allTutors.forEach((tutor) => tutor.password = "");
     res.status(200);
     res.json(allTutors);
   } catch (e: unknown) {
@@ -65,7 +65,6 @@ export async function getAChat(req: Request, res: Response): Promise<void> {
   try {
     const data = req.body;
     const requesterId = data.user.id;
-    // console.log(data);
     console.log('Got a request for a chat');
     const chat = await Chats.findOne({ $or: [{ partyId1: requesterId, partyId2: data.otherId }, { partyId1: data.otherId, partyId2: requesterId }] });
     res.status(200);

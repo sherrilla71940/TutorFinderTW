@@ -6,6 +6,7 @@ import { verifyToken } from './mvc/verify';
 import { updateUserDetails } from './mvc/controllers/controllers';
 import { serveImage } from './mvc/controllers/image_handler';
 
+router.get('/', (request, response) => response.send("Hello!"));
 router.get('/tutors', verifyToken, controller.getAllTutors);
 router.get('/contacts', verifyToken, controller.getContacts);
 router.get('/images/:filename', serveImage);
